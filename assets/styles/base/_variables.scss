@@ -1,0 +1,43 @@
+//== Grid point
+//
+
+$break-sm: 576px;
+$break-md: 768px;
+$break-lg: 992px;
+$break-xlg: 1200px;
+
+$break-sm-max-width: 540px;
+$break-md-max-width: 720px;
+$break-lg-max-width: 960px;
+$break-xlg-max-width: 1140px;
+
+//== Size
+//
+
+$row-indent: 15px;
+$row-indent-mobile: 15px;
+$base-grid-size: 30px;
+
+//== Colors
+//
+
+$mainColor: #2575ED;
+$mainSecondColor: #FFFFFF;
+$mainThirdColor: #000000;
+$buttonColor: linear-gradient(91.41deg, $mainColor 0%, #50B987 100%);
+$buttonSecondColor: linear-gradient(91.41deg, #D4E2F7 0%, #C4EFDC 100%);
+$mainFifthColor: #9E9E9E;
+$mainFourthColor: #DADADA;
+
+
+//== Fonts
+//
+
+$g-font-roboto: 'Roboto', sans-serif;
+
+$g-font-base-size: 14px;
+$g-font-second-size: 16px;
+$g-font-third-size: 18px;
+$g-big-title-size: 30px;
+$g-second-title-size: 24px;
+$g-mobile-size: 12px;

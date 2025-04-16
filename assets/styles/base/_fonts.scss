@@ -1,0 +1,44 @@
+@font-face {
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 100;
+  src: local('OpenSans-Light'), local('OpenSans-Light'),
+      url('~assets/fonts/OpenSans-Light.ttf') format('ttf'),
+      url('~assets/fonts/OpenSans-Light.ttf') format('ttf');
+}
+
+@font-face {
+  font-family: 'Open Sans Regular', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  src: local('OpenSans-Regular'), local('OpenSans-Regular'),
+       url('~assets/fonts/OpenSans-Regular.ttf') format('ttf'),
+       url('~assets/fonts/OpenSans-Regular.ttf') format('ttf');
+}
+
+@font-face {
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  src: local('OpenSans-SemiBold'), local('OpenSans-SemiBold'),
+       url('~assets/fonts/OpenSans-SemiBold.ttf') format('ttf'),
+       url('~assets/fonts/OpenSans-SemiBold.ttf') format('ttf');
+}
+
+@font-face {
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  src: local('OpenSans-Bold'), local('OpenSans-Bold'),
+       url('~assets/fonts/OpenSans-Bold.ttf') format('ttf'),
+       url('~assets/fonts/OpenSans-Bold.ttf') format('ttf');
+}
+
+@font-face {
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  src: local('OpenSans-ExtraBold'), local('OpenSans-ExtraBold'),
+       url('~assets/fonts/OpenSans-ExtraBold.ttf') format('ttf'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('~assets/fonts/OpenSans-ExtraBold.ttf') format('ttf'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}

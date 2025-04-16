@@ -1,0 +1,52 @@
+@mixin layout-wrap {
+  margin: 0 auto;
+
+  @media screen and (max-width: $break-md) {
+  }
+
+  @media (min-width: $break-sm) {
+    max-width: $break-md-max-width;
+  }
+
+  @media (min-width: $break-md) {
+    max-width: $break-md-max-width;
+  }
+
+  @media (min-width: $break-lg) {
+    max-width: $break-lg-max-width;
+  }
+
+  @media (min-width: $break-xlg) {
+    max-width: $break-xlg-max-width;
+  }
+}
+
+@mixin flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin hover-main-color {
+  cursor: pointer;
+  background: #4d8eee;
+}
+
+@mixin active-main-color {
+  cursor: pointer;
+  background: #1167ea;
+}
+
+@mixin hover-button {
+  cursor: pointer;
+  background: linear-gradient(91.41deg, #4d8eee 0%, #74d1a5 100%);
+}
+
+@mixin active-button {
+  cursor: pointer;
+  background: linear-gradient(91.41deg, #216ad8 0%, #48bb84 100%);
+}

@@ -1,0 +1,77 @@
+.l-wrap {
+  @include layout-wrap;
+}
+
+.l-section {
+  width: 100%;
+}
+
+.l-page-header {
+  height: 100vh;
+}
+
+.l-row {
+  @include flex-row;
+  margin-left: -$row-indent;
+  margin-right: -$row-indent;
+  @media screen and (max-width: $break-md) {
+    margin-left: -$row-indent-mobile;
+    margin-right: -$row-indent-mobile;
+  }
+}
+
+.l-column {
+  @include flex-column;
+}
+
+.l-container {
+  margin-left: $row-indent;
+  margin-right: $row-indent;
+  @media screen and (max-width: $break-md) {
+    margin-left: $row-indent-mobile;
+    margin-right: $row-indent-mobile;
+  }
+}
+
+.l-pointer {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.l-section-title {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 41px;
+}
+
+.l-colored {
+  // color: $g-color-orange;
+}
+
+.l-description {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+}
+
+.l-description-title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 19px;
+}
+
+.l-pointer {
+  cursor: pointer;
+}
+
+.l-header-title {
+  font-weight: 900;
+  font-size: 72px;
+  line-height: 82px;
+  text-transform: uppercase;
+  color: $mainSecondColor;
+}

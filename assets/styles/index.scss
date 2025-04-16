@@ -1,0 +1,19 @@
+@import "./base/_base";
+// @import "./base/_fonts";
+@import "./base/_mixins";
+@import "./base/_variables";
+
+// layout
+@import "./layout/index.scss";
+
+// pretty checkbox
+// @import '~pretty-checkbox/src/pretty-checkbox.scss';
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.5s;
+}
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}
