@@ -1354,3 +1354,45 @@ form.registration-form, form.login-form, .login-form__login {
   color: #B8C1CC !important;
   text-decoration: none;
 }
+.all-companies-list__map-wrap-left, .all-companies-list__map-wrap-left+div {
+  width: 50% !important;
+}
+.vue-map-container {
+  max-width: 100%;
+}
+.all-companies-list__map-section-advs-image-container img {
+  max-width: 180px !important;
+  max-height: 156px !important;
+  height: 156px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+.all-companies-list__map-section-advs.shadow_effect {
+  height: unset !important;
+  align-items: stretch !important;
+  margin-bottom: 20px !important;
+}
+.all-companies-list__map-section-advs-title {
+  font-size: 20px !important;
+  font-weight: 600;
+}
+.ads_info {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.all-companies-list__map-section-advs-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 80% !important;
+}
+.all-companies-list__map-section-advs-caregory {
+  padding: 0 !important;
+  font-size: 16px !important;
+  color: #6D7885 !important;
+}
+.all-companies-list__map-section-advs-location {
+  font-size: 16px !important;
+  color: #6D7885 !important;
+}

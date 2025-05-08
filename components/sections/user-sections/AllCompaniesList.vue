@@ -113,7 +113,7 @@
           >
             <div
               :class="[
-                'all-companies-list__map-section-advs',
+                'all-companies-list__map-section-advs shadow_effect',
                 company.is_allocate ? 'allocate' : '',
               ]"
               @click="companyDetail(company.company_id)"
@@ -125,24 +125,26 @@
                 <div class="all-companies-list__map-section-advs-title">
                   {{ company.company_name }}
                 </div>
-                <div
-                  v-if="!$device.isMobile"
-                  class="all-companies-list__map-section-advs-price"
-                >
-                  Компания
-                </div>
-                <div
-                  v-if="!$device.isMobile"
-                  class="all-companies-list__map-section-advs-caregory"
-                >
-                  {{ company.advertisement_count }} объявлений от компании
-                </div>
-                <div
-                  v-if="!$device.isMobile"
-                  class="all-companies-list__map-section-advs-location"
-                >
-                  <Location />
-                  {{ company.city }}
+<!--                <div-->
+<!--                  v-if="!$device.isMobile"-->
+<!--                  class="all-companies-list__map-section-advs-price"-->
+<!--                >-->
+<!--                  Компания-->
+<!--                </div>-->
+                <div class="ads_info">
+                  <div
+                      v-if="!$device.isMobile"
+                      class="all-companies-list__map-section-advs-location"
+                  >
+                    <Location />
+                    {{ company.city }}
+                  </div>
+                  <div
+                    v-if="!$device.isMobile"
+                    class="all-companies-list__map-section-advs-caregory"
+                  >
+                    {{ company.advertisement_count }} объявлений от компании
+                  </div>
                 </div>
               </div>
               <div
