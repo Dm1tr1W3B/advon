@@ -3,18 +3,18 @@
     <div class="bonus-dashboard__title-block">
       <div class="bonus-dashboard__title">Бонусы</div>
       <div class="bonus-dashboard__text">
-        Вы можете пригласить друзей и получить бонусы, которые можно обменять на
-        деньги.
+        Вы можете пригласить друзей и получить бонусы, которые можно обменять на деньги.
       </div>
       <div class="bonus-dashboard__text">
         За каждого приглашенного человека вы получаете 200 бонусов
       </div>
     </div>
     <div class="bonus-dashboard__register-ref">
-      Зарегистрировалось: <span>{{ this.link.referrals_count }}</span> чел.
+      По вашей ссылке зарегистрировалось: {{ this.link.referrals_count }} человек
       <!-- В наличии <span>{{this.link.bonus_balance}}</span> бонусов -->
     </div>
-    <div class="bonus-dashboard__category-title">
+    <div class="bonus-dashboard__title">Открытка</div>
+    <div class="bonus-dashboard__text">
       Выберите открытку, скопируйте Вашу ссылку и отправьте друзьям:
     </div>
     <div class="bonus-dashboard__wrap">
@@ -28,7 +28,7 @@
           :class="{ categoryRef: categorySelected }"
         >
           <img :src="category.photo_url" :alt="category.photo_url" />
-          <span class="bonus-dashboard__main-categiry_text">{{
+          <span class="bonus-dashboard__main-categiry_text home__main-category_text">{{
             category.category_name
           }}</span>
         </div>
@@ -36,16 +36,18 @@
     </div>
     <!-- <div>Ваша открытка</div> -->
     <div>
-      <div class="bonus-dashboard__ref-title">Ваша реферальная ссылка:</div>
-      <input
-        type="text"
-        :value="`https://advon.test.ut.in.ua/registration/?ref=${this.link.ref_code}`"
-        id="myInput"
-        class="bonus-dashboard__input-ref"
-      />
-      <DefaultButton @click.native="copyRef" class="bonus-dashboard__button">
-        Копировать
-      </DefaultButton>
+      <div class="bonus-dashboard__ref-title">Реферальная ссылка</div>
+      <div class="copy_section">
+        <input
+          type="text"
+          :value="`https://advon.test.ut.in.ua/registration/?ref=${this.link.ref_code}`"
+          id="myInput"
+          class="bonus-dashboard__input-ref"
+        />
+        <DefaultButton @click.native="copyRef" class="bonus-dashboard__button">
+          <Copy />
+        </DefaultButton>
+      </div>
     </div>
   </div>
 </template>
@@ -53,6 +55,7 @@
 <script>
 import DefaultButton from "@/components/atoms/buttons/MainButton.vue";
 import InputText from "@/components/atoms/inputs/InputText.vue";
+import Copy from "@/assets/images/icons/Copy.svg?inline";
 
 export default {
   name: "BonusDashboard",
@@ -66,6 +69,7 @@ export default {
   components: {
     DefaultButton,
     InputText,
+    Copy,
   },
   mounted() {
     this.getCategory();

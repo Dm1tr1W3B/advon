@@ -1,72 +1,56 @@
 <template>
   <div class="footer">
-    <div class="footer__wrap l-wrap">
+    <div class="footer__wrap container">
       <div class="footer__menu">
         <div class="footer__menu-left">
           <div class="footer__menu-top">
-            <NuxtLink to="/" class="footer__menu-item">Исполнители</NuxtLink>
-            <NuxtLink to="/cooperation" class="footer__menu-item"
-              >Сотрудничество</NuxtLink
-            >
-            <NuxtLink to="/contacts" class="footer__menu-item">Контакты</NuxtLink>
-            <NuxtLink to="/" class="footer__menu-item">Блог</NuxtLink>
-          </div>
-          <div class="footer__menu-bottom">
-            <NuxtLink to="/" class="footer__menu-item">Рекламодатели</NuxtLink>
-            <NuxtLink to="/" class="footer__menu-item">Услуги</NuxtLink>
+            <NuxtLink to="/" class="logo_part">
+              <Logo />
+            </NuxtLink>
+            <NuxtLink to="/" class="footer__menu-item">О нас</NuxtLink>
+            <NuxtLink to="/" class="footer__menu-item"
+              >Карта</NuxtLink>
+            <NuxtLink to="/all-companies" class="footer__menu-item">Компании</NuxtLink>
+            <NuxtLink to="/" class="footer__menu-item">Юрликбез</NuxtLink>
+            <NuxtLink to="/" class="footer__menu-item">Реклама на сайте</NuxtLink>
             <NuxtLink to="/faq" class="footer__menu-item">FAQ</NuxtLink>
-            <NuxtLink to="/legal-information" class="footer__menu-item"
-              >Юридическая справка</NuxtLink
-            >
           </div>
         </div>
         <div class="footer__menu-right">
-          <div class="footer__menu-item footer__menu-item-social-title">
-            Мы в соцсетях
-          </div>
           <div class="footer__menu-item footer__menu-item-social">
             <NuxtLink to="/">
-            <Facebook />
+              <WA />
             </NuxtLink>
             <NuxtLink to="/">
               <Vk />
             </NuxtLink>
             <NuxtLink to="/">
-              <span class="footer__svg-istagram">
-                <Instagram />
-              </span>
-            </NuxtLink>
-            <NuxtLink to="/">
-              <Twiter />
-            </NuxtLink>
-            <NuxtLink to="/">
-              <Odnoclasniki />
+              <Telegram />
             </NuxtLink>
           </div>
         </div>
       </div>
       <div class="footer__copy">
-        2021 - ADVon.me - все права защищены © . Свидетельство №2019613383
+        <div>Служба поддержки: <a href="mailto:example@postbox.ru">example@postbox.ru</a></div>
+        <div><a href="">Политика конфиденциальности</a></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Facebook from "@/assets/images/social/facebook.svg?inline";
-import Vk from "@/assets/images/social/vk.svg?inline";
-import Instagram from "@/assets/images/social/instagram.svg?inline";
-import Twiter from "@/assets/images/social/twiter.svg?inline";
-import Odnoclasniki from "@/assets/images/social/odnoclasniki.svg?inline";
+import Vk from "@/assets/images/icons/VK.svg?inline";
+import WA from "@/assets/images/icons/WA.svg?inline";
+import Telegram from "@/assets/images/icons/TG.svg?inline";
+import Logo from "@/assets/images/icons/Logo_footer.svg?inline";
 
 export default {
   name: "Footer",
   components: {
-    Facebook,
+    WA,
     Vk,
-    Instagram,
-    Twiter,
-    Odnoclasniki,
+    Telegram,
+    Logo,
   },
 };
 </script>

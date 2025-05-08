@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-profile l-wrap">
+  <div class="dashboard-profile container">
     <DashboardNavMenu v-if="$device.isDesktop" />
     <Profile />
   </div>

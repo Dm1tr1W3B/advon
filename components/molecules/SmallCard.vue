@@ -36,7 +36,45 @@
       <div class="small-card__title">
         {{ adsData.title }}
       </div>
-      <div class="small-card__price">
+      <div class="small-card__characteristics-container">
+<!--        <div-->
+<!--          class="small-card__characteristics"-->
+<!--          v-if="adsData.ready_for_political_advertising_name"-->
+<!--        >-->
+<!--          {{ adsData.ready_for_political_advertising_name }}:-->
+<!--          <div v-if="adsData.ready_for_political_advertising === true">Да</div>-->
+<!--          <div v-if="adsData.ready_for_political_advertising === false">-->
+<!--            Нет-->
+<!--          </div>-->
+<!--        </div>-->
+        <div
+          class="small-card__characteristics"
+          v-if="adsData.reach_audience_name"
+        >
+          {{ adsData.reach_audience_name }}:
+          {{ adsData.reach_audience }}
+        </div>
+<!--        <div class="small-card__characteristics" v-if="adsData.amount_name">-->
+<!--          {{ adsData.amount_name }}:-->
+<!--          {{ adsData.amount }}-->
+<!--        </div>-->
+<!--        <div class="small-card__characteristics" v-if="adsData.length_name">-->
+<!--          {{ adsData.length_name }}:-->
+<!--          {{ adsData.length }}-->
+<!--        </div>-->
+<!--        <div class="small-card__characteristics" v-if="adsData.width_name">-->
+<!--          {{ adsData.width_name }}-->
+<!--          {{ adsData.width }}-->
+<!--        </div>-->
+      </div>
+<!--      <div class="small-card__category">-->
+<!--        {{ adsData.category_name }}-->
+<!--      </div>-->
+      <div class="small-card__location" v-if="adsData.city">
+        <Location />
+        {{ adsData.city }}
+      </div>
+      <div class="small-card__price"> Цена:
         <span v-if="adsData.price_type !== 'договорная'">
           {{ adsData.price | price-break }}
           <span class="small-card__price-simbol">
@@ -47,54 +85,16 @@
         </span>
         {{ adsData.price_type }}
       </div>
-      <div class="small-card__characteristics-container">
-        <div
-          class="small-card__characteristics"
-          v-if="adsData.ready_for_political_advertising_name"
-        >
-          {{ adsData.ready_for_political_advertising_name }}:
-          <div v-if="adsData.ready_for_political_advertising === true">Да</div>
-          <div v-if="adsData.ready_for_political_advertising === false">
-            Нет
-          </div>
-        </div>
-        <div
-          class="small-card__characteristics"
-          v-if="adsData.reach_audience_name"
-        >
-          {{ adsData.reach_audience_name }}
-          {{ adsData.reach_audience }}
-        </div>
-        <div class="small-card__characteristics" v-if="adsData.amount_name">
-          {{ adsData.amount_name }}:
-          {{ adsData.amount }}
-        </div>
-        <div class="small-card__characteristics" v-if="adsData.length_name">
-          {{ adsData.length_name }}:
-          {{ adsData.length }}
-        </div>
-        <div class="small-card__characteristics" v-if="adsData.width_name">
-          {{ adsData.width_name }}
-          {{ adsData.width }}
-        </div>
-      </div>
-      <div class="small-card__category">
-        {{ adsData.category_name }}
-      </div>
-      <div class="small-card__location" v-if="adsData.city">
-        <Location />
-        {{ adsData.city }}
-      </div>
-      <div class="small-card__person" v-if="adsData.city">
-        <Verification v-if="adsData.company_is_verification"/>
-        {{ adsData.person }}
-      </div>
+<!--      <div class="small-card__person" v-if="adsData.city">-->
+<!--        <Verification v-if="adsData.company_is_verification"/>-->
+<!--        {{ adsData.person }}-->
+<!--      </div>-->
     </div>
   </div>
 </template>
 
 <script>
-import Location from "@/assets/images/icons/location.svg?inline";
+import Location from "@/assets/images/icons/Map_Point.svg?inline";
 import Star from "@/assets/images/icons/star.svg?inline";
 import TokenNotProvided from "@/components/errors/TokenNotProvided";
 import Verification from "@/assets/images/verification-small.svg?inline";

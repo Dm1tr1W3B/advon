@@ -12,7 +12,7 @@
     <div class="header-menu__bill-block" @click="isSubMenuOpen">
       <span>
         Счёт
-        <span class="header-menu__bill"> {{ loggedInUser.balance }} ₽</span>
+<!--        <span class="header-menu__bill"> {{ loggedInUser.balance }} ₽</span>-->
       </span>
       <SelectArrow class="header-menu__arrow" v-if="!isSubMenu" />
       <SelectArrowTop class="header-menu__arrow" v-if="isSubMenu" />

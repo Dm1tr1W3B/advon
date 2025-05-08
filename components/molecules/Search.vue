@@ -10,8 +10,7 @@
     <SearchIcon class="search__search-icon" />
     <div class="search__params">
       <div class="search__params-category" @click="openModalCategory">
-        <span
-          ><div class="search__params-category-name"> {{ categoryName }}</div>
+        <span><div class="search__params-category-name"> {{ categoryName }}</div>
           <SelectArrow />
         </span>
       </div>
@@ -144,7 +143,7 @@ import DefaultButton from "@/components/atoms/buttons/MainButton.vue";
 import DefaultModal from "@/components/molecules/DefaultModal.vue";
 import InputText from "@/components/atoms/inputs/InputText.vue";
 import SearchIcon from "@/assets/images/icons/search.svg?inline";
-import SelectArrow from "@/assets/images/arrow/select-arrow.svg?inline";
+import SelectArrow from "@/assets/images/arrow/Alt_Arrow_Down.svg?inline";
 import ClickOutside from "vue-click-outside";
 
 export default {

@@ -1,33 +1,33 @@
 <template>
   <div :class="['small-card-horizontal', adsData.is_allocate ? 'allocate' : '']">
-    <div class="small-card-horizontal__image-conatiner">
-      <img
-        :src="adsData.image"
-        :alt="adsData.img"
-        class="small-card-horizontal__image"
-        @click="handleClick(adsData.advertisement_id)"
-      />
-      <div class="small-card-horizontal__top" v-if="adsData.is_top_country">Топ</div>
-      <div class="small-card-horizontal__urgent" v-if="adsData.is_urgent">Срочно</div>
-      <div class="small-card-horizontal__add-to-favorites">
-        <div
-          @click="addAdvertisementFavorite(adsData.advertisement_id)"
-          v-if="!adsData.is_favorite"
-        >
-          <div class="small-card-horizontal__star-wrap">
-            <Star :class="{ isFavorite: adsData.is_favorite }" />
-          </div>
-        </div>
-        <div
-          @click="deleteAdvertisementsFavorite(adsData.advertisement_id)"
-          v-if="adsData.is_favorite"
-        >
-          <div class="small-card-horizontal__star-wrap">
-            <Star :class="{ isFavorite: adsData.is_favorite }" />
-          </div>
-        </div>
-      </div>
-    </div>
+<!--    <div class="small-card-horizontal__image-conatiner">-->
+<!--      <img-->
+<!--        :src="adsData.image"-->
+<!--        :alt="adsData.img"-->
+<!--        class="small-card-horizontal__image"-->
+<!--        @click="handleClick(adsData.advertisement_id)"-->
+<!--      />-->
+<!--      <div class="small-card-horizontal__top" v-if="adsData.is_top_country">Топ</div>-->
+<!--      <div class="small-card-horizontal__urgent" v-if="adsData.is_urgent">Срочно</div>-->
+<!--      <div class="small-card-horizontal__add-to-favorites">-->
+<!--        <div-->
+<!--          @click="addAdvertisementFavorite(adsData.advertisement_id)"-->
+<!--          v-if="!adsData.is_favorite"-->
+<!--        >-->
+<!--          <div class="small-card-horizontal__star-wrap">-->
+<!--            <Star :class="{ isFavorite: adsData.is_favorite }" />-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div-->
+<!--          @click="deleteAdvertisementsFavorite(adsData.advertisement_id)"-->
+<!--          v-if="adsData.is_favorite"-->
+<!--        >-->
+<!--          <div class="small-card-horizontal__star-wrap">-->
+<!--            <Star :class="{ isFavorite: adsData.is_favorite }" />-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
     <div
       class="small-card-horizontal__body-wrap"
       @click="handleClick(adsData.advertisement_id)"
@@ -36,79 +36,81 @@
         <div class="small-card-horizontal__title">
           {{ adsData.title }}
         </div>
+        <div v-if="!$device.isMobile" class="small-card-horizontal__price-wrap">
+          <div class="small-card-horizontal__price">
+            {{ adsData.price }}
+            <span class="small-card__price-simbol">
+            {{ adsData.translation_currency_code }}
+<!--            <span v-if="adsData.payment">/</span>-->
+<!--            {{ adsData.payment }}-->
+          </span>
+          </div>
+        </div>
         <div v-if="$device.isMobile" class="small-card-horizontal__price-wrap">
           <div class="small-card-horizontal__price">
             {{ adsData.price }}
             <span class="small-card__price-simbol">
             {{ adsData.translation_currency_code }}
-            <span v-if="adsData.payment">/</span>
-            {{ adsData.payment }}
+<!--            <span v-if="adsData.payment">/</span>-->
+<!--            {{ adsData.payment }}-->
           </span>
           </div>
         </div>
-        <div
-          class="small-card-horizontal__characteristics"
-          v-if="adsData.ready_for_political_advertising_name"
-        >
-          {{ adsData.ready_for_political_advertising_name }}:
-          <div v-if="adsData.ready_for_political_advertising === true">Да</div>
-          <div v-if="adsData.ready_for_political_advertising === false">
-            Нет
-          </div>
-        </div>
-        <div
-          class="small-card-horizontal__characteristics"
-          v-if="adsData.reach_audience_name"
-        >
-          {{ adsData.reach_audience_name }}
-          {{ adsData.reach_audience }}
-        </div>
-        <div
-          class="small-card-horizontal__characteristics"
-          v-if="adsData.amount_name"
-        >
-          {{ adsData.amount_name }}:
-          {{ adsData.amount }}
-        </div>
-        <div
-          class="small-card-horizontal__characteristics"
-          v-if="adsData.length_name"
-        >
-          {{ adsData.length_name }}:
-          {{ adsData.length }}
-        </div>
-        <div
-          class="small-card-horizontal__characteristics"
-          v-if="adsData.width_name"
-        >
-          {{ adsData.width_name }}
-        </div>
+<!--        <div-->
+<!--          class="small-card-horizontal__characteristics"-->
+<!--          v-if="adsData.ready_for_political_advertising_name"-->
+<!--        >-->
+<!--          {{ adsData.ready_for_political_advertising_name }}:-->
+<!--          <div v-if="adsData.ready_for_political_advertising === true">Да</div>-->
+<!--          <div v-if="adsData.ready_for_political_advertising === false">-->
+<!--            Нет-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div-->
+<!--          class="small-card-horizontal__characteristics"-->
+<!--          v-if="adsData.reach_audience_name"-->
+<!--        >-->
+<!--          {{ adsData.reach_audience_name }}-->
+<!--          {{ adsData.reach_audience }}-->
+<!--        </div>-->
+<!--        <div-->
+<!--          class="small-card-horizontal__characteristics"-->
+<!--          v-if="adsData.amount_name"-->
+<!--        >-->
+<!--          {{ adsData.amount_name }}:-->
+<!--          {{ adsData.amount }}-->
+<!--        </div>-->
+<!--        <div-->
+<!--          class="small-card-horizontal__characteristics"-->
+<!--          v-if="adsData.length_name"-->
+<!--        >-->
+<!--          {{ adsData.length_name }}:-->
+<!--          {{ adsData.length }}-->
+<!--        </div>-->
+<!--        <div-->
+<!--          class="small-card-horizontal__characteristics"-->
+<!--          v-if="adsData.width_name"-->
+<!--        >-->
+<!--          {{ adsData.width_name }}-->
+<!--        </div>-->
       </div>
       <div class="small-card-horizontal__location-block">
+        <div class="small-card-horizontal__location" v-if="adsData.city">
+        <Location />
+        {{ adsData.city }}
+      </div>
         <div class="small-card-horizontal__category">
+          <span>Категория: </span>
           {{ adsData.category_name }}
         </div>
-        <div class="small-card-horizontal__location" v-if="adsData.city">
-          <Location />
-          {{ adsData.city }}
-        </div>
-      </div>
-      <div v-if="!$device.isMobile" class="small-card-horizontal__price-wrap">
-        <div class="small-card-horizontal__price">
-          {{ adsData.price }}
-          <span class="small-card__price-simbol">
-            {{ adsData.translation_currency_code }}
-            <span v-if="adsData.payment">/</span>
-            {{ adsData.payment }}
-          </span>
-        </div>
+
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Location from "@/assets/images/icons/location.svg?inline";
+import Location from "@/assets/images/icons/Map_Point.svg?inline";
 import Star from "@/assets/images/icons/star.svg?inline";
 // import Favorites from "@/assets/images/icons/favorites.svg?inline";
 

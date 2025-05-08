@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div class="header__wrap l-wrap">
+    <div class="header__wrap">
       <div v-if="!$device.isDesktop" class="header__burger">
         <Burger @click="handleOpenSideMenu" />
       </div>

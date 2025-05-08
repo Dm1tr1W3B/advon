@@ -2,26 +2,23 @@
   <div class="sorting">
     <div class="sorting__display" @click="goToListAdvs">
       <List />
-      Список
     </div>
     <div
       class="sorting__display sorting__display-galery"
       @click="goToGaleryAdvs"
     >
       <Galery />
-      Галерея
     </div>
     <div class="sorting__display sorting__display-map" @click="goToMapAdvs">
       <Location />
-      На карте
     </div>
   </div>
 </template>
 
 <script>
-import Galery from "@/assets/images/galery.svg?inline";
-import Location from "@/assets/images/icons/location.svg?inline";
-import List from "@/assets/images/icons/list.svg?inline";
+import Galery from "@/assets/images/icons/gallery_new.svg?inline";
+import Location from "@/assets/images/icons/location_new.svg?inline";
+import List from "@/assets/images/icons/list_new.svg?inline";
 
 export default {
   name: "Sorting",

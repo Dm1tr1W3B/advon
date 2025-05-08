@@ -1,6 +1,6 @@
 <template>
-  <div class="main-adv l-wrap">
-    <Search />
+  <div class="main-adv container">
+<!--    <Search />-->
     <BreadCrumbs
       v-if="!categoryTrigger"
       :secondItemStorage="true"
@@ -22,39 +22,46 @@
           <div>
             {{ mainAdvertisement.country }} {{ mainAdvertisement.city }}
           </div>
+          <Calendar />
           <div class="main-adv__date-add">
             Добавлено {{ mainAdvertisement.created_at }}
           </div>
         </div>
-        <div class="main-adv__add-to-favorites">
-          <div @click="addAdvertisementFavorite">
-            <div
-              v-if="!mainAdvertisement.is_favorite"
-              class="main-adv__add-to-favorites-container"
-            >
-              Добавить в избранное
-              <Star
-                :class="{ activeFavorite: mainAdvertisement.is_favorite }"
-              />
+        <div class="price_button">
+          <div class="main-adv__price">
+              <span v-if="this.mainAdvertisement.price_type !== 'договорная'">
+                {{ this.mainAdvertisement.price | price-break }}
+                ₽
+              </span>
+            {{ this.mainAdvertisement.price_type }}
+          </div>
+          <div class="main-adv__add-to-favorites">
+            <div @click="addAdvertisementFavorite">
+              <div
+                v-if="!mainAdvertisement.is_favorite"
+                class="main-adv__add-to-favorites-container"
+              >
+                Добавить в избранное
+                <Star
+                  :class="{ activeFavorite: mainAdvertisement.is_favorite }"
+                />
+              </div>
             </div>
+            <div
+              class="main-adv__add-to-favorites-container"
+              @click="deleteAdvertisementsFavorite"
+              v-if="mainAdvertisement.is_favorite"
+            >
+              Удалить из избранного
+              <Star :class="{ activeFavorite: mainAdvertisement.is_favorite }" />
+            </div>
+            <TokenNotProvided
+              class="main-adv__token-error"
+              :error-comment="errorTokenFavorite"
+              v-if="errorTokenFavorite"
+            />
           </div>
-          <div
-            class="main-adv__add-to-favorites-container"
-            @click="deleteAdvertisementsFavorite"
-            v-if="mainAdvertisement.is_favorite"
-          >
-            Удалить из избранного
-            <Star :class="{ activeFavorite: mainAdvertisement.is_favorite }" />
-          </div>
-          <TokenNotProvided
-            class="main-adv__token-error"
-            :error-comment="errorTokenFavorite"
-            v-if="errorTokenFavorite"
-          />
         </div>
-      </div>
-      <div class="main-adv__service-info-block-right">
-        {{ mainAdvertisement.advertisement_type }}
       </div>
     </div>
     <div
@@ -162,531 +169,490 @@
             />
           </div>
         </div>
-        <div v-if="!$device.isDesktop" class="main-adv__price_block">
-          <div class="main-adv__price">
-            <span v-if="this.mainAdvertisement.price_type !== 'договорная'">
-              {{ this.mainAdvertisement.price | price-break }}
-              ₽
-            </span>
-            {{ this.mainAdvertisement.price_type }}
-          </div>
-          <div class="main-adv__price-buttons">
-            <DefaultButton
-              class="main-adv__write-to-the-author"
-              @click.native="openModelWriteAuthor"
-            >
-              Написать автору
-            </DefaultButton>
-            <div class="main-adv__offer-your-price-wriper">
-              <DefaultButton
-                class="main-adv__offer-your-price"
-                @click.native="sendOfferPrice"
-              >
-                Предложить свою цену
-              </DefaultButton>
-              <div class="main-adv__offer-your-price-block" v-if="offerPrice">
-                <div class="main-adv__offer-your-price-title">
-                  Автор получит уведомление с вашим предложением
-                </div>
-                <div class="main-adv__offer-your-currency">
-                  <InputText
-                    :set-value="formDataToSend"
-                    :id="'offerPriceData'"
-                    :label="'offerPriceData'"
-                    :type="'number'"
-                    :placeholder="'Ваша цена'"
-                  />
-                  <div class="main-adv__currency-block">
-                    <div class="main-adv__currency">Руб</div>
-                    <!-- <SelectArrow /> -->
-                  </div>
-                </div>
-                <DefaultButton
-                  class="main-adv__offer-your-price-button"
-                  @click.native="sendYourPrice"
-                >
-                  Отправить
-                </DefaultButton>
-                <Notification
-                  :message="errorPrice['price']"
-                  v-if="errorPrice"
-                  class="main-adv__complain-error-notification"
-                />
-                <TokenNotProvided :error-comment="errorPrice" />
-              </div>
-            </div>
-            <div v-if="priceSend" class="main-adv__complain-success">
-              <div class="main-adv__complain-success_text">
-                Ваша цена отправлена
-              </div>
-              <CloseIcon
-                @click="priceSendClose()"
-                class="main-adv__complain-success_close"
-              />
-            </div>
-          </div>
-        </div>
+<!--        <div v-if="!$device.isDesktop" class="main-adv__price_block">-->
+<!--          <div class="main-adv__price">-->
+<!--            <span v-if="this.mainAdvertisement.price_type !== 'договорная'">-->
+<!--              {{ this.mainAdvertisement.price | price-break }}-->
+<!--              ₽-->
+<!--            </span>-->
+<!--            {{ this.mainAdvertisement.price_type }}-->
+<!--          </div>-->
+<!--          <div class="main-adv__price-buttons">-->
+<!--            <DefaultButton-->
+<!--              class="main-adv__write-to-the-author"-->
+<!--              @click.native="openModelWriteAuthor"-->
+<!--            >-->
+<!--              Написать автору-->
+<!--            </DefaultButton>-->
+<!--            <div class="main-adv__offer-your-price-wriper">-->
+<!--              <DefaultButton-->
+<!--                class="main-adv__offer-your-price"-->
+<!--                @click.native="sendOfferPrice"-->
+<!--              >-->
+<!--                Предложить свою цену-->
+<!--              </DefaultButton>-->
+<!--              <div class="main-adv__offer-your-price-block" v-if="offerPrice">-->
+<!--                <div class="main-adv__offer-your-price-title">-->
+<!--                  Автор получит уведомление с вашим предложением-->
+<!--                </div>-->
+<!--                <div class="main-adv__offer-your-currency">-->
+<!--                  <InputText-->
+<!--                    :set-value="formDataToSend"-->
+<!--                    :id="'offerPriceData'"-->
+<!--                    :label="'offerPriceData'"-->
+<!--                    :type="'number'"-->
+<!--                    :placeholder="'Ваша цена'"-->
+<!--                  />-->
+<!--                  <div class="main-adv__currency-block">-->
+<!--                    <div class="main-adv__currency">Руб</div>-->
+<!--                    &lt;!&ndash; <SelectArrow /> &ndash;&gt;-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <DefaultButton-->
+<!--                  class="main-adv__offer-your-price-button"-->
+<!--                  @click.native="sendYourPrice"-->
+<!--                >-->
+<!--                  Отправить-->
+<!--                </DefaultButton>-->
+<!--                <Notification-->
+<!--                  :message="errorPrice['price']"-->
+<!--                  v-if="errorPrice"-->
+<!--                  class="main-adv__complain-error-notification"-->
+<!--                />-->
+<!--                <TokenNotProvided :error-comment="errorPrice" />-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div v-if="priceSend" class="main-adv__complain-success">-->
+<!--              <div class="main-adv__complain-success_text">-->
+<!--                Ваша цена отправлена-->
+<!--              </div>-->
+<!--              <CloseIcon-->
+<!--                @click="priceSendClose()"-->
+<!--                class="main-adv__complain-success_close"-->
+<!--              />-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
         <div>
           <div class="main-adv__wrap">
-            <div
-              class="main-adv__characteristic"
-              v-if="this.mainAdvertisement.payment"
-            >
-              <div class="main-adv__characteristic-title">
-                <!-- {{ this.mainAdvertisement.payment_name }} -->
-                Оплата
-              </div>
-              <div>
-                {{ this.mainAdvertisement.payment }}
-              </div>
-            </div>
-            <div
-              class="main-adv__characteristic-line"
-              v-if="this.mainAdvertisement.date_start"
-            ></div>
-            <div
-              class="main-adv__characteristic"
-              v-if="this.mainAdvertisement.date_start"
-            >
-              <div class="main-adv__characteristic-title">
-                {{ this.mainAdvertisement.date_start_name }}
-              </div>
-              <div>
-                {{ this.mainAdvertisement.date_start }}
-              </div>
-            </div>
-            <div
-              class="main-adv__characteristic-line"
-              v-if="this.mainAdvertisement.date_of_the"
-            ></div>
-            <div
-              class="main-adv__characteristic"
-              v-if="this.mainAdvertisement.date_of_the"
-            >
-              <div class="main-adv__characteristic-title">
-                {{ this.mainAdvertisement.date_of_the_name }}
-              </div>
-              <div>
-                {{ this.mainAdvertisement.date_of_the }}
-              </div>
-            </div>
-            <div
-              class="main-adv__characteristic-line"
-              v-if="this.mainAdvertisement.date_finish"
-            ></div>
-            <div
-              class="main-adv__characteristic"
-              v-if="this.mainAdvertisement.date_finish"
-            >
-              <div class="main-adv__characteristic-title">
-                {{ this.mainAdvertisement.date_finish_name }}
-              </div>
-              <div>
-                {{ this.mainAdvertisement.date_finish }}
-              </div>
-            </div>
-            <div
-              class="main-adv__characteristic-line"
-              v-if="this.mainAdvertisement.reach_audience"
-            ></div>
-            <div
-              class="main-adv__characteristic"
-              v-if="this.mainAdvertisement.reach_audience"
-            >
-              <div class="main-adv__characteristic-title">
-                {{ this.mainAdvertisement.reach_audience_name }}
-              </div>
-              <div>
-                {{ this.mainAdvertisement.reach_audience }}
-              </div>
-            </div>
-            <div
-              class="main-adv__characteristic-line"
-              v-if="this.mainAdvertisement.amount"
-            ></div>
-            <div
-              class="main-adv__characteristic"
-              v-if="this.mainAdvertisement.amount"
-            >
-              <div class="main-adv__characteristic-title">
-                {{ this.mainAdvertisement.amount_name }}
-              </div>
-              <div>
-                {{ this.mainAdvertisement.amount }}
-              </div>
-            </div>
-            <div
-              class="main-adv__characteristic-line"
-              v-if="this.mainAdvertisement.amount"
-            ></div>
-            <div
-              class="main-adv__characteristic"
-              v-if="this.mainAdvertisement.length"
-            >
-              <div class="main-adv__characteristic-title">
-                {{ this.mainAdvertisement.length_name }},
-                {{ this.mainAdvertisement.length_hint }}
-              </div>
-              <div>
-                {{ this.mainAdvertisement.length }}
-              </div>
-            </div>
-            <div
-              class="main-adv__characteristic-line"
-              v-if="this.mainAdvertisement.length"
-            ></div>
-            <div
-              class="main-adv__characteristic"
-              v-if="this.mainAdvertisement.width"
-            >
-              <div class="main-adv__characteristic-title">
-                {{ this.mainAdvertisement.width_name }},
-                {{ this.mainAdvertisement.width_hint }}
-              </div>
-              <div>
-                {{ this.mainAdvertisement.width }}
-              </div>
-            </div>
-            <div
-              class="main-adv__characteristic-line"
-              v-if="this.mainAdvertisement.width"
-            ></div>
-            <div
-              class="main-adv__characteristic"
-              v-if="this.mainAdvertisement.travel_abroad"
-            >
-              <div class="main-adv__characteristic-title">
-                {{ this.mainAdvertisement.travel_abroad_name }}
-              </div>
-              <div v-if="this.mainAdvertisement.travel_abroad === false">
-                Нет
-              </div>
-              <div v-if="this.mainAdvertisement.travel_abroad === true">Да</div>
-            </div>
-            <div
-              class="main-adv__characteristic line"
-              v-if="this.mainAdvertisement.ready_for_political_advertising"
-            >
-              <div class="main-adv__characteristic-title">
-                {{
-                  this.mainAdvertisement.ready_for_political_advertising_name
-                }}
-              </div>
-              <div
-                v-if="
-                  this.mainAdvertisement.ready_for_political_advertising ===
-                  false
-                "
-              >
-                Нет
-              </div>
-              <div
-                v-if="
-                  this.mainAdvertisement.ready_for_political_advertising ===
-                  true
-                "
-              >
-                Да
-              </div>
-            </div>
-            <div
-              class="main-adv__characteristic-line line"
-              v-if="this.mainAdvertisement.ready_for_political_advertising"
-            ></div>
-            <div
-              class="main-adv__characteristic line"
-              v-if="this.mainAdvertisement.photo_report"
-            >
-              <div class="main-adv__characteristic-title">
-                {{ this.mainAdvertisement.photo_report_name }}
-              </div>
-              <div v-if="this.mainAdvertisement.photo_report === false">
-                Нет
-              </div>
-              <div v-if="this.mainAdvertisement.photo_report === true">Да</div>
-            </div>
-            <div
-              class="main-adv__characteristic-line line"
-              v-if="this.mainAdvertisement.photo_report"
-            ></div>
-            <div
-              class="main-adv__characteristic line"
-              v-if="this.mainAdvertisement.make_and_place_advertising"
-            >
-              <div class="main-adv__characteristic-title">
-                {{ this.mainAdvertisement.make_and_place_advertising_name }}
-              </div>
-              <div
-                v-if="
-                  this.mainAdvertisement.make_and_place_advertising === false
-                "
-              >
-                Нет
-              </div>
-              <div
-                v-if="
-                  this.mainAdvertisement.make_and_place_advertising === true
-                "
-              >
-                Да
-              </div>
-            </div>
             <div></div>
-            <div class="main-adv__hashtags">
-              <div
-                v-for="hashtag in this.mainAdvertisement.hashtags"
-                :key="hashtag.id"
-              >
-                <div class="main-adv__hashtag">
-                  {{ hashtag }}
-                </div>
-              </div>
-            </div>
-            <div class="main-adv__decore-line"></div>
-            <div>
+            <div class="shadow_effect">
               <div class="main-adv__title">Описание</div>
               <div>
                 {{ this.mainAdvertisement.description }}
               </div>
             </div>
-            <div v-if="$device.isDesktop" class="main-adv__decore-line"></div>
-            <div v-if="$device.isDesktop" class="main-adv__comment-block">
-              <div class="main-adv__title">
-                Комментарии
-                <span class="main-adv__amount-comment">
-                  ({{ this.commentList.length }})
-                </span>
-              </div>
-              <div v-for="comment in this.commentList" :key="comment.id">
-                <div class="main-adv__comment-body">
-                  <div>
-                    <img :src="comment.avatar" alt="avatar" />
-                  </div>
-                  <div>
-                    <div>
-                      {{ comment.name }}
-                    </div>
-                    <div class="main-adv__comment-date-create">
-                      Оставлено
-                      {{ comment.created_at }}
-                    </div>
-                  </div>
-                </div>
-                <div class="main-adv__message">
-                  {{ comment.message }}
-                </div>
-                <div class="main-adv__decore-line"></div>
-              </div>
-              <div>
-                <div class="main-adv__comment-title">Оставить комментарий</div>
-                <InputTextarea
-                  :set-value="formDataComment"
-                  :id="'comment'"
-                  :label="'comment'"
-                  :placeholder="'Введите текст'"
-                />
-                <div v-if="errorComment">
-                  <Notification
-                    :message="errorComment['message']"
-                    v-if="errorComment['message'] !== 'Token not provided'"
-                  />
-                </div>
-                <DefaultButton
-                  class="main-adv__comment-button"
-                  @click.native="storeAdvertisementComment"
-                >
-                  Опубликовать
-                </DefaultButton>
-                <TokenNotProvided :error-comment="errorComment" />
-                <Notification
-                  :message="errorComment['non_field_error']"
-                  v-if="errorComment"
-                />
-              </div>
-            </div>
+<!--            <div v-if="$device.isDesktop" class="main-adv__comment-block">-->
+<!--              <div class="main-adv__title">-->
+<!--                Комментарии-->
+<!--                <span class="main-adv__amount-comment">-->
+<!--                  ({{ this.commentList.length }})-->
+<!--                </span>-->
+<!--              </div>-->
+<!--              <div v-for="comment in this.commentList" :key="comment.id">-->
+<!--                <div class="main-adv__comment-body">-->
+<!--                  <div>-->
+<!--                    <img :src="comment.avatar" alt="avatar" />-->
+<!--                  </div>-->
+<!--                  <div>-->
+<!--                    <div>-->
+<!--                      {{ comment.name }}-->
+<!--                    </div>-->
+<!--                    <div class="main-adv__comment-date-create">-->
+<!--                      Оставлено-->
+<!--                      {{ comment.created_at }}-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="main-adv__message">-->
+<!--                  {{ comment.message }}-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div>-->
+<!--                <div class="main-adv__comment-title">Оставить комментарий</div>-->
+<!--                <InputTextarea-->
+<!--                  :set-value="formDataComment"-->
+<!--                  :id="'comment'"-->
+<!--                  :label="'comment'"-->
+<!--                  :placeholder="'Введите текст'"-->
+<!--                />-->
+<!--                <div v-if="errorComment">-->
+<!--                  <Notification-->
+<!--                    :message="errorComment['message']"-->
+<!--                    v-if="errorComment['message'] !== 'Token not provided'"-->
+<!--                  />-->
+<!--                </div>-->
+<!--                <DefaultButton-->
+<!--                  class="main-adv__comment-button"-->
+<!--                  @click.native="storeAdvertisementComment"-->
+<!--                >-->
+<!--                  Опубликовать-->
+<!--                </DefaultButton>-->
+<!--                <TokenNotProvided :error-comment="errorComment" />-->
+<!--                <Notification-->
+<!--                  :message="errorComment['non_field_error']"-->
+<!--                  v-if="errorComment"-->
+<!--                />-->
+<!--              </div>-->
+<!--            </div>-->
           </div>
         </div>
       </div>
       <div v-if="this.mainAdvertisement.person" class="main-adv__persob-block">
-        <div v-if="$device.isDesktop" class="main-adv__price_block">
-          <div class="main-adv__price">
-            <span v-if="this.mainAdvertisement.price_type !== 'договорная'">
-              {{ this.mainAdvertisement.price | price-break }}
-              ₽
-            </span>
-            {{ this.mainAdvertisement.price_type }}
-          </div>
-          <div>
-            <DefaultButton
-              class="main-adv__write-to-the-author"
-              @click.native="openModelWriteAuthor"
-            >
-              Написать автору
-            </DefaultButton>
-          </div>
-          <div class="main-adv__offer-your-price-wriper">
-            <DefaultButton
-              class="main-adv__offer-your-price"
-              @click.native="sendOfferPrice"
-            >
-              Предложить свою цену
-            </DefaultButton>
-            <div class="main-adv__offer-your-price-block" v-if="offerPrice">
-              <div class="main-adv__offer-your-price-title">
-                Автор получит уведомление с вашим предложением
+<!--        <div v-if="$device.isDesktop" class="main-adv__price_block">-->
+<!--          <div class="main-adv__price">-->
+<!--            <span v-if="this.mainAdvertisement.price_type !== 'договорная'">-->
+<!--              {{ this.mainAdvertisement.price | price-break }}-->
+<!--              ₽-->
+<!--            </span>-->
+<!--            {{ this.mainAdvertisement.price_type }}-->
+<!--          </div>-->
+<!--          <div>-->
+<!--            <DefaultButton-->
+<!--              class="main-adv__write-to-the-author"-->
+<!--              @click.native="openModelWriteAuthor"-->
+<!--            >-->
+<!--              Написать автору-->
+<!--            </DefaultButton>-->
+<!--          </div>-->
+<!--          <div class="main-adv__offer-your-price-wriper">-->
+<!--            <DefaultButton-->
+<!--              class="main-adv__offer-your-price"-->
+<!--              @click.native="sendOfferPrice"-->
+<!--            >-->
+<!--              Предложить свою цену-->
+<!--            </DefaultButton>-->
+<!--            <div class="main-adv__offer-your-price-block" v-if="offerPrice">-->
+<!--              <div class="main-adv__offer-your-price-title">-->
+<!--                Автор получит уведомление с вашим предложением-->
+<!--              </div>-->
+<!--              <div class="main-adv__offer-your-currency">-->
+<!--                <InputText-->
+<!--                  :set-value="formDataToSend"-->
+<!--                  :id="'offerPriceData'"-->
+<!--                  :label="'offerPriceData'"-->
+<!--                  :type="'number'"-->
+<!--                  :placeholder="'Ваша цена'"-->
+<!--                />-->
+<!--                <div class="main-adv__currency-block">-->
+<!--                  <div class="main-adv__currency">Руб</div>-->
+<!--                  &lt;!&ndash; <SelectArrow /> &ndash;&gt;-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <DefaultButton-->
+<!--                class="main-adv__offer-your-price-button"-->
+<!--                @click.native="sendYourPrice"-->
+<!--              >-->
+<!--                Отправить-->
+<!--              </DefaultButton>-->
+<!--              <Notification-->
+<!--                :message="errorPrice['price']"-->
+<!--                v-if="errorPrice"-->
+<!--                class="main-adv__complain-error-notification"-->
+<!--              />-->
+<!--              <Notification-->
+<!--                :message="errorPrice['non_field_error']"-->
+<!--                v-if="errorPrice"-->
+<!--                class="main-adv__complain-error-notification"-->
+<!--              />-->
+<!--              <TokenNotProvided :error-comment="errorPrice" />-->
+<!--            </div>-->
+<!--            <div v-if="priceSend" class="main-adv__complain-success">-->
+<!--              <div class="main-adv__complain-success_text">-->
+<!--                Ваша цена отправлена-->
+<!--              </div>-->
+<!--              <CloseIcon-->
+<!--                @click="priceSendClose()"-->
+<!--                class="main-adv__complain-success_close"-->
+<!--              />-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+        <div class="shadow_effect">
+          <div class="main-adv__person-block" @click="userDetail()">
+            <div>
+              <img
+                :src="this.mainAdvertisement.person.avatar"
+                alt=""
+                class="main-adv__person-avatar"
+              />
+            </div>
+            <div>
+              <div class="person_name">
+                {{ this.mainAdvertisement.person.name }}
               </div>
-              <div class="main-adv__offer-your-currency">
-                <InputText
-                  :set-value="formDataToSend"
-                  :id="'offerPriceData'"
-                  :label="'offerPriceData'"
-                  :type="'number'"
-                  :placeholder="'Ваша цена'"
-                />
-                <div class="main-adv__currency-block">
-                  <div class="main-adv__currency">Руб</div>
-                  <!-- <SelectArrow /> -->
+              <div class="person_info">
+                <span>{{ this.mainAdvertisement.person_type }}</span>
+                <span>На advon с {{ this.mainAdvertisement.person.created_at }}</span>
+              </div>
+              <div
+                  v-if="this.mainAdvertisement.person_type != 'Компания'"
+                  class="main-adv__all-advs-author"
+                  @click="getAuthorAllAdvertisements"
+              >
+                Все объявления автора ({{
+                  this.mainAdvertisement.number_advertisement
+                }})
+              </div>
+              <div
+                  v-else
+                  class="main-adv__all-advs-author"
+                  @click="getCompanyAllAdvertisements"
+              >
+                Все объявления компании ({{
+                  this.mainAdvertisement.number_advertisement
+                }})
+              </div>
+              <div class="phone_section">
+                <div v-if="this.mainAdvertisement.person.phone">Контакты</div>
+                <div
+                    v-if="!loggedInUser"
+                    @click="showContact"
+                    class="main-adv__show-contact"
+                >
+                  Показать телефон
                 </div>
               </div>
-              <DefaultButton
-                class="main-adv__offer-your-price-button"
-                @click.native="sendYourPrice"
+              <div
+                  class="main-adv__phone-block"
+                  v-if="this.mainAdvertisement.person.phone"
               >
-                Отправить
-              </DefaultButton>
-              <Notification
-                :message="errorPrice['price']"
-                v-if="errorPrice"
-                class="main-adv__complain-error-notification"
-              />
-              <Notification
-                :message="errorPrice['non_field_error']"
-                v-if="errorPrice"
-                class="main-adv__complain-error-notification"
-              />
-              <TokenNotProvided :error-comment="errorPrice" />
-            </div>
-            <div v-if="priceSend" class="main-adv__complain-success">
-              <div class="main-adv__complain-success_text">
-                Ваша цена отправлена
+                <div>
+                  <span class="phone_title">Телефон:</span>
+<!--                  <Phone />-->
+                  {{ this.mainAdvertisement.person.phone }}
+                  <!-- {{ this.showContactData }} -->
+                </div>
               </div>
-              <CloseIcon
-                @click="priceSendClose()"
-                class="main-adv__complain-success_close"
-              />
+              <div class="main-adv__contacts-block">
+                <div
+                    v-for="contact in this.mainAdvertisement.person.contacts"
+                    :key="contact.id"
+                    class="main-adv__contact"
+                >
+                  <img :src="contact.photo_url" alt="" />
+                  <div>
+                    {{ contact.values }}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="main-adv__person-block" @click="userDetail()">
-          <div>
-            <img
-              :src="this.mainAdvertisement.person.avatar"
-              alt=""
-              class="main-adv__person-avatar"
-            />
-          </div>
-          <div>
+        <div class="product_information shadow_effect">
+          <p>Детали</p>
+          <div
+              class="main-adv__characteristic"
+              v-if="this.mainAdvertisement.payment"
+          >
+            <div class="main-adv__characteristic-title">
+              Оплата
+            </div>
+            <div class="middle_line"></div>
             <div>
-              {{ this.mainAdvertisement.person.name }}
+              {{ this.mainAdvertisement.payment }}
             </div>
-            <div>
-              {{ this.mainAdvertisement.person_type }}
-            </div>
-            <div>На advon с {{ this.mainAdvertisement.person.created_at }}</div>
-          </div>
-        </div>
-        <div
-          v-if="this.mainAdvertisement.person_type != 'Компания'"
-          class="main-adv__all-advs-author"
-          @click="getAuthorAllAdvertisements"
-        >
-          Все объявления автора ({{
-            this.mainAdvertisement.number_advertisement
-          }})
-        </div>
-        <div
-          v-else
-          class="main-adv__all-advs-author"
-          @click="getCompanyAllAdvertisements"
-        >
-          Все объявления компании ({{
-            this.mainAdvertisement.number_advertisement
-          }})
-        </div>
-        <div class="main-adv__decore-line"></div>
-        <div v-if="this.mainAdvertisement.person.phone">Контакты</div>
-        <div
-          class="main-adv__phone-block"
-          v-if="this.mainAdvertisement.person.phone"
-        >
-          <div>
-            <Phone />
-            {{ this.mainAdvertisement.person.phone }}
-            <!-- {{ this.showContactData }} -->
           </div>
           <div
-            v-if="!loggedInUser"
-            @click="showContact"
-            class="main-adv__show-contact"
+              class="main-adv__characteristic"
+              v-if="this.mainAdvertisement.date_start"
           >
-            Показать телефон
-          </div>
-        </div>
-        <div class="main-adv__contacts-block">
-          <div
-            v-for="contact in this.mainAdvertisement.person.contacts"
-            :key="contact.id"
-            class="main-adv__contact"
-          >
-            <img :src="contact.photo_url" alt="" />
+            <div class="main-adv__characteristic-title">
+              {{ this.mainAdvertisement.date_start_name }}
+            </div>
+            <div class="middle_line"></div>
             <div>
-              {{ contact.values }}
+              {{ this.mainAdvertisement.date_start }}
             </div>
           </div>
-        </div>
-        <div
-          class="main-adv__decore-line"
-          v-if="this.mainAdvertisement.person.phone"
-        ></div>
-        <div class="main-adv__views">
-          <div>
-            <Eye />
-            <div class="main-adv__views-all">Всего:</div>
-            <div class="main-adv__views-all-count">
-              {{ this.mainAdvertisement.number_views_all }}
+          <div
+              class="main-adv__characteristic"
+              v-if="this.mainAdvertisement.date_of_the"
+          >
+            <div class="main-adv__characteristic-title">
+              {{ this.mainAdvertisement.date_of_the_name }}
+            </div>
+            <div class="middle_line"></div>
+            <div>
+              {{ this.mainAdvertisement.date_of_the }}
             </div>
           </div>
-          <div>
-            <div class="main-adv__views-all">Сегодня:</div>
+          <div
+              class="main-adv__characteristic"
+              v-if="this.mainAdvertisement.date_finish"
+          >
+            <div class="main-adv__characteristic-title">
+              {{ this.mainAdvertisement.date_finish_name }}
+            </div>
+            <div class="middle_line"></div>
+            <div>
+              {{ this.mainAdvertisement.date_finish }}
+            </div>
+          </div>
+          <div
+              class="main-adv__characteristic"
+              v-if="this.mainAdvertisement.amount"
+          >
+            <div class="main-adv__characteristic-title">
+              {{ this.mainAdvertisement.amount_name }}
+            </div>
+            <div class="middle_line"></div>
+            <div>
+              {{ this.mainAdvertisement.amount }}
+            </div>
+          </div>
+          <div
+              class="main-adv__characteristic"
+              v-if="this.mainAdvertisement.length"
+          >
+            <div class="main-adv__characteristic-title">
+              {{ this.mainAdvertisement.length_name }},
+              {{ this.mainAdvertisement.length_hint }}
+            </div>
+            <div class="middle_line"></div>
+            <div>
+              {{ this.mainAdvertisement.length }}
+            </div>
+          </div>
+          <div
+              class="main-adv__characteristic"
+              v-if="this.mainAdvertisement.width"
+          >
+            <div class="main-adv__characteristic-title">
+              {{ this.mainAdvertisement.width_name }},
+              {{ this.mainAdvertisement.width_hint }}
+            </div>
+            <div class="middle_line"></div>
+            <div>
+              {{ this.mainAdvertisement.width }}
+            </div>
+          </div>
+          <div
+              class="main-adv__characteristic"
+              v-if="this.mainAdvertisement.travel_abroad"
+          >
+            <div class="main-adv__characteristic-title">
+              {{ this.mainAdvertisement.travel_abroad_name }}
+            </div>
+            <div class="middle_line"></div>
+            <div v-if="this.mainAdvertisement.travel_abroad === false">
+              Нет
+            </div>
+            <div v-if="this.mainAdvertisement.travel_abroad === true">Да</div>
+          </div>
+          <div
+              class="main-adv__characteristic line"
+              v-if="this.mainAdvertisement.ready_for_political_advertising"
+          >
+            <div class="main-adv__characteristic-title">
+              {{
+                this.mainAdvertisement.ready_for_political_advertising_name
+              }}
+            </div>
+            <div class="middle_line"></div>
+            <div
+                v-if="
+                  this.mainAdvertisement.ready_for_political_advertising ===
+                  false
+                "
+            >
+              Нет
+            </div>
+            <div
+                v-if="
+                  this.mainAdvertisement.ready_for_political_advertising ===
+                  true
+                "
+            >
+              Да
+            </div>
+          </div>
+          <div
+              class="main-adv__characteristic line"
+              v-if="this.mainAdvertisement.photo_report"
+          >
+            <div class="main-adv__characteristic-title">
+              {{ this.mainAdvertisement.photo_report_name }}
+            </div>
+            <div class="middle_line"></div>
+            <div v-if="this.mainAdvertisement.photo_report === false">
+              Нет
+            </div>
+            <div v-if="this.mainAdvertisement.photo_report === true">Да</div>
+          </div>
+          <p>Статистика <span class="main-adv__statistics" @click="getStatistics">Посмотреть статистику</span></p>
+          <div
+              class="main-adv__characteristic"
+              v-if="this.mainAdvertisement.reach_audience"
+          >
+            <div class="main-adv__characteristic-title">
+              Охват аудитории:
+            </div>
+            <div class="middle_line"></div>
+            <div>
+              {{ this.mainAdvertisement.reach_audience }}
+            </div>
+          </div>
+          <div
+              class="main-adv__characteristic"
+              v-if="this.mainAdvertisement.number_views_day"
+          >
+            <div class="main-adv__characteristic-title">
+              Просмотров за сутки:
+            </div>
+            <div class="middle_line"></div>
             <div>
               {{ this.mainAdvertisement.number_views_day }}
             </div>
           </div>
-        </div>
-        <div class="main-adv__social-block">
-          <div>Поделиться:</div>
-          <div class="main-adv__socials-block">
+          <div
+              class="main-adv__characteristic line"
+              v-if="this.mainAdvertisement.make_and_place_advertising"
+          >
+            <div class="main-adv__characteristic-title">
+              {{ this.mainAdvertisement.make_and_place_advertising_name }}
+            </div>
+            <div class="middle_line"></div>
             <div
-              v-for="social in this.mainAdvertisement.person.social"
-              :key="social.id"
-              class="main-adv__social"
+                v-if="
+                  this.mainAdvertisement.make_and_place_advertising === false
+                "
             >
-              <img :src="social.photo_url" alt="" />
+              Нет
+            </div>
+            <div
+                v-if="
+                  this.mainAdvertisement.make_and_place_advertising === true
+                "
+            >
+              Да
             </div>
           </div>
         </div>
-        <div class="main-adv__complain" @click="complaintAdv">
-          Пожаловаться на объявление
-        </div>
-        <div v-if="complaintSend" class="main-adv__complain-success">
-          <div class="main-adv__complain-success_text">
-            Ваша жалоба отправлена
-          </div>
-          <CloseIcon
-            @click="complaintSendClose()"
-            class="main-adv__complain-success_close"
-          />
-        </div>
+<!--        <div class="main-adv__social-block">-->
+<!--          <div>Поделиться:</div>-->
+<!--          <div class="main-adv__socials-block">-->
+<!--            <div-->
+<!--              v-for="social in this.mainAdvertisement.person.social"-->
+<!--              :key="social.id"-->
+<!--              class="main-adv__social"-->
+<!--            >-->
+<!--              <img :src="social.photo_url" alt="" />-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="main-adv__complain" @click="complaintAdv">-->
+<!--          Пожаловаться на объявление-->
+<!--        </div>-->
+<!--        <div v-if="complaintSend" class="main-adv__complain-success">-->
+<!--          <div class="main-adv__complain-success_text">-->
+<!--            Ваша жалоба отправлена-->
+<!--          </div>-->
+<!--          <CloseIcon-->
+<!--            @click="complaintSendClose()"-->
+<!--            class="main-adv__complain-success_close"-->
+<!--          />-->
+<!--        </div>-->
 
         <div
           class="main-adv__complain-list"
@@ -728,74 +694,87 @@
             class="main-adv__complain-error-notification"
           />
         </div>
-        <div class="main-adv__statistics" @click="getStatistics">
-          Статистика
-        </div>
-        <div v-if="this.banners">
-          <div v-for="banner in this.banners" :key="banner.id">
-            <a :href="banner.url">
-              <img
-                :src="banner.file.download_link"
-                :alt="banner.name"
-                class="main-adv__banner-img"
-                :title="banner.name"
-              />
-            </a>
-          </div>
-        </div>
+<!--        <div class="main-adv__statistics" @click="getStatistics">-->
+<!--          Статистика-->
+<!--        </div>-->
+<!--        <div v-if="this.banners">-->
+<!--          <div v-for="banner in this.banners" :key="banner.id">-->
+<!--            <a :href="banner.url">-->
+<!--              <img-->
+<!--                :src="banner.file.download_link"-->
+<!--                :alt="banner.name"-->
+<!--                class="main-adv__banner-img"-->
+<!--                :title="banner.name"-->
+<!--              />-->
+<!--            </a>-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
-      <div v-if="!$device.isDesktop" class="main-adv__comment-block">
-        <div class="main-adv__title">
-          Комментарии
-          <span class="main-adv__amount-comment">
-            ({{ this.commentList.length }})
-          </span>
-        </div>
-        <div v-for="comment in this.commentList" :key="comment.id">
-          <div class="main-adv__comment-body">
-            <div>
-              <img :src="comment.avatar" alt="avatar" />
-            </div>
-            <div>
-              <div>
-                {{ comment.name }}
-              </div>
-              <div class="main-adv__comment-date-create">
-                Оставлено
-                {{ comment.created_at }}
-              </div>
-            </div>
+<!--      <div v-if="!$device.isDesktop" class="main-adv__comment-block">-->
+<!--        <div class="main-adv__title">-->
+<!--          Комментарии-->
+<!--          <span class="main-adv__amount-comment">-->
+<!--            ({{ this.commentList.length }})-->
+<!--          </span>-->
+<!--        </div>-->
+<!--        <div v-for="comment in this.commentList" :key="comment.id">-->
+<!--          <div class="main-adv__comment-body">-->
+<!--            <div>-->
+<!--              <img :src="comment.avatar" alt="avatar" />-->
+<!--            </div>-->
+<!--            <div>-->
+<!--              <div>-->
+<!--                {{ comment.name }}-->
+<!--              </div>-->
+<!--              <div class="main-adv__comment-date-create">-->
+<!--                Оставлено-->
+<!--                {{ comment.created_at }}-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="main-adv__message">-->
+<!--            {{ comment.message }}-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <div class="main-adv__comment-title">Оставить комментарий</div>-->
+<!--          <InputTextarea-->
+<!--            :set-value="formDataComment"-->
+<!--            :id="'comment'"-->
+<!--            :label="'comment'"-->
+<!--            :placeholder="'Введите текст'"-->
+<!--          />-->
+<!--          <div v-if="errorComment">-->
+<!--            <Notification-->
+<!--              :message="errorComment['message']"-->
+<!--              v-if="errorComment['message'] !== 'Token not provided'"-->
+<!--            />-->
+<!--          </div>-->
+<!--          <DefaultButton-->
+<!--            class="main-adv__comment-button"-->
+<!--            @click.native="storeAdvertisementComment"-->
+<!--          >-->
+<!--            Опубликовать-->
+<!--          </DefaultButton>-->
+<!--          <TokenNotProvided :error-comment="errorComment" />-->
+<!--          <Notification-->
+<!--            :message="errorComment['non_field_error']"-->
+<!--            v-if="errorComment"-->
+<!--          />-->
+<!--        </div>-->
+<!--      </div>-->
+    </div>
+    <div class="main-adv__hashtags shadow_effect">
+      <p class="hashtag_title">Теги</p>
+      <div class="hashtags">
+        <div
+            v-for="hashtag in this.mainAdvertisement.hashtags"
+            :key="hashtag.id"
+        >
+
+          <div class="main-adv__hashtag">
+            #{{ hashtag }}
           </div>
-          <div class="main-adv__message">
-            {{ comment.message }}
-          </div>
-          <div class="main-adv__decore-line"></div>
-        </div>
-        <div>
-          <div class="main-adv__comment-title">Оставить комментарий</div>
-          <InputTextarea
-            :set-value="formDataComment"
-            :id="'comment'"
-            :label="'comment'"
-            :placeholder="'Введите текст'"
-          />
-          <div v-if="errorComment">
-            <Notification
-              :message="errorComment['message']"
-              v-if="errorComment['message'] !== 'Token not provided'"
-            />
-          </div>
-          <DefaultButton
-            class="main-adv__comment-button"
-            @click.native="storeAdvertisementComment"
-          >
-            Опубликовать
-          </DefaultButton>
-          <TokenNotProvided :error-comment="errorComment" />
-          <Notification
-            :message="errorComment['non_field_error']"
-            v-if="errorComment"
-          />
         </div>
       </div>
     </div>
@@ -805,9 +784,9 @@
     >
       <div class="main-adv__title">Похожие объявления</div>
       <VueSlickCarousel
-        :arrows="true"
+        :arrows="false"
         v-bind="settingsAds"
-        class="main-adv__slick-advs"
+        class="main-adv__slick-advs new_world"
       >
         <div v-for="ads in this.intersectAdvertisements" :key="ads.id">
           <SmallCard
@@ -821,9 +800,9 @@
     <div class="main-adv__block-carousel" v-if="this.lastAdvertisement.length">
       <div class="main-adv__title">Вы смотрели</div>
       <VueSlickCarousel
-        :arrows="true"
+        :arrows="false"
         v-bind="settingsAds"
-        class="main-adv__slick-advs main-adv__slick-advs-viewed"
+        class="main-adv__slick-advs main-adv__slick-advs-viewed new_world"
       >
         <div v-for="ads in this.lastAdvertisement" :key="ads.id">
           <SmallCard :ads-data="ads" />
@@ -915,7 +894,8 @@ import SmallCard from "@/components/molecules/SmallCard.vue";
 import Chart from "@/components/molecules/Chart.vue";
 import Eye from "@/assets/images/icons/eye.svg?inline";
 import Phone from "@/assets/images/icons/phone.svg?inline";
-import Location from "@/assets/images/icons/location.svg?inline";
+import Location from "@/assets/images/icons/Map_Point.svg?inline";
+import Calendar from "@/assets/images/icons/Calendar.svg?inline";
 import Star from "@/assets/images/icons/star.svg?inline";
 import InputCheckbox from "@/components/atoms/inputs/InputCheckboxMain.vue";
 import InputTextarea from "@/components/atoms/inputs/InputTextarea.vue";
@@ -960,14 +940,14 @@ export default {
       settingsAds: {
         slidesToShow: 4,
         slidesToScroll: 1,
-        arrows: true,
+        arrows: false,
         responsive: [
           {
             breakpoint: 1200,
             settings: {
               slidesToShow: 3,
               slidesToScroll: 2,
-              arrows: true,
+              arrows: false,
             },
           },
           {
@@ -975,7 +955,7 @@ export default {
             settings: {
               slidesToShow: 2,
               slidesToScroll: 1,
-              arrows: true,
+              arrows: false,
             },
           },
         ],
@@ -1013,6 +993,7 @@ export default {
     Eye,
     Phone,
     Location,
+    Calendar,
     Star,
     InputCheckbox,
     InputText,

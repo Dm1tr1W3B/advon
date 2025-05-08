@@ -1,6 +1,6 @@
 <template>
   <div class="collapse-item__wrap">
-      <div class="collapse-item__title-section" @click="activeSection">
+      <div class="collapse-item__title-section" @click="activeSection" :class="{ active: activeSection }">
         <div>
           {{ title }}
         </div>
@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import Plus from "@/assets/images/icons/plus.svg?inline";
-import Minus from "@/assets/images/icons/minus.svg?inline";
+import Plus from "@/assets/images/arrow/Alt_Arrow_Down.svg?inline";
+import Minus from "@/assets/images/arrow/Alt_Arrow_up.svg?inline";
 export default {
   name: "CollapseItem",
   data() {

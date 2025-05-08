@@ -21,6 +21,13 @@
         <div @click="getCountryAndCity">Разрешить</div>
       </div>
     </div> -->
+    <div class="home__banner">
+      <div class="home__banner-main">
+        <h1>Общемаркетинговый портал для рекламодателей, инвесторов и исполнителей рекламных кампаний</h1>
+        <Search />
+      </div>
+    </div>
+    <AboutUs />
     <div class="home__title-block">
       <DefaultButton
         class="home__performers"
@@ -39,50 +46,49 @@
         <div>Что разместить</div>
       </DefaultButton>
     </div>
-    <Search />
-    <div v-if="this.popularHashtags.length != 0">
-      <div class="home__section-title">Популярные хештеги</div>
-      <div v-swiper:hashtags="optionHashtags" class="home__slick-hashtags">
-        <div class="swiper-wrapper">
-          <div
-            class="swiper-slide"
-            v-for="hashtags in this.popularHashtags"
-            :key="hashtags.id"
-          >
-            <NuxtLink
-              class="home__hashtag"
-              :to="`/searching-results/${hashtags}`"
-            >
-              {{ hashtags }}
-            </NuxtLink>
-          </div>
-        </div>
-        <div class="swiper-button-prev" slot="button-prev"></div>
-        <div class="swiper-button-next" slot="button-next"></div>
-      </div>
-    </div>
-    <div v-if="this.mainCategory.length != 0">
+<!--    <div v-if="this.popularHashtags.length != 0">-->
+<!--      <div class="home__section-title">Популярные хештеги</div>-->
+<!--      <div v-swiper:hashtags="optionHashtags" class="home__slick-hashtags">-->
+<!--        <div class="swiper-wrapper">-->
+<!--          <div-->
+<!--            class="swiper-slide"-->
+<!--            v-for="hashtags in this.popularHashtags"-->
+<!--            :key="hashtags.id"-->
+<!--          >-->
+<!--            <NuxtLink-->
+<!--              class="home__hashtag"-->
+<!--              :to="`/searching-results/${hashtags}`"-->
+<!--            >-->
+<!--              {{ hashtags }}-->
+<!--            </NuxtLink>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="swiper-button-prev" slot="button-prev"></div>-->
+<!--        <div class="swiper-button-next" slot="button-next"></div>-->
+<!--      </div>-->
+<!--    </div>-->
+    <div v-if="this.mainCategory.length != 0" class="home__section-category">
       <div class="home__section-title">Категории</div>
-      <div v-swiper:category="optionCategory" class="home__slick-categiry">
-        <div class="swiper-wrapper">
+      <div class="home__slick-category">
+        <div>
           <div
-            class="swiper-slide"
-            v-for="category in this.mainCategory"
+            class="category-item"
+            v-for="category in mainCategory.slice(0, 9)"
             :key="category.id"
           >
             <div
-              class="home__main-categiry"
+              class="home__main-category"
               @click="goToCategory(category.category_key)"
             >
               <img :src="category.photo_url" :alt="category.photo_url" />
-              <span class="home__main-categiry_text">{{
+              <span class="home__main-category_text">{{
                 category.category_name
               }}</span>
             </div>
           </div>
         </div>
-        <div class="swiper-button-prev" slot="button-prev"></div>
-        <div class="swiper-button-next" slot="button-next"></div>
+<!--        <div class="swiper-button-prev" slot="button-prev"></div>-->
+<!--        <div class="swiper-button-next" slot="button-next"></div>-->
       </div>
     </div>
     <div v-if="this.mainAds.carousel_city.length != 0">
@@ -110,8 +116,8 @@
             />
           </div>
         </div>
-        <div class="swiper-button-prev" slot="button-prev"></div>
-        <div class="swiper-button-next" slot="button-next"></div>
+<!--        <div class="swiper-button-prev" slot="button-prev"></div>-->
+<!--        <div class="swiper-button-next" slot="button-next"></div>-->
       </div>
     </div>
     <div v-if="this.mainAds.carousel_country.length != 0">
@@ -124,7 +130,7 @@
           :error-comment="errorAddtoFavorite"
         />
       </div>
-      <div v-swiper:country="optionAds" class="home__slick-advs">
+      <div v-swiper:country="optionAds" class="home__slick-advs new_world">
         <div class="swiper-wrapper">
           <div
             class="swiper-slide"
@@ -139,8 +145,8 @@
             />
           </div>
         </div>
-        <div class="swiper-button-prev" slot="button-prev"></div>
-        <div class="swiper-button-next" slot="button-next"></div>
+<!--        <div class="swiper-button-prev" slot="button-prev"></div>-->
+<!--        <div class="swiper-button-next" slot="button-next"></div>-->
       </div>
     </div>
     <div v-if="this.typeUser === 'performer'">
@@ -152,7 +158,7 @@
             :error-comment="errorAddtoFavorite"
           />
         </div>
-        <div v-swiper:performerWorld="optionAds" class="home__slick-advs">
+        <div v-swiper:performerWorld="optionAds" class="home__slick-advs new_world">
           <div class="swiper-wrapper">
             <div
               class="swiper-slide"
@@ -167,8 +173,8 @@
               />
             </div>
           </div>
-          <div class="swiper-button-prev" slot="button-prev"></div>
-          <div class="swiper-button-next" slot="button-next"></div>
+<!--          <div class="swiper-button-prev" slot="button-prev"></div>-->
+<!--          <div class="swiper-button-next" slot="button-next"></div>-->
         </div>
       </div>
     </div>
@@ -196,8 +202,8 @@
               />
             </div>
           </div>
-          <div class="swiper-button-prev" slot="button-prev"></div>
-          <div class="swiper-button-next" slot="button-next"></div>
+<!--          <div class="swiper-button-prev" slot="button-prev"></div>-->
+<!--          <div class="swiper-button-next" slot="button-next"></div>-->
         </div>
       </div>
     </div>
@@ -212,7 +218,7 @@
             :error-comment="errorAddtoFavorite"
           />
         </div>
-        <div v-swiper:performerNew="optionAds" class="home__slick-advs">
+        <div v-swiper:performerNew="optionAds" class="home__slick-advs new_world">
           <div class="swiper-wrapper">
             <div
               class="swiper-slide"
@@ -225,8 +231,8 @@
               />
             </div>
           </div>
-          <div class="swiper-button-prev" slot="button-prev"></div>
-          <div class="swiper-button-next" slot="button-next"></div>
+<!--          <div class="swiper-button-prev" slot="button-prev"></div>-->
+<!--          <div class="swiper-button-next" slot="button-next"></div>-->
         </div>
       </div>
     </div>
@@ -256,13 +262,14 @@
               />
             </div>
           </div>
-          <div class="swiper-button-prev" slot="button-prev"></div>
-          <div class="swiper-button-next" slot="button-next"></div>
+<!--          <div class="swiper-button-prev" slot="button-prev"></div>-->
+<!--          <div class="swiper-button-next" slot="button-next"></div>-->
         </div>
       </div>
     </div>
     <div>
-      <div class="home__companys-nav-block">
+      <div class="home__companys-nav-block home__section-title">
+        <div class="">Новые компании</div>
         <div class="home__companys-nav">
           <div
           v-if="this.cityName"
@@ -270,36 +277,28 @@
             :class="{ activeCompany: activeCompanyCity }"
             @click="getCompanyLogoCity"
           >
-            Новые компании в городе {{ this.cityName }}
+            В городе {{ this.cityName }}
           </div>
           <div
             class="home__companys-nav-item"
             :class="{ activeCompany: activeCompanyCountry }"
             @click="getCompanyLogoCountry"
           >
-            Новые компании в стране {{ this.countryName }}
+            В стране {{ this.countryName }}
           </div>
           <div
             class="home__companys-nav-item"
             :class="{ activeCompany: activeCompanyAll }"
             @click="getCompanyLogo"
           >
-            Новые компании в мире
-          </div>
-        </div>
-        <div v-if="!isAuthenticated">
-          <div
-            v-if="!$device.isMobile"
-            class="home__companys-registration"
-            @click="goToRegistration"
-          >
-            Зарегистрироваться
+            В мире
           </div>
         </div>
       </div>
       <div class="home__companys-block">
         <div
-          v-for="company in this.mainCompany"
+          v-for="(company, index) in mainCompany"
+          v-if="index < 8"
           :key="company.company_id"
           class="home__companys"
           @click="companyDetail(company.company_id)"
@@ -307,9 +306,18 @@
           <img :src="company.company_logo" :alt="company.company_logo" />
         </div>
       </div>
-      <NuxtLink to="/all-companies" class="home__all-company">
-        Смотреть все компании
-      </NuxtLink>
+      <div v-if="!isAuthenticated" class="registration_company">
+        <div
+            v-if="!$device.isMobile"
+            class="home__companys-registration"
+            @click="goToRegistration"
+        >
+          Зарегистрироваться
+        </div>
+      </div>
+<!--      <NuxtLink to="/all-companies" class="home__all-company">-->
+<!--        Смотреть все компании-->
+<!--      </NuxtLink>-->
       <div
         v-if="$device.isMobile && !isAuthenticated"
         class="home__companys-registration"
@@ -341,11 +349,10 @@
             />
           </div>
         </div>
-        <div class="swiper-button-prev" slot="button-prev"></div>
-        <div class="swiper-button-next" slot="button-next"></div>
+<!--        <div class="swiper-button-prev" slot="button-prev"></div>-->
+<!--        <div class="swiper-button-next" slot="button-next"></div>-->
       </div>
     </div>
-    <AboutUs />
   </div>
 </template>
 
@@ -763,7 +770,7 @@ export default {
       if (JSON.parse(localStorage.getItem("localCountryName")) === null) {
         navigator.geolocation.getCurrentPosition(
           successFunction,
-          errorFunction
+          // errorFunction
         );
         function successFunction(position) {
           var lat = position.coords.latitude;

@@ -1,11 +1,16 @@
 <template>
-  <div class="faq-page l-wrap">
-    <Search />
-    <h1 class="faq-page__title">Ответы на вопросы</h1>
+  <div class="faq-page container">
+<!--    <Search />-->
+    <h1 class="faq-page__title">Ответы на часто задаваемые вопросы</h1>
     <div class="faq-page__container">
-      <CollapseItem v-for="item in dataLegal" :key="item.title" :title="item.title" :body="item.body" />
+      <div class="left_part">
+        <FaqImage />
+      </div>
+      <div class="right_part">
+        <CollapseItem v-for="item in dataLegal" :key="item.title" :title="item.title" :body="item.body" />
+      </div>
     </div>
-    <ContactForm />
+<!--    <ContactForm />-->
   </div>
 </template>
 
@@ -13,6 +18,7 @@
 import Search from "@/components/molecules/Search.vue";
 import ContactForm from "@/components/forms/ContactForm.vue";
 import CollapseItem from "@/components/molecules/CollapseItem.vue"
+import FaqImage from "@/assets/images/FAQ.svg?inline";
 
 export default {
   name: "FAQPage",
@@ -20,6 +26,7 @@ export default {
     Search,
     ContactForm,
     CollapseItem,
+    FaqImage,
   },
   data() {
     return {

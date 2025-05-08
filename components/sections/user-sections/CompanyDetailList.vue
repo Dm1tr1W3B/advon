@@ -1,6 +1,6 @@
 <template>
-  <div class="company-detail-list l-wrap" v-if="this.companyDatail.main">
-    <Search />
+  <div class="company-detail-list container" v-if="this.companyDatail.main">
+<!--    <Search />-->
     <BreadCrumbs
       :lastItemName="companyDatail.main.company_name"
     />
@@ -9,28 +9,29 @@
         <Verification v-if="this.companyDatail.main.company_is_verification" />
         {{ this.companyDatail.main.company_name }}
       </div>
-      <div class="company-detail-list__service-info-block-left">
-        <div class="company-detail-list__location-block">
-          <Location />
-          <div>{{ this.companyDatail.main.city }}</div>
-          <div class="company-detail-list__date-add">
-            Добавлено {{ this.companyDatail.main.created_at }}
-          </div>
+<!--      <div class="company-detail-list__service-info-block-left">-->
+<!--        <div class="company-detail-list__location-block">-->
+<!--          <Location />-->
+<!--          <div>{{ this.companyDatail.main.city }}</div>-->
+<!--          <div class="company-detail-list__date-add">-->
+<!--            Добавлено {{ this.companyDatail.main.created_at }}-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+    </div>
+    <div v-if="$device.isDesktop" class="company-detail-list__hashtags">
+      <div
+          v-for="hashtag in this.companyDatail.main.hashtags"
+          :key="hashtag.id"
+      >
+        <div class="company-detail-list__hashtag">
+          #{{ hashtag }}
         </div>
       </div>
     </div>
     <div class="company-detail-list__main-wrap">
       <div class="company-detail-list__main-left">
-        <div v-if="$device.isDesktop" class="company-detail-list__hashtags">
-          <div
-            v-for="hashtag in this.companyDatail.main.hashtags"
-            :key="hashtag.id"
-          >
-            <div class="company-detail-list__hashtag">
-              {{ hashtag }}
-            </div>
-          </div>
-        </div>
+
         <div
           class="company-detail-list__not-photos-mock"
           v-if="this.companyDatail.main.additional_photos"
@@ -92,12 +93,6 @@
             </div>
           </div>
         </div>
-        <div class="company-detail-list__description">
-          <div class="company-detail-list__title">Описание</div>
-          <div>
-            {{ this.companyDatail.main.company_description }}
-          </div>
-        </div>
         <div v-if="!$device.isDesktop" class="company-detail-list__hashtags">
           <div
             v-for="hashtag in this.companyDatail.main.hashtags"
@@ -138,48 +133,49 @@
           </div>
         </div>
         <div v-if="$device.isDesktop" class="company-detail-list__product">
-          <div class="company-detail-list__category-block">
-            <div
-              @click="getCategoryList"
-              class="company-detail-list__category-list-block"
-            >
-              {{ categoryName }}
-              <SelectArrow />
-            </div>
-            <div class="company-detail-list__category-adv-count">
-              Всего {{ this.companyDatail.advertisementList.length }} объявлений
-            </div>
-          </div>
-          <div
-            v-if="this.categoryList"
-            class="company-detail-list__category-section-list"
-          >
-            <div
-              v-if="
-                this.categoryName !== 'Выберите категорию' &&
-                this.categoryName !== 'Все категории'
-              "
-              @click="searchCategoryAdvAll()"
-            >
-              Все категории
-            </div>
-            <div
-              v-for="category in this.companyDatail.categories"
-              :key="category.id"
-              class="company-detail-list__category-list"
-            >
-              <div
-                @click="
-                  searchCategoryAdv(
-                    category.category_key,
-                    category.category_name
-                  )
-                "
-              >
-                {{ category.category_name }}
-              </div>
-            </div>
-          </div>
+<!--          <div class="company-detail-list__category-block">-->
+<!--            <div-->
+<!--              @click="getCategoryList"-->
+<!--              class="company-detail-list__category-list-block"-->
+<!--            >-->
+<!--              {{ categoryName }}-->
+<!--              <SelectArrow />-->
+<!--            </div>-->
+<!--            <div class="company-detail-list__category-adv-count">-->
+<!--              Всего {{ this.companyDatail.advertisementList.length }} объявлений-->
+<!--            </div>-->
+<!--          </div>-->
+          <div class="ads_title">Объявления компании</div>
+<!--          <div-->
+<!--            v-if="this.categoryList"-->
+<!--            class="company-detail-list__category-section-list"-->
+<!--          >-->
+<!--            <div-->
+<!--              v-if="-->
+<!--                this.categoryName !== 'Выберите категорию' &&-->
+<!--                this.categoryName !== 'Все категории'-->
+<!--              "-->
+<!--              @click="searchCategoryAdvAll()"-->
+<!--            >-->
+<!--              Все категории-->
+<!--            </div>-->
+<!--            <div-->
+<!--              v-for="category in this.companyDatail.categories"-->
+<!--              :key="category.id"-->
+<!--              class="company-detail-list__category-list"-->
+<!--            >-->
+<!--              <div-->
+<!--                @click="-->
+<!--                  searchCategoryAdv(-->
+<!--                    category.category_key,-->
+<!--                    category.category_name-->
+<!--                  )-->
+<!--                "-->
+<!--              >-->
+<!--                {{ category.category_name }}-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
           <div
             v-for="ads in this.companyDatail.advertisementList"
             :key="ads.id"
@@ -194,179 +190,228 @@
         </div>
       </div>
       <div class="company-detail-list__main-right">
-        <div class="company-detail-list__person-block">
-          <div>
-            <img
-              :src="this.companyDatail.person.avatar"
-              alt=""
-              class="company-detail-list__person-avatar"
-            />
-          </div>
-          <div>
+        <div class="shadow_effect">
+          <div class="company-detail-list__person-block">
             <div>
-              {{ this.companyDatail.person.name }}
+              <img
+                :src="this.companyDatail.person.avatar"
+                alt=""
+                class="company-detail-list__person-avatar"
+              />
             </div>
-            <div>На advon с {{ this.companyDatail.person.created_at }}</div>
-          </div>
-        </div>
-        <div
-          class="company-detail-list__all-advs-author"
-          @click="getAuthorAllAdvertisements"
-        >
-          Все объявления ({{ this.companyDatail.person.number_advertisement }})
-        </div>
-        <div class="company-detail-list__decore-line"></div>
-        <div v-if="this.companyDatail.person.phone">Контакты</div>
-        <div
-          class="company-detail-list__phone-block"
-          v-if="this.companyDatail.person.phone"
-        >
-          <div>
-            <Phone />
-            {{ this.companyDatail.person.phone }}
-          </div>
-          <div
-            v-if="!loggedInUser"
-            @click="showContact"
-            class="company-detail-list__show-contact"
-          >
-            Показать телефон
-          </div>
-        </div>
-        <div class="company-detail-list__contacts-block">
-          <div
-            v-for="contact in this.companyDatail.person.contacts"
-            :key="contact.id"
-          >
-            <img :src="contact.photo_url" alt="" />
             <div>
-              {{ contact.values }}
+<!--              <div>-->
+<!--                {{ this.companyDatail.person.name }}-->
+<!--              </div>-->
+<!--              <div>На advon с {{ this.companyDatail.person.created_at }}</div>-->
+<!--              <div-->
+<!--                  class="company-detail-list__all-advs-author"-->
+<!--                  @click="getAuthorAllAdvertisements"-->
+<!--              >-->
+<!--                Все объявления ({{ this.companyDatail.person.number_advertisement }})-->
+<!--              </div>-->
+              <div class="contacts_ad">
+                <div v-if="this.companyDatail.person.phone">Контакты</div>
+                <div
+                    v-if="!loggedInUser"
+                    @click="showContact"
+                    class="company-detail-list__show-contact"
+                >
+                  Показать телефон
+                </div>
+              </div>
+              <div
+                  class="company-detail-list__phone-block"
+                  v-if="this.companyDatail.person.phone"
+              >
+                <div>
+                  <span>Телефон:</span>
+                  {{ this.companyDatail.person.phone }}
+                </div>
+              </div>
+              <div class="company-detail-list__contacts-block">
+                <div
+                    v-for="contact in this.companyDatail.person.contacts"
+                    :key="contact.id"
+                >
+                  <img :src="contact.photo_url" alt="" />
+                  <div>
+                    {{ contact.values }}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="company-detail-list__decore-line"></div>
-        <div class="company-detail-list__social-block">
-          <div>Поделиться:</div>
+        <div class="company-detail-list__description shadow_effect">
+          <div class="company-detail-list__title">О компании</div>
           <div>
-            <Facebook />
-            <Vk />
-            <Twiter />
-            <Odnoclasniki />
+            {{ this.companyDatail.main.company_description }}
           </div>
         </div>
-        <div class="company-detail-list__complain" @click="complaintAdvOpen">
-          Пожаловаться
-        </div>
-        <div
-          class="company-detail-list__complain-list"
-          v-if="this.complaintAdvData"
-          v-click-outside="complaintAdvClose"
-        >
-          <CloseModal
-            class="company-detail-list__close-complain"
-            @click="complaintAdvClose"
-          />
-          <div class="company-detail-list__complain-list-title">
-            Укажите причины жалобы
-          </div>
-          <div
-            v-for="complain in this.complaintList"
-            :key="complain.id"
-            class="company-detail-list__complain-list-item"
-          >
-            <InputCheckbox
-              :set-value="formDataComplain.complainTypeList"
-              :id="complain.complaint_type_id + ''"
-              :label="complain.complaint_type_name"
-              @click.native="hanbleReOpen"
-            />
-          </div>
-          <DefaultButton
-            class="company-detail-list__complain-button"
-            @click.native="sendComplain"
-          >
-            Отправить
-          </DefaultButton>
-          <TokenNotProvided
-            class="company-detail-list__complain-error"
-            :error-comment="errorComplain"
-          />
-          <Notification
-            :message="errorComplain['complaint_type_ids']"
-            v-if="errorComplain"
-            class="main-adv__complain-error"
-          />
-        </div>
-        <div
-          v-if="$device.isDesktop"
-          class="company-detail-list__buttons-group"
-        >
-          <div class="company-detail-list__buttons-group_button">
-            <DefaultButton
-              class="company-detail-list__write-to-the-author"
-              @click.native="openModelWriteAuthor"
-            >
-              Написать автору
-            </DefaultButton>
-          </div>
-          <div class="company-detail-list__buttons-group_button">
-            <DefaultButton
-              class="company-detail-list__offer-your-price"
-              @click.native="subscription"
-            >
-              Подписаться
-            </DefaultButton>
-            <TokenNotProvided
-              class="company-detail-list__complain-error"
-              :error-comment="errorSubscription"
-            />
+        <div class="write_seller shadow_effect">
+          <div class="company-detail-list__title-message">Спросите у продавца</div>
+          <div class="company-detail-list__message-section">
+            <div class="company-detail-list__message-text-block">
+              <InputText
+                  :set-value="formDataToSend"
+                  :id="'name'"
+                  :label="'name'"
+                  :type="'name'"
+                  :placeholder="'Ваше имя'"
+              />
+              <InputText
+                  :set-value="formDataToSend"
+                  :id="'email'"
+                  :label="'email'"
+                  :type="'email'"
+                  :placeholder="'Ваш e-mail'"
+              />
+              <InputTextarea
+                  :set-value="formDataToSend"
+                  :id="'message'"
+                  :label="'message'"
+                  :placeholder="'Сообщение'"
+              />
+              <DefaultButton
+                  class="company-detail-list__message-button"
+                  @click.native="sendMessage"
+              >
+                Отправить
+              </DefaultButton>
+            </div>
+            <Notification :message="this.errorMessage['text']" v-if="this.errorMessage" />
             <Notification
-              :message="errorSubscription['non_field_error']"
-              v-if="errorSubscription"
+                :message="this.errorMessage['non_field_error']"
+                v-if="this.errorMessage"
             />
+            <TokenNotProvided :error-comment="this.errorMessage" />
           </div>
         </div>
+<!--        <div class="company-detail-list__social-block">-->
+<!--          <div>Поделиться:</div>-->
+<!--          <div>-->
+<!--            <Facebook />-->
+<!--            <Vk />-->
+<!--            <Twiter />-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="company-detail-list__complain" @click="complaintAdvOpen">-->
+<!--          Пожаловаться-->
+<!--        </div>-->
+<!--        <div-->
+<!--          class="company-detail-list__complain-list"-->
+<!--          v-if="this.complaintAdvData"-->
+<!--          v-click-outside="complaintAdvClose"-->
+<!--        >-->
+<!--          <CloseModal-->
+<!--            class="company-detail-list__close-complain"-->
+<!--            @click="complaintAdvClose"-->
+<!--          />-->
+<!--          <div class="company-detail-list__complain-list-title">-->
+<!--            Укажите причины жалобы-->
+<!--          </div>-->
+<!--          <div-->
+<!--            v-for="complain in this.complaintList"-->
+<!--            :key="complain.id"-->
+<!--            class="company-detail-list__complain-list-item"-->
+<!--          >-->
+<!--            <InputCheckbox-->
+<!--              :set-value="formDataComplain.complainTypeList"-->
+<!--              :id="complain.complaint_type_id + ''"-->
+<!--              :label="complain.complaint_type_name"-->
+<!--              @click.native="hanbleReOpen"-->
+<!--            />-->
+<!--          </div>-->
+<!--          <DefaultButton-->
+<!--            class="company-detail-list__complain-button"-->
+<!--            @click.native="sendComplain"-->
+<!--          >-->
+<!--            Отправить-->
+<!--          </DefaultButton>-->
+<!--          <TokenNotProvided-->
+<!--            class="company-detail-list__complain-error"-->
+<!--            :error-comment="errorComplain"-->
+<!--          />-->
+<!--          <Notification-->
+<!--            :message="errorComplain['complaint_type_ids']"-->
+<!--            v-if="errorComplain"-->
+<!--            class="main-adv__complain-error"-->
+<!--          />-->
+<!--        </div>-->
+<!--        <div-->
+<!--          v-if="$device.isDesktop"-->
+<!--          class="company-detail-list__buttons-group"-->
+<!--        >-->
+<!--          <div class="company-detail-list__buttons-group_button">-->
+<!--            <DefaultButton-->
+<!--              class="company-detail-list__write-to-the-author"-->
+<!--              @click.native="openModelWriteAuthor"-->
+<!--            >-->
+<!--              Написать автору-->
+<!--            </DefaultButton>-->
+<!--          </div>-->
+<!--          <div class="company-detail-list__buttons-group_button">-->
+<!--            <DefaultButton-->
+<!--              class="company-detail-list__offer-your-price"-->
+<!--              @click.native="subscription"-->
+<!--            >-->
+<!--              Подписаться-->
+<!--            </DefaultButton>-->
+<!--            <TokenNotProvided-->
+<!--              class="company-detail-list__complain-error"-->
+<!--              :error-comment="errorSubscription"-->
+<!--            />-->
+<!--            <Notification-->
+<!--              :message="errorSubscription['non_field_error']"-->
+<!--              v-if="errorSubscription"-->
+<!--            />-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
       <div v-if="!$device.isDesktop" class="company-detail-list__product">
-        <div class="company-detail-list__category-block">
-          <div
-            @click="getCategoryList"
-            class="company-detail-list__category-list-block"
-          >
-            {{ categoryName }}
-            <SelectArrow />
-          </div>
-          <div class="company-detail-list__category-adv-count">
-            Всего {{ this.companyDatail.advertisementList.length }} объявлений
-          </div>
+<!--        <div class="company-detail-list__category-block">-->
+<!--          <div-->
+<!--            @click="getCategoryList"-->
+<!--            class="company-detail-list__category-list-block"-->
+<!--          >-->
+<!--            {{ categoryName }}-->
+<!--            <SelectArrow />-->
+<!--          </div>-->
+<!--          <div class="company-detail-list__category-adv-count">-->
+<!--            Всего {{ this.companyDatail.advertisementList.length }} объявлений-->
+<!--          </div>-->
+<!--        </div>-->
+        <div>
+          Объявления компании
         </div>
-        <div
-          v-if="this.categoryList"
-          class="company-detail-list__category-section-list"
-        >
-          <div
-            v-if="
-              this.categoryName !== 'Выберите категорию' &&
-              this.categoryName !== 'Все категории'
-            "
-            @click="searchCategoryAdvAll()"
-          >
-            Все категории
-          </div>
-          <div
-            v-for="category in this.companyDatail.categories"
-            :key="category.id"
-            class="company-detail-list__category-list"
-          >
-            <div
-              @click="
-                searchCategoryAdv(category.category_key, category.category_name)
-              "
-            >
-              {{ category.category_name }}
-            </div>
-          </div>
-        </div>
+<!--        <div-->
+<!--          v-if="this.categoryList"-->
+<!--          class="company-detail-list__category-section-list"-->
+<!--        >-->
+<!--          <div-->
+<!--            v-if="-->
+<!--              this.categoryName !== 'Выберите категорию' &&-->
+<!--              this.categoryName !== 'Все категории'-->
+<!--            "-->
+<!--            @click="searchCategoryAdvAll()"-->
+<!--          >-->
+<!--            Все категории-->
+<!--          </div>-->
+<!--          <div-->
+<!--            v-for="category in this.companyDatail.categories"-->
+<!--            :key="category.id"-->
+<!--            class="company-detail-list__category-list"-->
+<!--          >-->
+<!--            <div-->
+<!--              @click="-->
+<!--                searchCategoryAdv(category.category_key, category.category_name)-->
+<!--              "-->
+<!--            >-->
+<!--              {{ category.category_name }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
         <div
           v-for="ads in this.companyDatail.advertisementList"
           :key="ads.id"
@@ -377,60 +422,12 @@
       </div>
     </div>
 
-    <DefaultModal
-      v-if="openModalWriteToTheAuthor"
-      :on-close="() => (openModalWriteToTheAuthor = !openModalWriteToTheAuthor)"
-    >
-      <div class="company-detail-list__title-message">Написать сообщение</div>
-      <div class="company-detail-list__message-section">
-        <div class="company-detail-list__message-block">
-          <div class="company-detail-list__authir-block">
-            <img :src="this.companyDatail.person.avatar" alt="" />
-            <div>
-              {{ this.companyDatail.person.name }}
-            </div>
-          </div>
-          <div class="company-detail-list__phone-block-modal">
-            <Phone />
-            {{ this.companyDatail.person.phone }}
-          </div>
-        </div>
-        <div class="company-detail-list__message-text-block">
-          <InputTextarea
-            :set-value="formDataToSend"
-            :id="'message'"
-            :label="'message'"
-            :placeholder="'Написать'"
-          />
-          <label for="files">
-            <Clip />
-            <input
-              type="file"
-              id="files"
-              ref="files"
-              multiple
-              v-on:change="handleFilesUploads()"
-              hidden
-            />
-          </label>
-        </div>
-        <div class="company-detail-list__message-bottom">
-          <div>Вы можете прикрепить файл форматов jpg, png, pdf</div>
-          <DefaultButton
-            class="company-detail-list__message-button"
-            @click.native="sendMessage"
-          >
-            Отправить
-          </DefaultButton>
-        </div>
-        <Notification :message="this.errorMessage['text']" v-if="this.errorMessage" />
-        <Notification
-          :message="this.errorMessage['non_field_error']"
-          v-if="this.errorMessage"
-        />
-        <TokenNotProvided :error-comment="this.errorMessage" />
-      </div>
-    </DefaultModal>
+<!--    <DefaultModal-->
+<!--      v-if="openModalWriteToTheAuthor"-->
+<!--      :on-close="() => (openModalWriteToTheAuthor = !openModalWriteToTheAuthor)"-->
+<!--    >-->
+<!--      -->
+<!--    </DefaultModal>-->
   </div>
 </template>
 
@@ -462,6 +459,7 @@ import Search from "@/components/molecules/Search.vue";
 import Notification from "@/components/errors/Notification";
 import CloseModal from "@/assets/images/icons/close-modal.svg?inline";
 import BreadCrumbs from "@/components/molecules/BreadCrumbs.vue";
+import InputText from "../../atoms/inputs/InputText.vue";
 
 export default {
   name: "CompanyDetailList",
@@ -494,6 +492,7 @@ export default {
     };
   },
   components: {
+    InputText,
     Location,
     DefaultButton,
     Search,

@@ -1,62 +1,11 @@
 <template>
-  <div class="all-companies-list l-wrap">
+  <div class="all-companies-list container">
+    <BreadCrumbs
+        lastItemName="Компании"
+    />
     <Search />
-    <div class="all-companies-list__title">Все компании в городе {{ this.cityName }}</div>
-    <div class="all-companies-list__nav-block-top">
-      <div class="all-companies-list__user-nav-block">
-        <div
-          class="all-companies-list__performer"
-          :class="{ performer: performer }"
-          @click="performerActive"
-        >
-          Исполнители
-        </div>
-        <div
-          class="all-companies-list__employer"
-          :class="{ employer: employer }"
-          @click="employerActive"
-        >
-          Рекламодатели
-        </div>
-      </div>
-      <div class="all-companies-list__search">
-        <div class="all-companies-list__search-block">
-          <input type="text" placeholder="Поиск" v-model="searchData" />
-          <SearchSvg />
-        </div>
-        <DefaultButton
-          class="all-companies-list__search-button"
-          @click.native="searchFavorites"
-        >
-          Искать
-        </DefaultButton>
-      </div>
-    </div>
+    <div class="all-companies-list__title home__section-title">Все компании в городе {{ this.cityName }}</div>
     <div class="all-companies-list__companys-nav_container">
-      <div class="all-companies-list__companys-nav">
-        <div
-        v-if="this.cityName"
-          class="all-companies-list__companys-nav-item"
-          :class="{ activeCompany: activeCompanyCity }"
-          @click="getCompanyCity"
-        >
-          Компании в городе {{ this.cityName }}
-        </div>
-        <div
-          class="all-companies-list__companys-nav-item"
-          :class="{ activeCompany: activeCompanyCountry }"
-          @click="getCompanyCountry"
-        >
-          Компании в стране {{ this.countryName }}
-        </div>
-        <div
-          class="all-companies-list__companys-nav-item"
-          :class="{ activeCompany: activeCompanyAll }"
-          @click="getCompany"
-        >
-          Компании в мире
-        </div>
-      </div>
       <Sorting
         :goToMapAdvs="openMapAdvs"
         :goToListAdvs="openListAdvs"
@@ -84,64 +33,72 @@
                 alt=""
                 class="all-companies-list__company-logo"
               />
-            </div>
-            <div class="all-companies-list__company-name-block">
-              <div class="all-companies-list__company-name">
-                <Verification v-if="company.company_is_verification" />
-                {{ company.company_name }}
-              </div>
-              <div v-if="!$device.isMobile">
-                {{ company.advertisement_count }}
-                объявлений
-              </div>
-              <div
-                v-if="!$device.isMobile"
-                class="all-companies-list__company-location"
-              >
-                <Location />
-                {{ company.city }}
+              <div class="all-companies-list__company-name-block">
+                <div class="all-companies-list__company-name">
+                  <Verification v-if="company.company_is_verification" />
+                  {{ company.company_name }}
+                </div>
+                <div v-if="!$device.isMobile">
+
+                </div>
+                <div
+                    v-if="!$device.isMobile"
+                    class="all-companies-list__company-location"
+                >
+                  <div>
+                  <Location />
+                  {{ company.city }}
+                  </div>
+                  <div>
+                    {{ company.advertisement_count }}
+                    объявлений от компании
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           <div class="all-companies-list__company-contact-wrap">
-            <div
-              v-if="$device.isMobile"
-              class="all-companies-list__company-contact-left"
-            >
-              <div>
-                {{ company.advertisement_count }}
-                объявлений
-              </div>
-              <div class="all-companies-list__company-location">
-                <Location />
-                {{ company.city }}
-              </div>
-            </div>
-            <div class="all-companies-list__company-contact-right">
-              <div>
-                {{ company.company_phone }}
-              </div>
-              <!-- <div v-for="contact in company_contacts" :key="contact.id">
-                {{ contact }}
-              </div> -->
-            </div>
+            <button class="to_wishlist"><StarWishlist />В избранное</button>
+            <button class="all_companies_contacts">Контакты</button>
+            <button class="to_ads">К обявлениям</button>
+<!--            <div-->
+<!--              v-if="$device.isMobile"-->
+<!--              class="all-companies-list__company-contact-left"-->
+<!--            >-->
+<!--              <div>-->
+<!--                {{ company.advertisement_count }}-->
+<!--                объявлений-->
+<!--              </div>-->
+<!--              <div class="all-companies-list__company-location">-->
+<!--                <Location />-->
+<!--                {{ company.city }}-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="all-companies-list__company-contact-right">-->
+<!--              <div>-->
+<!--                {{ company.company_phone }}-->
+<!--              </div>-->
+<!--              &lt;!&ndash; <div v-for="contact in company_contacts" :key="contact.id">-->
+<!--                {{ contact }}-->
+<!--              </div> &ndash;&gt;-->
+<!--            </div>-->
           </div>
         </div>
       </div>
-      <div class="all-companies-list__body-right-section">
-        <div v-if="this.banners">
-          <div v-for="banner in this.banners" :key="banner.id">
-            <a :href="banner.url">
-              <img
-                :src="banner.file.download_link"
-                :alt="banner.alt"
-                :title="banner.alt"
-                class="all-companies-list__banner-img"
-              />
-            </a>
-          </div>
-        </div>
-      </div>
+<!--      <div class="all-companies-list__body-right-section">-->
+<!--        <div v-if="this.banners">-->
+<!--          <div v-for="banner in this.banners" :key="banner.id">-->
+<!--            <a :href="banner.url">-->
+<!--              <img-->
+<!--                :src="banner.file.download_link"-->
+<!--                :alt="banner.alt"-->
+<!--                :title="banner.alt"-->
+<!--                class="all-companies-list__banner-img"-->
+<!--              />-->
+<!--            </a>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
     <template v-if="this.openMapTemplate">
       <div class="all-companies-list__map-wrap">
@@ -178,7 +135,7 @@
                   v-if="!$device.isMobile"
                   class="all-companies-list__map-section-advs-caregory"
                 >
-                  {{ company.advertisement_count }} объявлений
+                  {{ company.advertisement_count }} объявлений от компании
                 </div>
                 <div
                   v-if="!$device.isMobile"
@@ -201,7 +158,7 @@
                   </div>
                   <div>
                     {{ company.advertisement_count }}
-                    объявлений
+                    объявлений от компании
                   </div>
                   <div class="all-companies-list__company-location">
                     <Location />
@@ -251,7 +208,7 @@
 </template>
 
 <script>
-import Location from "@/assets/images/icons/location.svg?inline";
+import Location from "@/assets/images/icons/Map_Point.svg?inline";
 import DefaultButton from "@/components/atoms/buttons/MainButton.vue";
 import SearchSvg from "@/assets/images/icons/search.svg?inline";
 import Search from "@/components/molecules/Search.vue";
@@ -259,6 +216,8 @@ import Pagination from "@/components/molecules/Pagination.vue";
 import { DEFAULT_RESULTS_PER_PAGE } from "@/constants/pagination";
 import Sorting from "@/components/molecules/Sorting.vue";
 import Verification from "@/assets/images/verification.svg?inline";
+import StarWishlist from "@/assets/images/icons/StarWishlist.svg?inline";
+import BreadCrumbs from "@/components/molecules/BreadCrumbs.vue";
 
 export default {
   name: "AllCompaniesList",
@@ -293,6 +252,8 @@ export default {
     Pagination,
     Sorting,
     Verification,
+    StarWishlist,
+    BreadCrumbs,
   },
   watch: {
     formDataToSend: {

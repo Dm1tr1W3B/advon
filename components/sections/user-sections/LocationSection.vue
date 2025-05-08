@@ -1,7 +1,7 @@
 <template>
   <form
     @submit.prevent="getAdvertisementsByLocation"
-    class="category-sections l-wrap"
+    class="category-sections"
   >
     <Search />
     <BreadCrumbs
@@ -11,7 +11,7 @@
       ? countryName : this.$route.params.pathMatch.includes('city-') ? cityName : '' "
     />
     <div
-      class="category-sections__title"
+      class="category-sections__title home__section-title"
       v-if="this.locationData.advertisementList"
     >
       Обьявление по
@@ -103,7 +103,7 @@
       />
     </div>
     <div
-      class="category-sections__body"
+      class="category-sections__body new_world"
       v-if="this.locationData.advertisementList && this.gridBody"
     >
       <div

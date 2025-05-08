@@ -1,5 +1,5 @@
 <template>
-  <div class="chat l-wrap">
+  <div class="chat container">
     <DashboardNavMenu v-if="$device.isDesktop"/>
     <ChatDashboard />
   </div>

@@ -1,23 +1,23 @@
 <template>
   <form
     @submit.prevent="getAdvertisementsByCategory"
-    class="category-sections l-wrap"
+    class="category-sections"
   >
+    <BreadCrumbs
+        v-if="this.categoryData.category && !triggerSubCategory"
+        :lastItemName="this.categoryData.category.category_name"
+    />
+    <BreadCrumbs
+        v-if="this.categoryData.category && triggerSubCategory"
+        :secondItemName="this.categoryData.category.category_name"
+        :secondItemLink="`/category/${this.categoryData.category.category_key}`"
+        :lastItemName="getSubCategoryName"
+    />
     <Search />
-    <BreadCrumbs
-      v-if="this.categoryData.category && !triggerSubCategory"
-      :lastItemName="this.categoryData.category.category_name"
-    />
-    <BreadCrumbs
-      v-if="this.categoryData.category && triggerSubCategory"
-      :secondItemName="this.categoryData.category.category_name"
-      :secondItemLink="`/category/${this.categoryData.category.category_key}`"
-      :lastItemName="getSubCategoryName"
-    />
-    <div class="category-sections__title" v-if="this.categoryData.category">
+    <div class="category-sections__title home__section-title" v-if="this.categoryData.category">
       <div v-if="this.categoryChildNew === ''">
         {{ this.categoryData.category.category_name }}
-        {{ this.categoryData.category.count }}
+<!--        {{ this.categoryData.category.count }}-->
       </div>
       <div v-if="this.categoryChildNew !== ''">
         <div
@@ -84,23 +84,6 @@
           <span>Фильтровать</span>
         </MainButton>
       </div>
-      <div class="category-sections__block-sort" @click="openSort">
-        <div class="category-sections__sort">
-          {{ this.sortDefault }}
-          <SelectArrow />
-        </div>
-        <div v-if="sortBody" class="category-sections__body-sorting">
-          <div
-            v-for="sort in this.sortParams"
-            :key="sort.id"
-            class="category-sections__body-sort"
-            @click="sortingSend(sort.key, sort.title)"
-            :id="sort.key"
-          >
-            <div>{{ sort.title }}</div>
-          </div>
-        </div>
-      </div>
       <Sorting
         :goToMapAdvs="openMapAdvs"
         :goToListAdvs="openListAdvs"
@@ -109,7 +92,7 @@
       />
     </div>
     <div
-      class="category-sections__body"
+      class="category-sections__body new_world"
       v-if="this.categoryData.advertisementList && this.gridBody"
     >
       <div
@@ -121,8 +104,65 @@
           @click="closeFilter"
           class="category-sections__filter-close"
         />
-        <div class="category-sections__field-title-first">Цена</div>
-        <div class="category-sections__inputs-range">
+        <div class="category-sections__block-sort first" @click="openSort" :class="{ active: sortBody }">
+          <div class="category-sections__sort">
+            {{ this.sortDefault }}
+            <SelectArrow />
+          </div>
+          <div class="main_part" v-if="sortBody">
+            <div class="category-sections__body-sorting">
+              <div
+                  v-for="sort in this.sortParams"
+                  :key="sort.id"
+                  class="category-sections__body-sort"
+                  @click="sortingSend(sort.key, sort.title)"
+                  :id="sort.key"
+              >
+                <div>{{ sort.title }}</div>
+              </div>
+            </div>
+            <div class="category-section__person">
+              <div class="">Тип объявления</div>
+              <div class="category-sections__filter-person">
+                <label for="all" class="custom-radio">
+                  <input
+                      type="radio"
+                      value=""
+                      id="all"
+                      v-model="formDataToSend.person_type"
+                  />
+                  <span>Все</span>
+                </label>
+                <label
+                    for="private_person"
+                    class="create-ad-form__radio custom-radio"
+                >
+                  <input
+                      type="radio"
+                      value="private_person"
+                      id="private_person"
+                      v-model="formDataToSend.person_type"
+                  />
+                  <span>Частные</span>
+                </label>
+                <label for="company" class="create-ad-form__radio custom-radio">
+                  <input
+                      type="radio"
+                      value="company"
+                      id="company"
+                      v-model="formDataToSend.person_type"
+                  />
+                  <span>Компании</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="category-sections__field-title-first" @click="openSortPrice" :class="{ active: sortPrice }">
+          Цена
+          <SelectArrow />
+        </div>
+        <div class="category-sections__inputs-range" v-if="sortPrice">
           <InputText
             :set-value="formDataToSend"
             :id="'price_from'"
@@ -138,56 +178,29 @@
             :placeholder="'До'"
           />
         </div>
-        <div>
-          <div class="category-sections__field-title">Тип объявления</div>
-          <div class="category-sections__filter-person">
-            <label for="all" class="custom-radio">
-              <input
-                type="radio"
-                value=""
-                id="all"
-                v-model="formDataToSend.person_type"
-              />
-              <span>Все</span>
-            </label>
-            <label
-              for="private_person"
-              class="create-ad-form__radio custom-radio"
-            >
-              <input
-                type="radio"
-                value="private_person"
-                id="private_person"
-                v-model="formDataToSend.person_type"
-              />
-              <span>Частные</span>
-            </label>
-            <label for="company" class="create-ad-form__radio custom-radio">
-              <input
-                type="radio"
-                value="company"
-                id="company"
-                v-model="formDataToSend.person_type"
-              />
-              <span>Компании</span>
-            </label>
+        <div class="category-sections__field-title" @click="openSortPayment" :class="{ active: sortPayment }">
+          Оплата
+          <SelectArrow />
+        </div>
+        <div class="category_checkboxes" v-if="sortPayment">
+          <div
+            v-for="period in periodicityArray"
+            :key="period.id"
+            class="category-sections__field-checkbox"
+          >
+            <InputCheckbox
+              :set-value="dataCheckbox.period"
+              :id="period.id"
+              :label="period.name"
+              @click.native="checkPayment"
+            />
           </div>
         </div>
-        <div class="category-sections__field-title">Оплата</div>
-        <div
-          v-for="period in periodicityArray"
-          :key="period.id"
-          class="category-sections__field-checkbox"
-        >
-          <InputCheckbox
-            :set-value="dataCheckbox.period"
-            :id="period.id"
-            :label="period.name"
-            @click.native="checkPayment"
-          />
+        <div class="category-sections__field-title" @click="openSortPerson" :class="{ active: sortPerson }">
+          Охват аудитории, чел.
+          <SelectArrow />
         </div>
-        <div class="category-sections__field-title">Охват аудитории, чел.</div>
-        <div class="category-sections__inputs-range">
+        <div class="category-sections__inputs-range" v-if="sortPerson">
           <InputText
             :set-value="formDataToSend"
             :id="'reach_audience_from'"
@@ -201,57 +214,67 @@
             :placeholder="'До'"
           />
         </div>
-        <div class="category-sections__field-title">Ширина, см</div>
-        <div class="category-sections__inputs-range">
-          <InputText
-            :set-value="formDataToSend"
-            :id="'width_from'"
-            :type="'number'"
-            :placeholder="'От'"
-          />
-          <InputText
-            :set-value="formDataToSend"
-            :id="'width_to'"
-            :type="'number'"
-            :placeholder="'До'"
-          />
+        <div class="category-sections__block-sort"  @click="openSortSize" :class="{ active: sortSize }">
+          <div class="category-sections__field-title" :class="{ active: sortSize }">
+            Размеры и количество
+            <SelectArrow />
+          </div>
+          <div class="main_part" v-if="sortSize">
+            <div class="category_sub_titles">Ширина, см</div>
+            <div class="category-sections__inputs-range">
+              <InputText
+                :set-value="formDataToSend"
+                :id="'width_from'"
+                :type="'number'"
+                :placeholder="'От'"
+              />
+              <InputText
+                :set-value="formDataToSend"
+                :id="'width_to'"
+                :type="'number'"
+                :placeholder="'До'"
+              />
+            </div>
+            <div class="category_sub_titles">Длина, см</div>
+            <div class="category-sections__inputs-range">
+              <InputText
+                :set-value="formDataToSend"
+                :id="'length_from'"
+                :type="'number'"
+                :placeholder="'От'"
+              />
+              <InputText
+                :set-value="formDataToSend"
+                :id="'length_to'"
+                :type="'number'"
+                :placeholder="'До'"
+              />
+            </div>
+            <div class="category_sub_titles">
+              Количество, шт
+              <SelectArrow />
+            </div>
+            <div class="category-sections__inputs-range">
+              <InputText
+                :set-value="formDataToSend"
+                :id="'amount_from'"
+                :type="'number'"
+                :placeholder="'От'"
+              />
+              <InputText
+                :set-value="formDataToSend"
+                :id="'amount_to'"
+                :type="'number'"
+                :placeholder="'До'"
+              />
+            </div>
+          </div>
         </div>
-        <div class="category-sections__field-title">Длина, см</div>
-        <div class="category-sections__inputs-range">
-          <InputText
-            :set-value="formDataToSend"
-            :id="'length_from'"
-            :type="'number'"
-            :placeholder="'От'"
-          />
-          <InputText
-            :set-value="formDataToSend"
-            :id="'length_to'"
-            :type="'number'"
-            :placeholder="'До'"
-          />
+        <div class="category-sections__field-title" @click="openSortAdditional" :class="{ active: sortAdditional }">
+          Дополнительно
+          <SelectArrow />
         </div>
-        <div class="category-sections__field-title">Количество, шт</div>
-        <div class="category-sections__inputs-range">
-          <InputText
-            :set-value="formDataToSend"
-            :id="'amount_from'"
-            :type="'number'"
-            :placeholder="'От'"
-          />
-          <InputText
-            :set-value="formDataToSend"
-            :id="'amount_to'"
-            :type="'number'"
-            :placeholder="'До'"
-          />
-        </div>
-        <div
-          class="
-            category-sections__field-checkbox
-            category-sections__field-checkbox-bottom
-          "
-        >
+        <div class="category-sections__field-checkbox category-sections__field-checkbox-bottom category_checkboxes" v-if="sortAdditional">
           <InputCheckbox
             :set-value="formDataToSend"
             :id="'travel_abroad'"
@@ -460,7 +483,7 @@ import { DEFAULT_RESULTS_PER_PAGE } from "@/constants/pagination";
 import Sorting from "@/components/molecules/Sorting.vue";
 import Search from "@/components/molecules/Search.vue";
 import Location from "@/assets/images/icons/location.svg?inline";
-import SelectArrow from "@/assets/images/arrow/select-arrow.svg?inline";
+import SelectArrow from "@/assets/images/arrow/Alt_Arrow_Down.svg?inline";
 import CloseFilter from "@/assets/images/icons/close-modal.svg?inline";
 import FilterIcon from "@/assets/images/icons/filter.svg?inline";
 import MainButton from "@/components/atoms/buttons/MainButton.vue";
@@ -558,6 +581,11 @@ export default {
         },
       ],
       sortBody: false,
+      sortPrice: false,
+      sortPayment: false,
+      sortPerson: false,
+      sortSize: false,
+      sortAdditional: false,
       sortDefault: "Сортировка",
       startLocation: {
         lat: 0,
@@ -871,6 +899,31 @@ export default {
       if (this.sortBody === false) {
         this.sortBody = true;
       } else this.sortBody = false;
+    },
+    openSortPrice() {
+      if (this.sortPrice === false) {
+        this.sortPrice = true;
+      } else this.sortPrice = false;
+    },
+    openSortPayment() {
+      if (this.sortPayment === false) {
+        this.sortPayment = true;
+      } else this.sortPayment = false;
+    },
+    openSortPerson() {
+      if (this.sortPerson === false) {
+        this.sortPerson = true;
+      } else this.sortPerson = false;
+    },
+    openSortSize() {
+      if (this.sortSize === false) {
+        this.sortSize = true;
+      } else this.sortSize = false;
+    },
+    openSortAdditional() {
+      if (this.sortAdditional === false) {
+        this.sortAdditional = true;
+      } else this.sortAdditional = false;
     },
     goToChildCategory(key) {
       this.$router.push(

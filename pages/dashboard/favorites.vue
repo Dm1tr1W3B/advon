@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-favorites l-wrap">
+  <div class="dashboard-favorites container">
     <DashboardNavMenu v-if="$device.isDesktop" />
     <Favorites />
   </div>

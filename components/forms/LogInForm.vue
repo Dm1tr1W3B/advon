@@ -24,30 +24,48 @@
     </div>
     <Notification :message="error['non_field_error']" v-if="error" />
 
-    <div @click="handleRemember" class="login-form__remember-me">
-      <InputCheckboxMain :id="'remember'" :label="'Запомнить меня'" :set-value="formDataToSend" />
-    </div>
+<!--    <div @click="handleRemember" class="login-form__remember-me">-->
+<!--      <InputCheckboxMain :id="'remember'" :label="'Запомнить меня'" :set-value="formDataToSend" />-->
+<!--    </div>-->
 
     <DefaultButton :type="'submit'" class="login-form__button">
       Войти
     </DefaultButton>
-
-    <div class="login-form__social-title">Или войти через соцсети</div>
-    <div class="login-form__social-popup" @click="openModalSocial">
-      <div class="login-form__social-facebook-block">
-        <Facebook class="login-form__social-facebook" />
-        <span>Facebook</span>
-      </div>
-      <SelectArrow />
+    <div class="login-form__forgot-pasword" @click="goToRestorePassword">
+      Забыли пароль?
     </div>
     <div class="login-form__registration">
-      Еще не зарегистрированы?
+      Нет аккаунта?
       <span>
         <NuxtLink to="/registration"> Зарегистрироваться </NuxtLink>
       </span>
     </div>
-    <div class="login-form__forgot-pasword" @click="goToRestorePassword">
-      Забыли пароль?
+
+    <div class="registration-form__social-title">
+      <span>Или войти с помощью</span>
+    </div>
+    <div class="registration_socials">
+      <NuxtLink to="/">
+        <Vk />
+      </NuxtLink>
+      <NuxtLink to="/">
+        <Ok />
+      </NuxtLink>
+      <NuxtLink to="/">
+        <Telegram />
+      </NuxtLink>
+      <NuxtLink to="/">
+        <Yandex />
+      </NuxtLink>
+      <NuxtLink to="/">
+        <Google />
+      </NuxtLink>
+      <NuxtLink to="/">
+        <X />
+      </NuxtLink>
+      <NuxtLink to="/">
+        <Facebook />
+      </NuxtLink>
     </div>
 
     <!-- popup -->
@@ -75,7 +93,13 @@ import DefaultButton from "@/components/atoms/buttons/MainButton.vue";
 import authModule from "@/helpers/constants/store/authModule";
 import Notification from "@/components/errors/Notification";
 import SelectArrow from "@/assets/images/arrow/select-arrow.svg?inline";
-import Facebook from "@/assets/images/social/facebook.svg?inline";
+import Facebook from "@/assets/images/social/Facebook_social.svg?inline";
+import Vk from "@/assets/images/social/Vk_social.svg?inline";
+import Ok from "@/assets/images/social/Ok_social.svg?inline";
+import X from "@/assets/images/social/X_social.svg?inline";
+import Yandex from "@/assets/images/social/Yandex_social.svg?inline";
+import Google from "@/assets/images/social/Google_social.svg?inline";
+import Telegram from "@/assets/images/social/Telegram_social.svg?inline";
 import DefaultModal from "@/components/molecules/DefaultModal.vue";
 
 export default {
@@ -88,6 +112,12 @@ export default {
     Notification,
     SelectArrow,
     Facebook,
+    Vk,
+    Ok,
+    X,
+    Yandex,
+    Google,
+    Telegram,
     DefaultModal,
   },
   data() {

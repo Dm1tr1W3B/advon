@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-AdsDashboard l-wrap">
+  <div class="dashboard-AdsDashboard container">
     <DashboardNavMenu v-if="$device.isDesktop" />
     <AdsDashboard />
   </div>

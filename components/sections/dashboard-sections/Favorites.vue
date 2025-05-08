@@ -3,7 +3,7 @@
     <div class="favorites__title-block">
       <div class="favorites__header-block">
         <div class="favorites__title">Избранные</div>
-        <div @click="deleteAllModalOpen" class="favorites__delete-all">Удалить все</div>
+<!--        <div @click="deleteAllModalOpen" class="favorites__delete-all">Удалить все</div>-->
       </div>
       <div class="favorites__nav-block">
         <div class="favorites__user-nav-block">
@@ -22,22 +22,22 @@
             Рекламодатели
           </div>
         </div>
-        <div>
-          <div class="favorites__search">
-            <div class="favorites__search-block">
-              <input type="text" placeholder="Поиск" v-model="searchData" />
-              <Search />
-            </div>
-            <DefaultButton
-              class="favorites__search-button"
-              @click.native="searchFavorites"
-            >
-              Искать
-            </DefaultButton>
-          </div>
-        </div>
+<!--        <div>-->
+<!--          <div class="favorites__search">-->
+<!--            <div class="favorites__search-block">-->
+<!--              <input type="text" placeholder="Поиск" v-model="searchData" />-->
+<!--              <Search />-->
+<!--            </div>-->
+<!--            <DefaultButton-->
+<!--              class="favorites__search-button"-->
+<!--              @click.native="searchFavorites"-->
+<!--            >-->
+<!--              Искать-->
+<!--            </DefaultButton>-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
-      <div v-if="this.favoriteList.data" class="favorites__product-block">
+      <div v-if="this.favoriteList.data" class="favorites__product-block new_world">
         <div
           v-for="ads in this.favoriteList.data"
           :key="ads.id"

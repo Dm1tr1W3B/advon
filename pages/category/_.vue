@@ -1,5 +1,5 @@
 <template>
-  <div class="category-section l-wrap">
+  <div class="category-section container">
     <CategorySection />
   </div>
 </template>

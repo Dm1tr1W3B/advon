@@ -1,5 +1,5 @@
 <template>
-  <div class="create-ad l-wrap">
+  <div class="create-ad container">
     <DashboardNavMenu v-if="$device.isDesktop" />
     <CreateAdForm />
   </div>

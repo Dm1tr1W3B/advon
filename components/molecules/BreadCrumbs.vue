@@ -1,24 +1,24 @@
 <template>
-  <div class="bread-crumbs l-wrap">
+  <div class="bread-crumbs">
     <div class="bread-crumbs__container">
       <p>
         <span class="bread-crumbs__name-route" @click="$router.push('/')"
           >Главная</span
         >
         <template v-if="secondItemName">
-          <span>/</span>
+          <span> > </span>
           <span class="bread-crumbs__name-route" @click="$router.push(secondItemLink)">
               {{ secondItemName }}
           </span>
         </template>
         <template v-if="triggerStorage">
-          <span>/</span>
+          <span> > </span>
           <span class="bread-crumbs__name-route" @click="$router.push(secondItemStorageLink)">
               {{ secondItemStorageName }}
           </span>
         </template>
         <template v-if="lastItemName">
-          <span>/</span>
+          <span> > </span>
           <span class="bread-crumbs__name-route">
             {{ lastItemName }}
           </span>

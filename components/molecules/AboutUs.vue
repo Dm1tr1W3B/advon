@@ -1,48 +1,54 @@
 <template>
   <div class="about-us">
-    <div class="about-us__title">Что такое ADVon.me?</div>
-    <div class="about-us__text">
-      Advon.me - платформа для сдачи рекламных площадей на частной
-      собственности, принадлежащей им, для размещения рекламы стронними лицами,
-      фирмами, организациями, функционирующая на территории РФ и других стран
-      мира.
-    </div>
-    <div class="about-us__video">
-      <div class="about-us__video_item">
-        <div class="about-us__video-title">Исполнителям</div>
-        <iframe
-          width="555"
-          height="315"
-          src="https://www.youtube.com/embed/b2_pdTm3EQo"
-          title="YouTube video player"
-          frameborder="0"
-          allowfullscreen
-        ></iframe>
-        <DefaultButton
-          v-if="!isAuthenticated"
-          class="about-us__button-registration"
-          @click.native="goToRegistration"
-        >
-          Зарегистрироваться
-        </DefaultButton>
+    <div class="about-us__title">О компании</div>
+    <div class="about-us__main">
+      <div class="about-us__text">
+        <b>ADVon.me – ваш персональный проводник в мире рекламы!</b>
+        <p>Наша платформа позволяет владельцам частной недвижимости сдавать свои площади в аренду для размещения рекламы.
+          Это удобный и простой способ монетизировать вашу собственность, предлагая рекламные места компаниям, организациям и частным лицам.
+        </p>
+        <p>ADVon.me работает не только на территории России, но и в других странах мира, обеспечивая удобную
+          коммуникацию между владельцами площадей и рекламодателями. </p>
+        <p>Размещайте объявления, находите выгодные предложения и создавайте
+          эффективные рекламные кампании — всё это на одной платформе!</p>
       </div>
-      <div class="about-us__video_item">
-        <div class="about-us__video-title">Рекламодателям</div>
-        <iframe
-          width="555"
-          height="315"
-          src="https://www.youtube.com/embed/HT1-D79gSBY"
-          title="YouTube video player"
-          frameborder="0"
-          allowfullscreen
-        ></iframe>
-        <DefaultButton
-          v-if="!isAuthenticated"
-          class="about-us__button-registration"
-          @click.native="goToRegistration"
-        >
-          Зарегистрироваться
-        </DefaultButton>
+      <div class="about-us__video">
+        <div class="about-us__video_item">
+  <!--        <div class="about-us__video-title">Исполнителям</div>-->
+          <iframe
+            width="555"
+            height="315"
+            src="https://www.youtube.com/embed/b2_pdTm3EQo"
+            title="YouTube video player"
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+<!--          <DefaultButton-->
+<!--            v-if="!isAuthenticated"-->
+<!--            class="about-us__button-registration"-->
+<!--            @click.native="goToRegistration"-->
+<!--          >-->
+<!--            Зарегистрироваться-->
+<!--          </DefaultButton>-->
+        </div>
+        <div class="about-us__video_item">
+  <!--        <div class="about-us__video-title">Рекламодателям</div>-->
+          <iframe
+            width="555"
+            height="315"
+            src="https://www.youtube.com/embed/HT1-D79gSBY"
+            title="YouTube video player"
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+<!--          <DefaultButton-->
+<!--            v-if="!isAuthenticated"-->
+<!--            class="about-us__button-registration"-->
+<!--            @click.native="goToRegistration"-->
+<!--          >-->
+<!--            Зарегистрироваться-->
+<!--          </DefaultButton>-->
+        </div>
       </div>
     </div>
   </div>

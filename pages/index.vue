@@ -1,5 +1,5 @@
 <template>
-  <div class="container l-wrap">
+  <div class="container home-page">
     <Home />
   </div>
 </template>

@@ -1,153 +1,155 @@
 <template>
   <div class="profile">
-    <div class="profile__title-block">
-      <div class="profile__title">Мой профиль</div>
-      <div class="profile__date-registration">
-        Дата регистрации:
-        {{ myProfileData.created_at }}
+    <div class="profile__title">{{ myProfileData.name}},  добро пожаловать в ваш личный кабинет</div>
+    <div class="profile_shadow shadow_effect">
+      <div class="profile__title-block">
+  <!--      <div class="profile__date-registration">-->
+  <!--        Дата регистрации:-->
+  <!--        {{ myProfileData.created_at }}-->
+  <!--      </div>-->
       </div>
-    </div>
-    <div class="profile__name-block">
-      <img :src="myProfileData.avatar" alt="avatar" class="profile__avatar" />
-      <!-- <DefaultAvatar class="profile__avatar" /> -->
-      <div class="profile__name">
-        {{ myProfileData.name }}
-        <span> Частное лицо </span>
-      </div>
-    </div>
-    <div class="profile__photo" v-if="myProfileData.additional_photos != ''">
-      <div class="profile__photo-title">Ваши фото</div>
-      <div class="profile__photos-block">
-        <div v-for="photo in myProfileData.additional_photos" :key="photo.id">
-          <img :src="photo.photo_url" alt="additional_photos" />
+      <div class="profile__name-block">
+        <img :src="myProfileData.avatar" alt="avatar" class="profile__avatar" />
+        <!-- <DefaultAvatar class="profile__avatar" /> -->
+        <div class="profile__name">
+          {{ myProfileData.name }}
+          <span> Частное лицо </span>
         </div>
       </div>
-    </div>
-    <div class="profile__about-me" v-if="myProfileData.description">
-      <div class="profile__about-me-title">О себе</div>
-      <div class="profile__about-me-text">
-        {{ myProfileData.description }}
+      <div class="profile__photo" v-if="myProfileData.additional_photos != ''">
+        <div class="profile__photo-title">Ваши фото</div>
+        <div class="profile__photos-block">
+          <div v-for="photo in myProfileData.additional_photos" :key="photo.id">
+            <img :src="photo.photo_url" alt="additional_photos" />
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="profile__contact-block" v-if="myProfileData.latitude">
-      <div class="profile__contact-title">Контакты</div>
-      <div>
-        <GmapMap
-          :center="{
-            lat: +myProfileData.latitude,
-            lng: +myProfileData.longitude,
-          }"
-          :zoom="5"
-          style="width: 460px; height: 120px"
-        >
-          <GmapMarker
-            :position="{
+      <div class="profile__about-me" v-if="myProfileData.description">
+        <div class="profile__about-me-title">О себе</div>
+        <div class="profile__about-me-text">
+          {{ myProfileData.description }}
+        </div>
+      </div>
+      <div class="profile__contact-block" v-if="myProfileData.latitude">
+        <div class="profile__contact-title">Контакты</div>
+        <div>
+          <GmapMap
+            :center="{
               lat: +myProfileData.latitude,
               lng: +myProfileData.longitude,
             }"
-          />
-        </GmapMap>
+            :zoom="5"
+            style="width: 460px; height: 120px"
+          >
+            <GmapMarker
+              :position="{
+                lat: +myProfileData.latitude,
+                lng: +myProfileData.longitude,
+              }"
+            />
+          </GmapMap>
+        </div>
       </div>
-    </div>
-    <div class="profile__address-block" v-if="myProfileData.country">
-      <div class="profile__address-title">Адрес</div>
-      <div class="profile__address">
-        {{ myProfileData.country }}, {{ myProfileData.region }},
-        {{ myProfileData.city }}
+      <div class="profile__address-block" v-if="myProfileData.country">
+        <div class="profile__address-title">Адрес</div>
+        <div class="profile__address">
+          {{ myProfileData.country }}, {{ myProfileData.region }},
+          {{ myProfileData.city }}
+        </div>
       </div>
-    </div>
-    <div class="profile__phone-block" v-if="myProfileData.phone">
-      <div class="profile__phone-title">Телефон</div>
-      <div class="profile__phone">
-        {{ myProfileData.phone }}
-      </div>
-      <div
-        class="profile__confirm-phone"
-        v-if="myProfileData.phone_verified_at === null"
-      >
-        Телефон не подтвержден
-        <NuxtLink to="/registration/phone-verification"> Подтвердить </NuxtLink>
-      </div>
-      <div
-        class="profile__confirm-phone"
-        v-if="myProfileData.phone_verified_at !== null"
-      >
-        <Verified />
-        <span>Телефон подтвержден</span>
-      </div>
-    </div>
-    <div v-if="this.myProfileData.additional_phones != null">
-      <div
-        class="profile__phone-block"
-        v-if="this.myProfileData.additional_phones.length != 0"
-      >
-        <div class="profile__phone-title">
-          Дополнительные телефоны
+      <div class="profile__phone-block" v-if="myProfileData.phone">
+        <div class="profile__phone-title">Телефон</div>
+        <div class="profile__phone">
+          {{ myProfileData.phone }}
         </div>
         <div
-          class="profile__phone"
-          v-for="phone in this.myProfileData.additional_phones"
-          :key="phone.id"
+          class="profile__confirm-phone"
+          v-if="myProfileData.phone_verified_at === null"
         >
-          {{ phone }}
+          Телефон не подтвержден
+          <NuxtLink to="/registration/phone-verification"> Подтвердить </NuxtLink>
+        </div>
+        <div
+          class="profile__confirm-phone"
+          v-if="myProfileData.phone_verified_at !== null"
+        >
+          <Verified />
+          <span>Телефон подтвержден</span>
         </div>
       </div>
-    </div>
-    <div
-      class="profile__more-contacts-block"
-      v-if="myProfileData.contacts != ''"
-    >
-      <div class="profile__more-contacts-title">Еще контакты</div>
-      <div
-        class="profile__more-contacts"
-        v-for="contact in myProfileData.contacts"
-        :key="contact.id"
-      >
-        <div class="profile__contacts-block">
-          <img :src="contact.photo_url" alt="" />
-          {{ contact.values }}
+      <div v-if="this.myProfileData.additional_phones != null">
+        <div
+          class="profile__phone-block"
+          v-if="this.myProfileData.additional_phones.length != 0"
+        >
+          <div class="profile__phone-title">
+            Дополнительные телефоны
+          </div>
+          <div
+            class="profile__phone"
+            v-for="phone in this.myProfileData.additional_phones"
+            :key="phone.id"
+          >
+            {{ phone }}
+          </div>
         </div>
       </div>
-    </div>
-    <div class="profile__email-block">
-      <div class="profile__email-title">Электронаая почта</div>
-      <div class="profile__email">
-        {{ myProfileData.email }}
-      </div>
       <div
-        class="profile__confirm-email"
-        v-if="myProfileData.email_verified_at === null"
+        class="profile__more-contacts-block"
+        v-if="myProfileData.contacts != ''"
       >
-        Email не подтвержден
-        <NuxtLink to="/registration/email-verification"> Подтвердить </NuxtLink>
-      </div>
-      <div
-        class="profile__confirm-email"
-        v-if="myProfileData.email_verified_at !== null"
-      >
-        <Verified />
-        <span>Email подтвержден</span>
-      </div>
-    </div>
-    <div
-      class="profile__social-section"
-      v-if="myProfileData.social_media != ''"
-    >
-      <div class="profile__social-title">Социальные сети</div>
-      <div
-        class="profile__more-contacts"
-        v-for="social in myProfileData.social_media"
-        :key="social.id"
-      >
-        <div class="profile__social-block">
-          <img :src="social.photo_url" alt="" />
-          {{ social.name }}/{{ social.values }}
+        <div class="profile__more-contacts-title">Еще контакты</div>
+        <div
+          class="profile__more-contacts"
+          v-for="contact in myProfileData.contacts"
+          :key="contact.id"
+        >
+          <div class="profile__contacts-block">
+            <img :src="contact.photo_url" alt="" />
+            {{ contact.values }}
+          </div>
         </div>
       </div>
+      <div class="profile__email-block">
+        <div class="profile__email-title">Электронаая почта</div>
+        <div class="profile__email">
+          {{ myProfileData.email }}
+        </div>
+        <div
+          class="profile__confirm-email"
+          v-if="myProfileData.email_verified_at === null"
+        >
+          Email не подтвержден
+          <NuxtLink to="/registration/email-verification"> Подтвердить </NuxtLink>
+        </div>
+        <div
+          class="profile__confirm-email"
+          v-if="myProfileData.email_verified_at !== null"
+        >
+          <Verified />
+          <span>Email подтвержден</span>
+        </div>
+      </div>
+      <div
+        class="profile__social-section"
+        v-if="myProfileData.social_media != ''"
+      >
+        <div class="profile__social-title">Социальные сети</div>
+        <div
+          class="profile__more-contacts"
+          v-for="social in myProfileData.social_media"
+          :key="social.id"
+        >
+          <div class="profile__social-block">
+            <img :src="social.photo_url" alt="" />
+            {{ social.name }}/{{ social.values }}
+          </div>
+        </div>
+      </div>
+      <DefaultButton class="profile__button-edit" @click.native="edit">
+        Редактировать
+      </DefaultButton>
     </div>
-    <DefaultButton class="profile__button-edit" @click.native="edit">
-      Редактировать
-    </DefaultButton>
   </div>
 </template>
 

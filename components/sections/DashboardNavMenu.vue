@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-nav-menu">
+  <div class="dashboard-nav-menu dashboard_nav_menu">
     <NuxtLink to="/dashboard/ads" class="dashboard-nav-menu__ads">
       Объявления
     </NuxtLink>
@@ -12,12 +12,12 @@
     <div class="dashboard-nav-menu__bill-block" @click="isSubMenuOpen">
       <span>
         Счёт
-        <span class="dashboard-nav-menu__bill">
-          {{ loggedInUser.balance }} ₽
-        </span>
+<!--        <span class="dashboard-nav-menu__bill">-->
+<!--          {{ loggedInUser.balance }} ₽-->
+<!--        </span>-->
       </span>
-      <SelectArrow class="dashboard-nav-menu__arrow" v-if="!isSubMenu" />
-      <SelectArrowTop class="dashboard-nav-menu__arrow" v-if="isSubMenu" />
+<!--      <SelectArrow class="dashboard-nav-menu__arrow" v-if="!isSubMenu" />-->
+<!--      <SelectArrowTop class="dashboard-nav-menu__arrow" v-if="isSubMenu" />-->
     </div>
     <div class="dashboard-nav-menu__sub-menu" v-if="isSubMenu">
       <NuxtLink to="/dashboard/history" class="dashboard-nav-menu__"> История операций </NuxtLink>
@@ -28,16 +28,16 @@
     <NuxtLink to="/dashboard/bonus" class="dashboard-nav-menu__bonus">
       Бонусы
     </NuxtLink>
-    <NuxtLink
-      to="/dashboard/subscriptions"
-      class="dashboard-nav-menu__subscriptions"
-    >
-      Подписки
-    </NuxtLink>
-    <NuxtLink to="/dashboard/my-page" class=""> Моя страница </NuxtLink>
-    <NuxtLink to="/dashboard/profile" class="dashboard-nav-menu__profile">
-      Мой профиль
-    </NuxtLink>
+<!--    <NuxtLink-->
+<!--      to="/dashboard/subscriptions"-->
+<!--      class="dashboard-nav-menu__subscriptions"-->
+<!--    >-->
+<!--      Подписки-->
+<!--    </NuxtLink>-->
+<!--    <NuxtLink to="/dashboard/my-page" class=""> Моя страница </NuxtLink>-->
+<!--    <NuxtLink to="/dashboard/profile" class="dashboard-nav-menu__profile">-->
+<!--      Мой профиль-->
+<!--    </NuxtLink>-->
     <NuxtLink
       to="/dashboard/customization"
       class="dashboard-nav-menu__customization"
@@ -47,25 +47,31 @@
     <NuxtLink to="/dashboard/my-company" class="dashboard-nav-menu__my-company">
       Моя компания
     </NuxtLink>
+    <div class="ads-dashboard__button-create-adv" @click="createAdv">
+      Создать объявление
+    </div>
     <DefaultButton
-      v-if="loggedInUser.has_company === false"
       class="dashboard-nav-menu__button-add-company"
       @click.native="createCompany"
     >
       Создать компанию
     </DefaultButton>
-    <div
-      class="dashboard-nav-menu__info-text"
-      v-if="!loggedInUser.is_full_registration"
-    >
-      Ваш профиль заполнен не полностью
+    <div class="header-menu__logout" @click="Logout">
+      <Logout />
+      Выйти
     </div>
-    <div
-      class="dashboard-nav-menu__fill-profile"
-      v-if="!loggedInUser.is_full_registration"
-    >
-      <NuxtLink to="/dashboard/edit-profile"> Заполнить </NuxtLink>
-    </div>
+<!--    <div-->
+<!--      class="dashboard-nav-menu__info-text"-->
+<!--      v-if="!loggedInUser.is_full_registration"-->
+<!--    >-->
+<!--      Ваш профиль заполнен не полностью-->
+<!--    </div>-->
+<!--    <div-->
+<!--      class="dashboard-nav-menu__fill-profile"-->
+<!--      v-if="!loggedInUser.is_full_registration"-->
+<!--    >-->
+<!--      <NuxtLink to="/dashboard/edit-profile"> Заполнить </NuxtLink>-->
+<!--    </div>-->
   </div>
 </template>
 
@@ -74,6 +80,7 @@ import { mapGetters } from "vuex";
 import DefaultButton from "@/components/atoms/buttons/MainButton.vue";
 import SelectArrow from "@/assets/images/arrow/select-arrow.svg?inline";
 import SelectArrowTop from "@/assets/images/arrow/select-arrow-top.svg?inline";
+import Logout from "@/assets/images/icons/Logout.svg?inline";
 
 export default {
   name: "DashboardNavMenu",
@@ -86,6 +93,7 @@ export default {
     DefaultButton,
     SelectArrow,
     SelectArrowTop,
+    Logout,
   },
   computed: {
     ...mapGetters(["loggedInUser"]),
@@ -93,6 +101,10 @@ export default {
   methods: {
     createCompany() {
       this.$router.push("/dashboard/create-company");
+    },
+    Logout() {
+      this.$auth.logout();
+      this.$router.push("/");
     },
     isSubMenuOpen() {
       if (this.isSubMenu === false) {

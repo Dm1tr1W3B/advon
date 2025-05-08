@@ -1,17 +1,18 @@
 <template>
   <form class="registration-form" @submit.prevent="handleSubmit">
-    <RegistrationSteps />
     <div class="registration-form__input">
+      <span>*Ваше имя</span>
       <InputText
         :set-value="formDataToSend"
-        :id="'email'"
-        :label="'email'"
-        :type="'email'"
-        :placeholder="'Email*'"
+        :id="'name'"
+        :label="'name'"
+        :type="'name'"
+        :placeholder="'Name*'"
       />
     </div>
     <Notification :message="error['email']" v-if="error" />
     <div class="registration-form__input">
+      <span>*№ телефона</span>
       <InputText
         :set-value="formDataToSend"
         :id="'phone'"
@@ -20,8 +21,19 @@
         :placeholder="'Телефон'"
       />
     </div>
+    <div class="registration-form__input">
+      <span>*E-mail</span>
+      <InputText
+          :set-value="formDataToSend"
+          :id="'email'"
+          :label="'email'"
+          :type="'email'"
+          :placeholder="'Email*'"
+      />
+    </div>
     <Notification :message="error['phone']" v-if="error" />
     <div class="registration-form__input">
+      <span>*Пароль</span>
       <InputText
         :set-value="formDataToSend"
         :id="'password'"
@@ -32,6 +44,7 @@
     </div>
     <Notification :message="error['password']" v-if="error" />
     <div class="registration-form__input">
+      <span>Повторите Пароль*</span>
       <InputText
         :set-value="formDataToSend"
         :id="'repeatPassword'"
@@ -61,35 +74,38 @@
     <DefaultButton :type="'submit'" class="registration-form__button">
       Зарегистрироваться
     </DefaultButton>
-    <div class="registration-form__social-title">Или войти через соцсети</div>
-    <div class="registration-form__social-popup" @click="openModalSocial">
-      <div class="registration-form__social-facebook-block">
-        <Facebook class="registration-form__social-facebook" />
-        <span>Facebook</span>
-      </div>
-      <SelectArrow />
-    </div>
     <div class="registration-form__registration">
-      Уже зарегистрированы?
+      Есть аккаунт?
       <span>
         <NuxtLink to="/login"> Войти </NuxtLink>
       </span>
     </div>
-
-    <!-- popup -->
-    <DefaultModal v-if="openModal" :on-close="() => (openModal = !openModal)">
-      <p class="registration-form__modal-title">Выбрать соцсеть</p>
-      <div v-for="social in this.socialLogins" :key="social.id">
-        <div
-          class="registration-form__modal-social-block"
-          @click="goToLogin(social.login_url)"
-        >
-          <img :src="social.image" alt="social.name" class="registration-form__modal-social" />
-          <span> {{ social.name }} </span>
-        </div>
-      </div>
-    </DefaultModal>
-    <!-- end popup -->
+    <div class="registration-form__social-title">
+      <span>Или войти с помощью</span>
+    </div>
+    <div class="registration_socials">
+      <NuxtLink to="/">
+        <Vk />
+      </NuxtLink>
+      <NuxtLink to="/">
+        <Ok />
+      </NuxtLink>
+      <NuxtLink to="/">
+        <Telegram />
+      </NuxtLink>
+      <NuxtLink to="/">
+        <Yandex />
+      </NuxtLink>
+      <NuxtLink to="/">
+        <Google />
+      </NuxtLink>
+      <NuxtLink to="/">
+        <X />
+      </NuxtLink>
+      <NuxtLink to="/">
+        <Facebook />
+      </NuxtLink>
+    </div>
   </form>
 </template>
 
@@ -101,7 +117,13 @@ import DefaultButton from "@/components/atoms/buttons/MainButton.vue";
 import Notification from "@/components/errors/Notification";
 import authModule from "@/helpers/constants/store/authModule";
 import SelectArrow from "@/assets/images/arrow/select-arrow.svg?inline";
-import Facebook from "@/assets/images/social/facebook.svg?inline";
+import Facebook from "@/assets/images/social/Facebook_social.svg?inline";
+import Vk from "@/assets/images/social/Vk_social.svg?inline";
+import Ok from "@/assets/images/social/Ok_social.svg?inline";
+import X from "@/assets/images/social/X_social.svg?inline";
+import Yandex from "@/assets/images/social/Yandex_social.svg?inline";
+import Google from "@/assets/images/social/Google_social.svg?inline";
+import Telegram from "@/assets/images/social/Telegram_social.svg?inline";
 import DefaultModal from "@/components/molecules/DefaultModal.vue";
 
 import ReCaptcha from "@/components/atoms/buttons/ReCaptcha.vue";
@@ -117,6 +139,12 @@ export default {
     Notification,
     SelectArrow,
     Facebook,
+    Vk,
+    Ok,
+    X,
+    Yandex,
+    Google,
+    Telegram,
     DefaultModal,
     ReCaptcha,
   },
