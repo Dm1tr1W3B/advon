@@ -1,9 +1,9 @@
 <template>
   <form
     @submit.prevent="getAdvertisementsByCategory"
-    class="searching-results-section l-wrap"
+    class="searching-results-section container"
   >
-    <Search />
+<!--    <Search />-->
     <BreadCrumbs :lastItemName="this.$route.params.pathMatch.split('&')[0]" />
     <div
       class="searching-results-section__title"
@@ -47,7 +47,7 @@
     </div>
     <div
       v-if="this.searchingData.categories"
-      class="searching-results-section__child-category"
+      class="searching-results-section__child-category category-sections__child-category"
     >
       <div
         v-for="category in !this.allCategory
@@ -55,7 +55,7 @@
           : this.searchingData.categories"
         :key="category.id"
         @click="goToCategory(category.category_key)"
-        class="searching-results-section__child-category_item"
+        class="searching-results-section__child-category_item category-sections__child-category_item"
       >
         {{ category.category_name }}
         <span class="searching-results-section__child-category-count">
@@ -64,7 +64,7 @@
       </div>
       <div
         v-if="this.searchingData.categories.length > 9"
-        class="searching-results-section__child-category_item"
+        class="searching-results-section__child-category_item category-sections__child-category_item"
       >
         <span
           @click="allCategory = !allCategory"
@@ -302,7 +302,7 @@
         </div>
       </div>
       <div
-        class="searching-results-section__cards"
+        class="searching-results-section__cards new_world"
         v-if="this.openGaleryTemplate && this.searchingData.advertisementList"
       >
         <TokenNotProvided
@@ -325,6 +325,7 @@
         class="
           searching-results-section__cards
           searching-results-section__small-card-vertical
+          new_world
         "
         v-if="this.openListTemplate"
       >

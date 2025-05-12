@@ -1,6 +1,6 @@
 <template>
   <div
-    class="all-advertisement-author l-wrap"
+    class="all-advertisement-author container"
     v-if="allAuthorAdvertisements.advertisementList != null"
   >
     <Search />
@@ -75,7 +75,7 @@
           :error-comment="errorAddtoFavorite"
         />
         <div
-          class="all-advertisement-author__card"
+          class="all-advertisement-author__card new_world"
           v-for="allAdv in allAuthorAdvertisements.advertisementList.data"
           :key="allAdv.id"
         >
@@ -110,22 +110,25 @@
             </div>
           </div>
         </NuxtLink>
-        <div class="all-advertisement-author__decore-line"></div>
-        <div>Контакты</div>
-        <div
-          class="all-advertisement-author__phone-block"
-          v-if="allAuthorAdvertisements.person.phone"
-        >
-          <div>
-            <Phone />
-            {{ allAuthorAdvertisements.person.phone }}
+        <div class="shadow_effect">
+          <div class="contacts_ad">
+            <div v-if="allAuthorAdvertisements.person.phone">Контакты</div>
+            <div
+                v-if="!loggedInUser"
+                @click="showContact"
+                class="company-detail-list__show-contact"
+            >
+              Показать телефон
+            </div>
           </div>
           <div
-            v-if="!loggedInUser"
-            @click="showContact"
-            class="all-advertisement-author__show-contact"
+              class="company-detail-list__phone-block"
+              v-if="allAuthorAdvertisements.person.phone"
           >
-            Показать телефон
+            <div>
+              <span>Телефон:</span>
+              {{ allAuthorAdvertisements.person.phone }}
+            </div>
           </div>
         </div>
         <div class="all-advertisement-author__contacts-block">
@@ -138,19 +141,6 @@
               {{ contact.values }}
             </div>
           </div>
-        </div>
-        <div class="all-advertisement-author__decore-line"></div>
-        <div class="all-advertisement-author__social-block">
-          <div>Поделиться:</div>
-          <div>
-            <Facebook />
-            <Vk />
-            <Twiter />
-            <Odnoclasniki />
-          </div>
-        </div>
-        <div class="all-advertisement-author__complain" @click="complaintAdv">
-          Пожаловаться
         </div>
         <div
           class="all-advertisement-author__complain-list"

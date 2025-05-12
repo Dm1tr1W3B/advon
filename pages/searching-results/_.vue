@@ -1,5 +1,5 @@
 <template>
-  <div class="searching-results-section l-wrap">
+  <div class="searching-results-section container">
     <SearchingResultsSection />
   </div>
 </template>

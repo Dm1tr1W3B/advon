@@ -1,5 +1,5 @@
 <template>
-  <div class="user-detail-list l-wrap" v-if="this.userDatail.main">
+  <div class="user-detail-list container" v-if="this.userDatail.main">
     <Search />
     <BreadCrumbs
       :lastItemName="userDatail.main.user_name"
@@ -96,7 +96,7 @@
               />
             </div>
           </div>
-          <div class="user-detail-list__description">
+          <div class="user-detail-list__description shadow_effect">
             <div class="user-detail-list__title">Описание</div>
             <div>
               {{ this.userDatail.main.user_description }}
@@ -105,21 +105,14 @@
         </div>
       </div>
       <div class="user-detail-list__main-right">
-        <div class="user-detail-list__person-block">
-          <div>
-            <img
-              :src="this.userDatail.person.avatar"
-              alt=""
-              class="user-detail-list__person-avatar"
-            />
-          </div>
+        <div class="user-detail-list__person-block shadow_effect">
           <div>
             <div>
               {{ this.userDatail.person.name }}
             </div>
             <div>На advon с {{ this.userDatail.person.created_at }}</div>
           </div>
-        </div>
+
         <div
           class="user-detail-list__all-advs-author"
           @click="getAuthorAllAdvertisements()"
@@ -128,48 +121,69 @@
             this.userDatail.person.number_advertisement
           }})
         </div>
-        <div class="user-detail-list__decore-line"></div>
-        <div v-if="this.userDatail.person.phone">Контакты</div>
-        <div
-          class="user-detail-list__phone-block"
-          v-if="this.userDatail.person.phone"
-        >
-          <div>
-            <Phone />
-            {{ this.userDatail.person.phone }}
-          </div>
-          <div
-            v-if="!loggedInUser"
-            @click="showContact"
-            class="user-detail-list__show-contact"
-          >
-            Показать телефон
-          </div>
-        </div>
-        <div class="user-detail-list__contacts-block">
-          <div
-            v-for="contact in this.userDatail.person.contacts"
-            :key="contact.id"
-          >
-            <img :src="contact.photo_url" alt="" />
-            <div>
-              {{ contact.values }}
+          <div class="contacts_ad">
+            <div v-if="this.userDatail.person.phone">Контакты</div>
+            <div
+                v-if="!loggedInUser"
+                @click="showContact"
+                class="company-detail-list__show-contact"
+            >
+              Показать телефон
             </div>
           </div>
-        </div>
-        <div class="user-detail-list__decore-line"></div>
-        <div class="user-detail-list__social-block">
-          <div>Поделиться:</div>
-          <div>
-            <Facebook />
-            <Vk />
-            <Twiter />
-            <Odnoclasniki />
+          <div
+              class="company-detail-list__phone-block"
+              v-if="this.userDatail.person.phone"
+          >
+            <div>
+              <span>Телефон:</span>
+              {{ this.userDatail.person.phone }}
+            </div>
           </div>
+<!--        <div class="user_contact_info">-->
+<!--          <div v-if="this.userDatail.person.phone">Контакты</div>-->
+<!--            <div-->
+<!--              class="user-detail-list__phone-block"-->
+<!--              v-if="this.userDatail.person.phone"-->
+<!--            >-->
+<!--              <div>-->
+<!--                <Phone />-->
+<!--                {{ this.userDatail.person.phone }}-->
+<!--              </div>-->
+<!--              <div-->
+<!--                v-if="!loggedInUser"-->
+<!--                @click="showContact"-->
+<!--                class="user-detail-list__show-contact"-->
+<!--              >-->
+<!--                Показать телефон-->
+<!--              </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="user-detail-list__contacts-block">-->
+<!--          <div-->
+<!--            v-for="contact in this.userDatail.person.contacts"-->
+<!--            :key="contact.id"-->
+<!--          >-->
+<!--            <img :src="contact.photo_url" alt="" />-->
+<!--            <div>-->
+<!--              {{ contact.values }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
         </div>
-        <div class="user-detail-list__complain" @click="complaintAdv">
-          Пожаловаться
-        </div>
+<!--        <div class="user-detail-list__decore-line"></div>-->
+<!--        <div class="user-detail-list__social-block">-->
+<!--          <div>Поделиться:</div>-->
+<!--          <div>-->
+<!--            <Facebook />-->
+<!--            <Vk />-->
+<!--            <Twiter />-->
+<!--            <Odnoclasniki />-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="user-detail-list__complain" @click="complaintAdv">-->
+<!--          Пожаловаться-->
+<!--        </div>-->
         <div
           class="user-detail-list__complain-list"
           v-if="this.complaintAdvData"

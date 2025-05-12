@@ -1,5 +1,5 @@
 <template>
-  <div class="all-advertisement l-wrap">
+  <div class="all-advertisement container">
     <div>
       <AllAdvertisementAuthor />
     </div>

@@ -91,7 +91,7 @@
 <!--        <div class="swiper-button-next" slot="button-next"></div>-->
       </div>
     </div>
-    <div v-if="this.mainAds.carousel_city.length != 0">
+    <div v-if="this.mainAds.carousel_city.length != 0" class="new_world">
       <div class="home__section-title home__title-link">
         Новое по городу<span @click="goToLocationPageCity">
           {{ this.cityName }}</span
@@ -187,7 +187,7 @@
             :error-comment="errorAddtoFavorite"
           />
         </div>
-        <div v-swiper:employerWorld="optionAds" class="home__slick-advs">
+        <div v-swiper:employerWorld="optionAds" class="home__slick-advs new_world">
           <div class="swiper-wrapper">
             <div
               class="swiper-slide"
@@ -247,7 +247,7 @@
             :error-comment="errorAddtoFavorite"
           />
         </div>
-        <div v-swiper:employerNew="optionAds" class="home__slick-advs">
+        <div v-swiper:employerNew="optionAds" class="home__slick-advs new_world">
           <div class="swiper-wrapper">
             <div
               class="swiper-slide"
@@ -334,7 +334,7 @@
           :error-comment="errorAddtoFavorite"
         />
       </div>
-      <div v-swiper:top="optionAds" class="home__slick-advs">
+      <div v-swiper:top="optionAds" class="home__slick-advs new_world">
         <div class="swiper-wrapper">
           <div
             class="swiper-slide"

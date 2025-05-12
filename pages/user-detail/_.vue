@@ -1,5 +1,5 @@
 <template>
-  <div class="user-detail l-wrap">
+  <div class="user-detail container">
     <div>
       <UserDetailList />
     </div>
