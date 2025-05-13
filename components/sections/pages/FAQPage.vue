@@ -4,7 +4,8 @@
     <h1 class="faq-page__title">Ответы на часто задаваемые вопросы</h1>
     <div class="faq-page__container">
       <div class="left_part">
-        <FaqImage />
+        <FaqImage v-if="$device.isDesktop" />
+        <FaqImageMobile v-if="$device.isMobile" />
       </div>
       <div class="right_part">
         <CollapseItem v-for="item in dataLegal" :key="item.title" :title="item.title" :body="item.body" />
@@ -19,6 +20,7 @@ import Search from "@/components/molecules/Search.vue";
 import ContactForm from "@/components/forms/ContactForm.vue";
 import CollapseItem from "@/components/molecules/CollapseItem.vue"
 import FaqImage from "@/assets/images/FAQ.svg?inline";
+import FaqImageMobile from "@/assets/images/FAQ_mobile.svg?inline";
 
 export default {
   name: "FAQPage",
@@ -27,6 +29,7 @@ export default {
     ContactForm,
     CollapseItem,
     FaqImage,
+    FaqImageMobile,
   },
   data() {
     return {

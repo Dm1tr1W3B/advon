@@ -1,14 +1,18 @@
 <template>
   <div class="header">
     <div class="header__wrap">
-      <div v-if="!$device.isDesktop" class="header__burger">
-        <Burger @click="handleOpenSideMenu" />
-      </div>
-      <NuxtLink to="/">
+      <NuxtLink to="/" v-if="!$device.isDesktop">
+        <LogoMobile />
+      </NuxtLink>
+      <NuxtLink to="/" v-if="$device.isDesktop">
         <Logo />
       </NuxtLink>
-      <div class="header__right-block">
+      <div class="header__right-block" v-if="$device.isDesktop">
         <NavMenu :handleCloseSideMenu="handleCloseSideMenu" :side-menu="sideMenu" />
+      </div>
+      <div v-if="!$device.isDesktop" class="header__burger">
+        <NavMenu :handleCloseSideMenu="handleCloseSideMenu" :side-menu="sideMenu" />
+        <Burger @click="handleOpenSideMenu" />
       </div>
     </div>
   </div>
@@ -17,7 +21,8 @@
 <script>
 import NavMenu from "@/components/sections/NavMenu.vue";
 import Logo from "@/assets/images/logo.svg?inline";
-import Burger from "@/assets/images/icons/burger.svg?inline"
+import LogoMobile from "@/assets/images/logo_mobile.svg?inline";
+import Burger from "@/assets/images/burger_menu.svg?inline"
 
 export default {
   name: 'Header',
@@ -28,6 +33,7 @@ export default {
   },
   components: {
     Logo,
+    LogoMobile,
     NavMenu,
     Burger,
   },

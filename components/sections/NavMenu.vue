@@ -232,11 +232,6 @@
 <!--    >-->
 <!--      {{ this.translate.сreate_ad }}-->
 <!--    </NuxtLink>-->
-    <NuxtLink
-      v-if="$device.isMobile"
-      to="/dashboard/create-ad"
-      class="nav-menu__create-ad plus"
-    />
     <transition name="fade">
       <div
         v-if="!$device.isDesktop && sideMenu"
@@ -449,7 +444,7 @@
 import { mapGetters } from "vuex";
 import HeaderMenu from "@/components/sections/HeaderMenu.vue";
 import SelectArrow from "@/assets/images/arrow/Alt_Arrow_Down.svg?inline";;
-import UserIcon from "@/assets/images/icons/user.svg?inline";
+import UserIcon from "@/assets/images/user_header.svg?inline";
 import DefaultModal from "@/components/molecules/DefaultModal.vue";
 import ClickOutside from "vue-click-outside";
 

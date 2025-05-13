@@ -1478,7 +1478,7 @@ form.registration-form, form.login-form, .login-form__login {
   width: fit-content !important;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 576px) {
   .header {
     width: calc(100% - 20px) !important;
     left: 10px;
@@ -1507,7 +1507,7 @@ form.registration-form, form.login-form, .login-form__login {
     margin-top: 30px !important;
     margin-bottom: 0 !important;
   }
-  .home .search__params {
+  .search__params {
     display: none !important;
   }
   .about-us__title {
@@ -1642,5 +1642,148 @@ form.registration-form, form.login-form, .login-form__login {
   .home__companys-registration {
     margin: 25px 16px !important;
     width: calc(100% - 36px) !important;
+  }
+  .header__burger {
+    padding: 0 !important;
+    gap: 12px;
+  }
+  .header__wrap {
+    max-width: 100%;
+  }
+  .nav-menu__item {
+    align-items: center;
+    display: flex;
+  }
+  .main-adv__main-section-slider, .main-adv__persob-block {
+    width: 100% !important;
+    padding: 0 !important;
+  }
+  .main-adv.container {
+    padding: 0 16px;
+  }
+  .product_information.shadow_effect p {
+    font-size: 16px;
+  }
+  .main-adv__characteristic-title, .middle_line + div {
+    font-size: 14px;
+  }
+  .hashtag_title {
+    font-size: 16px;
+  }
+  .person_name {
+    font-size: 16px;
+  }
+  .person_info {
+    font-size: 13px;
+  }
+  .main-adv__person-avatar {
+    margin-right: 8px !important;
+  }
+  .shadow_effect {
+    padding: 12px !important;
+    margin-top: 20px;
+  }
+  .main-adv__title {
+    font-size: 16px !important;
+    font-weight: 600;
+  }
+  .main-adv__title + div {
+    font-size: 14px;
+  }
+  .main-adv__hashtags.shadow_effect {
+    margin-bottom: 40px;
+  }
+  .login, .dashboard-my-company, .header + div:not(.home-page) {
+    padding-top: 90px !important;
+  }
+  .main-adv__date-add {
+    width: 100%;
+  }
+  .main-adv__location-block {
+    flex-wrap: wrap;
+    gap: 12px 0px;
+  }
+  .main-adv__location-block > div {
+    font-size: 14px !important;
+  }
+  .small-card__price {
+    padding: 0 !important;
+  }
+  .main-adv__slick-advs .slick-track {
+    gap: 12px !important;
+  }
+  .new_world .small-card__body-block {
+    padding: 12px 8px !important;
+  }
+  .new_world .small-card__body-block .small-card__title, .small-card__price {
+    color: #000;
+  }
+  .footer__menu {
+    padding-bottom: 30px !important;
+  }
+  .footer__menu-top {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center !important;
+  }
+  .logo_part {
+    width: 100% !important;
+    margin-right: 0 !important;
+    display: flex;
+    justify-content: center;
+  }
+  .footer svg {
+    width: fit-content !important;
+  }
+  .footer__copy {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .bread-crumbs__container * {
+    font-size: 12px;
+  }
+  .all-companies-list__company-logo {
+    max-width: 80px;
+    max-height: 80px;
+  }
+  .all-companies-list__company-logo {
+    max-width: 80px;
+    max-height: 80px;
+  }
+  .left_part {
+    position: absolute;
+    right: -16px;
+    top: -90px;
+    width: 100px !important;
+    height: 100px !important;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .faq-page__container {
+    position: relative;
+    margin-top: 5px !important;
+  }
+  .faq-page__container .right_part {
+    width: 100%;
+    z-index: 1;
+  }
+  .faq-page.container {
+    margin: 0 16px;
+  }
+  .faq-page__title {
+    font-weight: 500 !important;
+    font-size: 20px !important;
+  }
+  .login {
+    margin: 0 16px;
+  }
+  .registration_socials svg {
+    transform: scale(0.7);
+    transform-origin: center;
+    display: inline-block;
+  }
+  .registration {
+    margin: 0 16px;
   }
 }
