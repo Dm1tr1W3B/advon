@@ -159,22 +159,23 @@
         </div>
       </transition>
     </div>
-    <div
-      v-if="isAuthenticated === true && $device.isMobile"
-      class="nav-menu__item login_reg"
-    >
-      <UserIcon @click="HeaderMenuOpen" />
-      <div
-        v-if="HeaderMenu"
-        class="nav-menu__overlay"
-        @click.self="HeaderMenuOpen"
-      >
-        <HeaderMenu />
-      </div>
-    </div>
+    <UserIcon @click="HeaderMenuOpen"  v-if="isAuthenticated === true && $device.isMobile"/>
+<!--    <div-->
+<!--      v-if="isAuthenticated === true && $device.isMobile"-->
+<!--      class="nav-menu__item login_reg"-->
+<!--    >-->
+<!--      -->
+<!--      <div-->
+<!--        v-if="HeaderMenu"-->
+<!--        class="nav-menu__overlay"-->
+<!--        @click.self="HeaderMenuOpen"-->
+<!--      >-->
+<!--        <HeaderMenu />-->
+<!--      </div>-->
+<!--    </div>-->
     <NuxtLink
       v-if="isAuthenticated === false && $device.isMobile"
-      class="nav-menu__item"
+      class="nav-menu__item not_auth"
       to="/login"
     >
       <UserIcon />
@@ -239,128 +240,137 @@
         class="nav-menu__overlay"
       >
         <div class="nav-menu__side-menu">
-          <div class="nav-menu__item nav-menu__item-location">
-            <div
-              @click="handleCloseSideMenu"
-              v-if="$device.isMobile"
-              class="nav-menu__close"
-            ></div>
-            <div @click="getLocation">
-              <span
-                v-if="
-                  !this.countrySelected ||
-                  !this.regionsSelected ||
-                  !this.citySelected
-                "
-              >
-                <span v-if="!this.citySelected">
-                  {{ this.translate.location }}
-                </span>
-              </span>
-              {{ this.citySelected }}
-              <SelectArrow />
-            </div>
-            <div v-if="locationData && this.locationBody" v-click-outside="locationOutside">
-              <div
-                class="nav-menu__location-block"
-                v-if="this.locCountry || this.locRegions || this.locCity"
-              >
-                <div v-if="this.locCountry">
-                  <div class="nav-menu__location-title">
-                    Ваше местоположение
-                  </div>
-                  <div class="nav-menu__location-body-country">
-                    <div
-                      v-for="loc in this.locationData"
-                      :key="loc.id"
-                      class="nav-menu__location-item"
-                      @click="getRegions(loc.code, loc.name)"
-                    >
-                      <div>
-                        <img :src="loc.flag" alt="" />
-                      </div>
-                      <div class="nav-menu__location-name">
-                        {{ loc.name }}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="nav-menu__location-body-country"
-                  v-if="this.locRegions"
-                >
-                  <div class="nav-menu__location-body-country-top-container">
-                    <div class="nav-menu__location-title">
-                      {{ this.countrySelected }}
+<!--          <div class="nav-menu__item">-->
+<!--            <div-->
+<!--              @click="handleCloseSideMenu"-->
+<!--              v-if="$device.isMobile"-->
+<!--              class="nav-menu__close"-->
+<!--            ></div>-->
+<!--            <div @click="getLocation">-->
+<!--              <span-->
+<!--                v-if="-->
+<!--                  !this.countrySelected ||-->
+<!--                  !this.regionsSelected ||-->
+<!--                  !this.citySelected-->
+<!--                "-->
+<!--              >-->
+<!--                <span v-if="!this.citySelected">-->
+<!--                  {{ this.translate.location }}-->
+<!--                </span>-->
+<!--              </span>-->
+<!--              {{ this.citySelected }}-->
+<!--              <SelectArrow />-->
+<!--            </div>-->
+<!--            <div v-if="locationData && this.locationBody" v-click-outside="locationOutside">-->
+<!--              <div-->
+<!--                class="nav-menu__location-block"-->
+<!--                v-if="this.locCountry || this.locRegions || this.locCity"-->
+<!--              >-->
+<!--                <div v-if="this.locCountry">-->
+<!--                  <div class="nav-menu__location-title">-->
+<!--                    Ваше местоположение-->
+<!--                  </div>-->
+<!--                  <div class="nav-menu__location-body-country">-->
+<!--                    <div-->
+<!--                      v-for="loc in this.locationData"-->
+<!--                      :key="loc.id"-->
+<!--                      class="nav-menu__location-item"-->
+<!--                      @click="getRegions(loc.code, loc.name)"-->
+<!--                    >-->
+<!--                      <div>-->
+<!--                        <img :src="loc.flag" alt="" />-->
+<!--                      </div>-->
+<!--                      <div class="nav-menu__location-name">-->
+<!--                        {{ loc.name }}-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div-->
+<!--                  class="nav-menu__location-body-country"-->
+<!--                  v-if="this.locRegions"-->
+<!--                >-->
+<!--                  <div class="nav-menu__location-body-country-top-container">-->
+<!--                    <div class="nav-menu__location-title">-->
+<!--                      {{ this.countrySelected }}-->
 
-                      <span @click="this.setCountrySelected"
-                        >Искать по всей стране</span
-                      >
-                    </div>
-                    <div class="nav-menu__location-back" @click="getLocation">
-                      Изменить страну
-                    </div>
-                  </div>
-                  <div class="nav-menu__regions-group">
-                    <div
-                      v-for="region in this.regionsData"
-                      :key="region.id"
-                      class="nav-menu__regions"
-                    >
-                      <div class="nav-menu__region-letter">
-                        {{ region.letter }}
-                      </div>
-                      <div
-                        v-for="reg in region.group"
-                        :key="reg.id"
-                        @click="getCitys(reg.code, reg.name)"
-                      >
-                        {{ reg.name }}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="nav-menu__location-body-country"
-                  v-if="this.locCity"
-                >
-                  <div class="nav-menu__location-title">
-                    {{ this.regionsSelected }}
-                  </div>
-                  <div class="nav-menu__regions-group">
-                    <div v-for="city in this.citysData" :key="city.id">
-                      <div class="nav-menu__region-letter">
-                        {{ city.letter }}
-                      </div>
-                      <div
-                        v-for="item in city.group"
-                        :key="item.id"
-                        @click="getCity(item.name, item.id)"
-                      >
-                        {{ item.name }}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+<!--                      <span @click="this.setCountrySelected"-->
+<!--                        >Искать по всей стране</span-->
+<!--                      >-->
+<!--                    </div>-->
+<!--                    <div class="nav-menu__location-back" @click="getLocation">-->
+<!--                      Изменить страну-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <div class="nav-menu__regions-group">-->
+<!--                    <div-->
+<!--                      v-for="region in this.regionsData"-->
+<!--                      :key="region.id"-->
+<!--                      class="nav-menu__regions"-->
+<!--                    >-->
+<!--                      <div class="nav-menu__region-letter">-->
+<!--                        {{ region.letter }}-->
+<!--                      </div>-->
+<!--                      <div-->
+<!--                        v-for="reg in region.group"-->
+<!--                        :key="reg.id"-->
+<!--                        @click="getCitys(reg.code, reg.name)"-->
+<!--                      >-->
+<!--                        {{ reg.name }}-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div-->
+<!--                  class="nav-menu__location-body-country"-->
+<!--                  v-if="this.locCity"-->
+<!--                >-->
+<!--                  <div class="nav-menu__location-title">-->
+<!--                    {{ this.regionsSelected }}-->
+<!--                  </div>-->
+<!--                  <div class="nav-menu__regions-group">-->
+<!--                    <div v-for="city in this.citysData" :key="city.id">-->
+<!--                      <div class="nav-menu__region-letter">-->
+<!--                        {{ city.letter }}-->
+<!--                      </div>-->
+<!--                      <div-->
+<!--                        v-for="item in city.group"-->
+<!--                        :key="item.id"-->
+<!--                        @click="getCity(item.name, item.id)"-->
+<!--                      >-->
+<!--                        {{ item.name }}-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+          <div
+            @click="handleCloseSideMenu"
+            v-if="$device.isMobile"
+            class="nav-menu__close"
+          ><Close /></div>
             <div
               v-if="$device.isMobile"
-              class="nav-menu__login-container"
+              class="nav-menu__login-main"
+              :class="!isAuthenticated ? 'nav-menu__login-main_not_auth' : ''"
               @click="handleCloseSideMenu"
             >
               <div v-if="isAuthenticated === true && $device.isMobile" class="">
                 <div @click="HeaderMenuOpen">
-                  {{ loggedInUser.name }}
-                  <SelectArrow />
+                  <div class="nav-menu__login-container">{{ loggedInUser.name }}</div>
+                  <div class="header-menu__logout" @click="Logout">
+                    <Logout />
+                    Выйти
+                  </div>
                 </div>
-                <div
-                  v-if="HeaderMenu"
-                  class="nav-menu__overlay"
-                  @click.self="HeaderMenuOpen"
-                >
-                  <HeaderMenu />
-                </div>
+<!--                <div-->
+<!--                  v-if="HeaderMenu"-->
+<!--                  class="nav-menu__overlay"-->
+<!--                  @click.self="HeaderMenuOpen"-->
+<!--                >-->
+<!--                  <DashboardNavMenu />-->
+<!--                </div>-->
               </div>
               <NuxtLink
                 v-if="isAuthenticated === false"
@@ -380,53 +390,38 @@
                 {{ this.translate.register }}
               </NuxtLink>
             </div>
-          </div>
-          <div
-            v-if="$device.isMobile"
-            class="nav-menu__item"
-            @click="setUserType()"
-          >
-            {{ this.userType }}
-            <SelectArrow />
-            <div class="nav-menu__type-user-body" v-if="setUserTypeOpen">
-              <div v-for="user in userTypeSelect" :key="user.name">
-                <div
-                  class="nav-menu__type-user"
-                  @click="getUserType(user.name, user.key)"
-                >
-                  {{ user.name }}
-                </div>
-              </div>
-            </div>
+<!--          </div>-->
+<!--          <div-->
+<!--            v-if="$device.isMobile"-->
+<!--            class="nav-menu__item"-->
+<!--            @click="setUserType()"-->
+<!--          >-->
+<!--            {{ this.userType }}-->
+<!--            <SelectArrow />-->
+<!--            <div class="nav-menu__type-user-body" v-if="setUserTypeOpen">-->
+<!--              <div v-for="user in userTypeSelect" :key="user.name">-->
+<!--                <div-->
+<!--                  class="nav-menu__type-user"-->
+<!--                  @click="getUserType(user.name, user.key)"-->
+<!--                >-->
+<!--                  {{ user.name }}-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+          <div class="nav-menu__item">
+            О нас
           </div>
           <div class="nav-menu__item">
-            {{ this.translate.advertising_on_the_site }}
+            Карта
           </div>
-          <div class="nav-menu__item">
-            {{ this.translate.blog }}
+          <div @click="goCompanies" class="nav-menu__item">
+            Компании
           </div>
-          <div class="nav-menu__item" @click="getTranslate">
-            {{ this.translate.legal_notice }}
-          </div>
-          <div class="nav-menu__item">
-            <span v-if="this.selectLangNew === ''">
-              {{ this.translate.language }}
-            </span>
-            <span v-if="this.selectLangNew !== ''">
-              {{ this.selectLangNew }}
-            </span>
-            <div
-              v-for="language in this.lang"
-              :key="language.id"
-              class="nav-menu__item-lang"
-              @click="selectLang(language.name)"
-            >
-              {{ language.name }}
-            </div>
-            <span @click="changlanguage">
-              <SelectArrow />
-            </span>
-          </div>
+          <div class="nav-menu__item">Юрликбез</div>
+          <div class="nav-menu__item">Реклама на сайте</div>
+          <div class="nav-menu__item" @click="goFaq">FAQ</div>
+          <DashboardNavMenu v-if="isAuthenticated" />
 <!--          <NuxtLink-->
 <!--            v-if="$device.isMobile"-->
 <!--            to="/dashboard/create-ad"-->
@@ -443,10 +438,13 @@
 <script>
 import { mapGetters } from "vuex";
 import HeaderMenu from "@/components/sections/HeaderMenu.vue";
-import SelectArrow from "@/assets/images/arrow/Alt_Arrow_Down.svg?inline";;
+import SelectArrow from "@/assets/images/arrow/Alt_Arrow_Down.svg?inline";
 import UserIcon from "@/assets/images/user_header.svg?inline";
 import DefaultModal from "@/components/molecules/DefaultModal.vue";
+import Close from "@/assets/images/Close.svg?inline";
 import ClickOutside from "vue-click-outside";
+import DashboardNavMenu from "./DashboardNavMenu.vue";
+import Logout from "@/assets/images/icons/Logout.svg?inline";
 
 export default {
   name: "NavMenu",
@@ -494,10 +492,13 @@ export default {
     },
   },
   components: {
+    DashboardNavMenu,
     SelectArrow,
     HeaderMenu,
     DefaultModal,
     UserIcon,
+    Close,
+    Logout
   },
   computed: {
     ...mapGetters(["isAuthenticated", "loggedInUser"]),
@@ -528,6 +529,10 @@ export default {
         this.HeaderMenu = true;
         document.querySelector("html").classList.add("overflow-block");
       }
+    },
+    Logout() {
+      this.$auth.logout();
+      this.$router.push("/");
     },
     goFaq () {
       location.href = '/faq';
@@ -977,21 +982,6 @@ export default {
         position: relative;
         width: 24px;
         height: 24px;
-        &:before,
-        &:after {
-          position: absolute;
-          left: 10px;
-          content: " ";
-          height: 24px;
-          width: 4px;
-          background-color: #2575ed;
-        }
-        &:before {
-          transform: rotate(45deg);
-        }
-        &:after {
-          transform: rotate(-45deg);
-        }
       }
       .nav-menu__create-ad {
         margin: auto auto 20px 8px;

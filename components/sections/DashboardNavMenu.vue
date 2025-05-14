@@ -56,7 +56,7 @@
     >
       Создать компанию
     </DefaultButton>
-    <div class="header-menu__logout" @click="Logout">
+    <div class="header-menu__logout" @click="Logout" v-if="$device.isDesktop">
       <Logout />
       Выйти
     </div>

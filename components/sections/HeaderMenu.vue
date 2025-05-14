@@ -14,8 +14,6 @@
         Счёт
 <!--        <span class="header-menu__bill"> {{ loggedInUser.balance }} ₽</span>-->
       </span>
-      <SelectArrow class="header-menu__arrow" v-if="!isSubMenu" />
-      <SelectArrowTop class="header-menu__arrow" v-if="isSubMenu" />
     </div>
     <div class="header-menu__sub-menu" v-if="isSubMenu">
       <NuxtLink to="/dashboard/history" class="header-menu__">История операций </NuxtLink>
@@ -62,7 +60,6 @@
     >
       <NuxtLink to="/dashboard/edit-profile"> Заполнить </NuxtLink>
     </div>
-    <div class="header-menu__logout" @click="Logout">Выйти</div>
   </div>
 </template>
 

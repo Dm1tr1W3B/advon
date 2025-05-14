@@ -370,6 +370,10 @@ div#__layout>div {
   justify-content: center;
   display: flex;
 }
+.nav-menu>div:first-child {
+  display: flex;
+  margin-right: 100px;
+}
 .login_reg a, .login_reg .nav-menu__delimiter, .home__companys-registration a {
   color: #fff !important;
 }
@@ -1483,6 +1487,7 @@ form.registration-form, form.login-form, .login-form__login {
     width: calc(100% - 20px) !important;
     left: 10px;
     top: 10px;
+    z-index: 999;
   }
   .header__wrap {
     padding: 12px !important;
@@ -1785,5 +1790,123 @@ form.registration-form, form.login-form, .login-form__login {
   }
   .registration {
     margin: 0 16px;
+  }
+  .profile {
+    width: 100% !important;
+    padding: 25px 16px !important;
+  }
+  .nav-menu__close {
+    position: absolute !important;
+    right: 16px;
+    top: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .header__burger .nav-menu__login-container,
+  .header__burger .nav-menu__item:not(.not_auth),
+  .dashboard-nav-menu__bill-block,
+  .nav-menu__login-main_not_auth,
+  .dashboard-nav-menu.dashboard_nav_menu a {
+    width: 100%;
+    margin: 0 !important;
+    padding: 10px;
+    border: 1px solid #B8C1CC;
+    border-radius: 12px;
+    font-size: 16px !important;
+    display: flex;
+    justify-content: center !important;
+  }
+  .nav-menu__login-main_not_auth {
+    margin-top: 30px !important;
+  }
+  .header__burger .nav-menu__side-menu {
+    padding: 0 16px;
+    gap: 8px;
+    width: 100% !important;
+  }
+  .header__burger .nav-menu__login-container {
+    margin-top: 30px !important;
+  }
+  .dashboard-nav-menu.dashboard_nav_menu {
+    width: 100% !important;
+    box-shadow: none !important;
+    padding: 10px 0 0 0 !important;
+    border: none;
+    gap: 8px;
+  }
+  .nav-menu__side-menu {
+    overflow: auto;
+  }
+  .nav-menu__login-main>div>div {
+    display: flex;
+    gap: 20px;
+  }
+  .nav-menu__login-container, .header-menu__logout {
+    width: 50% !important;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .header-menu__logout {
+    border: 1px solid #B8C1CC;
+    border-radius: 12px;
+    color: #FF1919;
+    font-size: 16px;
+  }
+  .ads-dashboard__button-create-adv,
+  .dashboard_nav_menu .dashboard-nav-menu__button-add-company {
+    margin-top: 0px !important;
+  }
+  .ads-dashboard__button-create-adv, .dashboard_nav_menu .dashboard-nav-menu__button-add-company {
+    margin-top: 0 !important;
+  }
+  .home__companys-block {
+    margin-bottom: 32px;
+  }
+  .header + div:not(.home-page).category-section.container {
+    padding-top: 50px !important;
+  }
+  .container.category-section .search {
+    margin-top: 20px !important;
+  }
+  .category-sections {
+    padding: 0 !important;
+  }
+  .category-sections__child-category {
+    gap: 12px 7px !important;
+  }
+  .category-sections__sort-wrap {
+    display: flex;
+    flex-wrap: nowrap !important;
+    padding-top: 20px !important;
+  }
+  .category-sections__filter-button {
+    background: transparent !important;
+  }
+  .category-sections .sorting {
+    width: 50% !important;
+    padding: 0 !important;
+  }
+  .category-sections__filter-button rect {
+    fill: #000 !important;
+  }
+  .category-sections__filter-button button {
+    width: 24px !important;
+    height: 24px !important;
+    padding: 0 !important;
+  }
+  .category-sections__filter-button {
+    height: 24px !important;
+  }
+  .category-sections__small-card {
+    width: 100% !important;
+  }
+  .category-sections .small-card__image-conatiner {
+    height: unset !important;
+  }
+  .category-sections__cards {
+    gap: 0;
   }
 }
