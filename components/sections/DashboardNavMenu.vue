@@ -102,6 +102,9 @@ export default {
     createCompany() {
       this.$router.push("/dashboard/create-company");
     },
+    createAdv() {
+      this.$router.push("/dashboard/create-ad");
+    },
     Logout() {
       this.$auth.logout();
       this.$router.push("/");

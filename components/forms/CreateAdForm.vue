@@ -7,37 +7,6 @@
         <span> * </span>
       </div>
       <div>
-        <label for="private_person" class="create-ad-form__radio custom-radio">
-          <input
-            type="radio"
-            value="private_person"
-            id="private_person"
-            v-model="formDataToSend.executorCompany"
-          />
-          <span>{{ this.myProfileData.name }}</span>
-        </label>
-        <label
-          for="comany"
-          class="create-ad-form__radio custom-radio"
-          v-if="this.myProfileData.has_company"
-        >
-          <input
-            type="radio"
-            value="company"
-            id="comany"
-            v-model="formDataToSend.executorCompany"
-          />
-          <span>{{ this.myProfileData.company_name }}</span>
-        </label>
-        <Notification :message="error['advertisement_type']" v-if="error" />
-      </div>
-    </div>
-    <div class="create-ad-form__block">
-      <div class="create-ad-form__block-title">
-        Разместить как
-        <span> * </span>
-      </div>
-      <div>
         <label for="performer" class="create-ad-form__radio custom-radio">
           <input
             type="radio"
@@ -50,7 +19,6 @@
             title="У вас есть место под рекламу"
             class="create-ad-form__question"
           >
-            <Question />
             <div class="create-ad-form__question-mobile">
               У вас есть место под рекламу
             </div>
@@ -68,7 +36,6 @@
             title="Если вы ищете исполнителей для вашей рекламной промоакции"
             class="create-ad-form__question"
           >
-            <Question />
             <div class="create-ad-form__question-mobile">
               Если вы ищете исполнителей для вашей рекламной промоакции
             </div>
