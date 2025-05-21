@@ -470,6 +470,7 @@ div#__layout>div {
 .all-advertisement.container,
 .searching-results-section.container,
 .footer__wrap.container,
+.create-company.container,
 .dashboard-favorites.container{
   max-width: 1320px;
   margin: 0 auto;
@@ -813,6 +814,7 @@ div#__layout>div {
 .all-companies-list.container,
 .user-detail-list.container,
 .user-detail.container,
+.create-company.container,
 .searching-results-section.container,
 .all-advertisement.container,
 .dashboard-favorites.container{
@@ -1500,6 +1502,12 @@ form.registration-form, form.login-form, .login-form__login {
   gap: 20px;
   display: flex;
 }
+.create-ad-form__block label {
+  width: 100%;
+}
+.create-ad-form {
+  width: 100%;
+}
 .create-ad-form__block-title {
   font-size: 24px;
   padding-bottom: 14px !important;
@@ -1510,12 +1518,25 @@ form.registration-form, form.login-form, .login-form__login {
   padding: 16px 32px !important;
   color: #6D7885;
   border: 1px solid #B8C1CC !important;
+  font-size: 18px;
 }
 .create-ad-form__block input#title {
-  border: 1px solid #6D7885 !important;
+  border: 1px solid #B8C1CC !important;
   width: 100% !important;
   max-width: unset;
   border-radius: 12px;
+  padding: 16px 32px 14px !important;
+  height: 54px;
+}
+.create-ad-form__title {
+  font-size: 32px !important;
+  font-weight: 600;
+}
+.create-ad-form__block input#title::placeholder {
+  font-size: 18px;
+  padding: 0 !important;
+  font-family: system-ui;
+  color: #6D7885;
 }
 .create-ad-form__photos {
   width: 100px !important;
@@ -1524,13 +1545,79 @@ form.registration-form, form.login-form, .login-form__login {
   border-radius: 12px;
 }
 .create-ad-form__button.main-button {
-  width: 80% !important;
+  width: 65% !important;
   margin: 0 !important;
   max-width: unset !important;
   background: linear-gradient(45deg, #FE4819, #DC291E) !important;
   border-radius: 12px;
 }
-
+.create-ad-form .shadow_effect {
+  padding: 40px;
+}
+.create-ad-form .create-ad-form__hashtags,
+.create-ad-form__field-title input,
+.create-ad-form__select-form,
+.create-ad-form__block textarea,
+.create-ad-form__block .textarea-input,
+.create-ad-form__block input{
+  width: 100% !important;
+  max-width: unset !important;
+  padding: 16px 32px !important;
+  border-radius: 12px;
+}
+.create-ad-form__block .textarea-input {
+  padding: 0 !important;
+}
+.create-ad-form__block label {
+  font-size: 18px;
+}
+.checkbox-input__checkbox-container {
+  display: flex;
+  align-items: center;
+}
+.checkbox-input__checkbox {
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 5px;
+}
+.create-ad-form__field-title {
+  font-size: 24px !important;
+  margin-bottom: 20px;
+}
+.create-ad-form__field-title-price {
+  margin-bottom: 20px !important;
+}
+.create-company input, .create-company textarea {
+  width: 100% !important;
+  max-width: unset !important;
+  border-radius: 12px !important;
+}
+.create-company-form__block {
+  width: 100% !important;
+}
+.create-company-form__hashtags {
+  border-radius: 12px;
+}
+.create-company .shadow_effect {
+  padding: 40px !important;
+}
+.create-company-form__block-title {
+  font-size: 24px !important;
+  margin-bottom: 20px !important;
+}
+.create-company-form__photos {
+  width: 100px !important;
+  height: 100px !important;
+  min-width: unset !important;
+  border-radius: 12px;
+}
+.create-company-form__button-create {
+  width: 65% !important;
+  max-width: unset !important;
+  margin: 40px auto 0 !important;
+  background: linear-gradient(45deg, #FE4819, #DC291E) !important;
+  border-radius: 12px !important;
+}
 .create-ad-form__nav-group {
   justify-content: center;
 }
@@ -1967,5 +2054,26 @@ form.registration-form, form.login-form, .login-form__login {
   }
   .small-card__title {
     margin: 0 !important;
+  }
+  .create-company .shadow_effect {
+    padding: 12px !important;
+  }
+  .create-company-form {
+    width: 100% !important;
+    padding: 16px !important;
+  }
+  .create-company-form__block-title {
+    line-height: 21px !important;
+    font-size: 18px !important;
+  }
+  .create-company-form__title {
+    padding-bottom: 0 !important;
+  }
+  .create-ad-form__block>div:nth-child(2) {
+    flex-wrap: wrap;
+  }
+  .create-ad-form__block label {
+    width: 100% !important;
+    text-align: left;
   }
 }

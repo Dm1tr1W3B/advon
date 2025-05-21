@@ -1,498 +1,536 @@
 <template>
   <form class="create-ad-form" @submit.prevent="handleSubmit">
     <div class="create-ad-form__title">Создать объявление</div>
-    <div class="create-ad-form__block">
-      <div class="create-ad-form__block-title">
-        Разместить как
-        <span> * </span>
-      </div>
-      <div>
-        <label for="performer" class="create-ad-form__radio custom-radio">
-          <input
-            type="radio"
-            value="performer"
-            id="performer"
-            v-model="formDataType.performerAdvertiser"
-          />
-          <span>Исполнитель</span>
-          <div
-            title="У вас есть место под рекламу"
-            class="create-ad-form__question"
+    <div class="shadow_effect">
+      <div class="create-ad-form__block">
+        <div class="create-ad-form__block-title">
+          Разместить как
+        </div>
+        <div>
+          <label for="private_person" class="create-ad-form__radio custom-radio">
+            <input
+              type="radio"
+              value="private_person"
+              id="private_person"
+              v-model="formDataToSend.executorCompany"
+            />
+            <span>{{ this.myProfileData.name }}</span>
+          </label>
+          <label
+            for="comany"
+            class="create-ad-form__radio custom-radio"
+            v-if="this.myProfileData.has_company"
           >
-            <div class="create-ad-form__question-mobile">
-              У вас есть место под рекламу
-            </div>
-          </div>
-        </label>
-        <label for="employer" class="create-ad-form__radio custom-radio">
-          <input
-            type="radio"
-            value="employer"
-            id="employer"
-            v-model="formDataType.performerAdvertiser"
-          />
-          <span>Рекламодатель</span>
-          <div
-            title="Если вы ищете исполнителей для вашей рекламной промоакции"
-            class="create-ad-form__question"
-          >
-            <div class="create-ad-form__question-mobile">
-              Если вы ищете исполнителей для вашей рекламной промоакции
-            </div>
-          </div>
-        </label>
+            <input
+              type="radio"
+              value="company"
+              id="comany"
+              v-model="formDataToSend.executorCompany"
+            />
+            <span>{{ this.myProfileData.company_name }}</span>
+          </label>
+          <Notification :message="error['advertisement_type']" v-if="error" />
+        </div>
       </div>
-      <Notification :message="error['person_type']" v-if="error" />
-    </div>
-    <div class="create-ad-form__block">
+      <div class="create-ad-form__block">
+        <div class="create-ad-form__block-title">
+          Разместить как
+          <span> * </span>
+        </div>
+        <div>
+          <label for="performer" class="create-ad-form__radio custom-radio">
+            <input
+              type="radio"
+              value="performer"
+              id="performer"
+              v-model="formDataType.performerAdvertiser"
+            />
+            <span>Исполнитель</span>
+            <div
+              title="У вас есть место под рекламу"
+              class="create-ad-form__question"
+            >
+              <div class="create-ad-form__question-mobile">
+                У вас есть место под рекламу
+              </div>
+            </div>
+          </label>
+          <label for="employer" class="create-ad-form__radio custom-radio">
+            <input
+              type="radio"
+              value="employer"
+              id="employer"
+              v-model="formDataType.performerAdvertiser"
+            />
+            <span>Рекламодатель</span>
+            <div
+              title="Если вы ищете исполнителей для вашей рекламной промоакции"
+              class="create-ad-form__question"
+            >
+              <div class="create-ad-form__question-mobile">
+                Если вы ищете исполнителей для вашей рекламной промоакции
+              </div>
+            </div>
+          </label>
+        </div>
+        <Notification :message="error['person_type']" v-if="error" />
+      </div>
+      <div class="create-ad-form__block">
+        <div class="create-ad-form__block-title">
+          Категория
+        </div>
+        <div @click="openModalCategory" class="create-ad-form__category">
+          {{ this.mainCategory }}
+          <SelectArrow />
+        </div>
+      </div>
+      <div class="create-ad-form__block">
+        <div class="create-ad-form__block-title">
+          Название
+        </div>
+        <InputText
+            :set-value="formDataToSend"
+            :id="'title'"
+            :label="'title'"
+            :type="'text'"
+            :placeholder="'Введите название объявления'"
+        />
+        <Notification :message="error['title']" v-if="error" />
+        <div class="create-ad-form__placeholder">
+          {{ characters }}
+        </div>
+      </div>
+      <div class="create-ad-form__category-new" v-if="this.mainCategoryImg">
+        <img
+          :src="this.mainCategoryImg"
+          alt=""
+          class="create-ad-form__category-img"
+        />
+        {{ this.mainCategory }}
+        <span v-if="this.childCategory"> , {{ this.childCategory }} </span>
+      </div>
+      <Notification :message="error['category_id']" v-if="error" />
+      <Notification :message="error['child_category_id']" v-if="error" />
+  <!--    <div class="create-ad-form__map">-->
+  <!--      <div class="create-ad-form__map-title">-->
+  <!--        Выберите местоположение на карте-->
+  <!--      </div>-->
+  <!--      <GmapMap-->
+  <!--        :center="{ lat: 48, lng: 35 }"-->
+  <!--        :zoom="5"-->
+  <!--        map-type-id="terrain"-->
+  <!--        style="width: 660px; height: 400px"-->
+  <!--        @click="addMarker"-->
+  <!--        :marker-position="formDataToSend.position"-->
+  <!--        :handle-set-coordinates="handleSetCoordinates"-->
+  <!--        :handle-set-address="handleSetAddress"-->
+  <!--      >-->
+  <!--        <GmapMarker-->
+  <!--          v-if="formDataToSend.position"-->
+  <!--          :position="formDataToSend.position"-->
+  <!--        />-->
+  <!--      </GmapMap>-->
+  <!--      <Notification :message="error['latitude']" v-if="error" />-->
+  <!--      <Notification :message="error['longitude']" v-if="error" />-->
+  <!--    </div>-->
+      <div class="create-ad-form__address-block" v-if="this.positionLatLng">
+        {{ this.positionLatLng }}
+      </div>
       <InputText
         :set-value="formDataToSend"
-        :id="'title'"
-        :label="'title'"
-        :type="'text'"
-        :placeholder="'Название объявления*'"
+        :id="formDataToSend.position.lat"
+        hidden
       />
-      <Notification :message="error['title']" v-if="error" />
-      <div class="create-ad-form__placeholder">
-        {{ characters }} знаков осталось
-      </div>
-    </div>
-    <div class="create-ad-form__block">
-      <div @click="openModalCategory" class="create-ad-form__category">
-        {{ this.mainCategory }}
-        <SelectArrow />
-      </div>
-    </div>
-    <div class="create-ad-form__category-new" v-if="this.mainCategoryImg">
-      <img
-        :src="this.mainCategoryImg"
-        alt=""
-        class="create-ad-form__category-img"
+      <InputText
+        :set-value="formDataToSend"
+        :id="formDataToSend.position.lng"
+        hidden
       />
-      {{ this.mainCategory }}
-      <span v-if="this.childCategory"> , {{ this.childCategory }} </span>
-    </div>
-    <Notification :message="error['category_id']" v-if="error" />
-    <Notification :message="error['child_category_id']" v-if="error" />
-    <div class="create-ad-form__map">
-      <div class="create-ad-form__map-title">
-        Выберите местоположение на карте
-      </div>
-      <GmapMap
-        :center="{ lat: 48, lng: 35 }"
-        :zoom="5"
-        map-type-id="terrain"
-        style="width: 660px; height: 400px"
-        @click="addMarker"
-        :marker-position="formDataToSend.position"
-        :handle-set-coordinates="handleSetCoordinates"
-        :handle-set-address="handleSetAddress"
+      <div
+        class="create-ad-form__block"
+        v-for="field in this.categoryFields.data"
+        :key="field.id"
       >
-        <GmapMarker
-          v-if="formDataToSend.position"
-          :position="formDataToSend.position"
-        />
-      </GmapMap>
-      <Notification :message="error['latitude']" v-if="error" />
-      <Notification :message="error['longitude']" v-if="error" />
-    </div>
-    <div class="create-ad-form__address-block" v-if="this.positionLatLng">
-      {{ this.positionLatLng }}
-    </div>
-    <InputText
-      :set-value="formDataToSend"
-      :id="formDataToSend.position.lat"
-      hidden
-    />
-    <InputText
-      :set-value="formDataToSend"
-      :id="formDataToSend.position.lng"
-      hidden
-    />
-    <div
-      class="create-ad-form__block"
-      v-for="field in this.categoryFields.data"
-      :key="field.id"
-    >
-      <div v-if="field.price != null">
-        <div
-          v-if="field.price.type === 'number'"
-          class="create-ad-form__field-title"
-        >
-          <div class="create-ad-form__field-title-price">
-            {{ field.price.name }}
-          </div>
-          <InputText
-            v-if="field.price.type === 'number'"
-            :set-value="formDataToSend"
-            :id="field.price.key"
-            :label="field.price.name"
-            :type="'number'"
-            :placeholder="field.price.name"
-          />
-        </div>
-        <div class="create-ad-form__section-price">
-          <div @click="isShowBargainingOn">
-            <div
-              v-if="field.negotiable.type === 'text'"
-              class="create-ad-form__field-title"
-            >
-              {{ field.negotiable.name }}
-            </div>
-            <InputCheckbox
-              v-if="
-                field.negotiable.type === 'checkbox' &&
-                field.negotiable.is_show === true
-              "
-              :set-value="formDataToSend"
-              :id="field.negotiable.key"
-              :label="field.negotiable.name"
-            />
-          </div>
-          <div>
-            <div
-              v-if="field.bargaining.type === 'text'"
-              class="create-ad-form__field-title"
-            >
-              {{ field.bargaining.name }}
-            </div>
-            <InputCheckbox
-              v-if="
-                field.bargaining.type === 'checkbox' &&
-                field.bargaining.is_show === true &&
-                isShowBargaining
-              "
-              :set-value="formDataToSend"
-              :id="field.bargaining.key"
-              :label="field.bargaining.name"
-            />
-          </div>
-        </div>
-        <div v-if="field.payment != null">
+        <div v-if="field.price != null">
           <div
-            v-if="field.payment.type === 'select'"
+            v-if="field.price.type === 'number'"
             class="create-ad-form__field-title"
           >
-            {{ field.payment.name }}
+            <div class="create-ad-form__field-title-price">
+              {{ field.price.name }}
+            </div>
+            <InputText
+              v-if="field.price.type === 'number'"
+              :set-value="formDataToSend"
+              :id="field.price.key"
+              :label="field.price.name"
+              :type="'number'"
+              :placeholder="field.price.name"
+            />
           </div>
-          <div
-            v-if="field.payment.type === 'select'"
-            class="create-ad-form__select-form"
-            @click="periodicitySelectOpen()"
-          >
-            {{ periodicity }}
-            <SelectArrow v-if="!selectOpen" />
-            <SelectArrowTop v-if="selectOpen" />
-          </div>
-          <div
-            v-if="field.payment.type === 'select' && periodicitySelect"
-            class="create-ad-form__select-body"
-          >
-            <div v-for="period in periodicityArray" :key="period.id">
-              <div @click="periodicitySelected(period.name, period.id)">
-                {{ period.name }}
+          <div class="create-ad-form__section-price">
+            <div @click="isShowBargainingOn">
+              <div
+                v-if="field.negotiable.type === 'text'"
+                class="create-ad-form__field-title"
+              >
+                {{ field.negotiable.name }}
               </div>
+              <InputCheckbox
+                v-if="
+                  field.negotiable.type === 'checkbox' &&
+                  field.negotiable.is_show === true
+                "
+                :set-value="formDataToSend"
+                :id="field.negotiable.key"
+                :label="field.negotiable.name"
+              />
+            </div>
+            <div>
+              <div
+                v-if="field.bargaining.type === 'text'"
+                class="create-ad-form__field-title"
+              >
+                {{ field.bargaining.name }}
+              </div>
+              <InputCheckbox
+                v-if="
+                  field.bargaining.type === 'checkbox' &&
+                  field.bargaining.is_show === true &&
+                  isShowBargaining
+                "
+                :set-value="formDataToSend"
+                :id="field.bargaining.key"
+                :label="field.bargaining.name"
+              />
+            </div>
+          </div>
+          <div v-if="field.payment != null">
+            <div
+              v-if="field.payment.type === 'select'"
+              class="create-ad-form__field-title"
+            >
+              {{ field.payment.name }}
+            </div>
+            <div
+              v-if="field.payment.type === 'select'"
+              class="create-ad-form__select-form"
+              @click="periodicitySelectOpen()"
+            >
+              {{ periodicity }}
+              <SelectArrow v-if="!selectOpen" />
+              <SelectArrowTop v-if="selectOpen" />
+            </div>
+            <div
+              v-if="field.payment.type === 'select' && periodicitySelect"
+              class="create-ad-form__select-body"
+            >
+              <div v-for="period in periodicityArray" :key="period.id">
+                <div @click="periodicitySelected(period.name, period.id)">
+                  {{ period.name }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-if="field.type === 'select'" class="create-ad-form__field-hint">
+            {{ field.hint }}
+          </div>
+          <Notification
+            :message="error['price']"
+            v-if="error && field.price.key === 'price'"
+          />
+        </div>
+        <div v-if="field.type === 'select'" class="create-ad-form__field-title">
+          {{ field.name }}
+        </div>
+        <div
+          v-if="field.type === 'select'"
+          class="create-ad-form__select-form"
+          @click="periodicitySelectOpen()"
+        >
+          {{ periodicity }}
+          <SelectArrow v-if="!selectOpen" />
+          <SelectArrowTop v-if="selectOpen" />
+        </div>
+        <div
+          v-if="field.type === 'select' && periodicitySelect"
+          class="create-ad-form__select-body"
+        >
+          <div v-for="period in periodicityArray" :key="period.id">
+            <div @click="periodicitySelected(period.name, period.id)">
+              {{ period.name }}
             </div>
           </div>
         </div>
         <div v-if="field.type === 'select'" class="create-ad-form__field-hint">
           {{ field.hint }}
         </div>
-        <Notification
-          :message="error['price']"
-          v-if="error && field.price.key === 'price'"
-        />
-      </div>
-      <div v-if="field.type === 'select'" class="create-ad-form__field-title">
-        {{ field.name }}
-      </div>
-      <div
-        v-if="field.type === 'select'"
-        class="create-ad-form__select-form"
-        @click="periodicitySelectOpen()"
-      >
-        {{ periodicity }}
-        <SelectArrow v-if="!selectOpen" />
-        <SelectArrowTop v-if="selectOpen" />
-      </div>
-      <div
-        v-if="field.type === 'select' && periodicitySelect"
-        class="create-ad-form__select-body"
-      >
-        <div v-for="period in periodicityArray" :key="period.id">
-          <div @click="periodicitySelected(period.name, period.id)">
-            {{ period.name }}
+        <div v-if="field.type === 'hashtags'" class="create-ad-form__field-title">
+          {{ field.name }}
+          <div class="create-ad-form__field-hint">
+            {{ field.hint }}
           </div>
+          <Tags :onChange="onTagsChange" class="create-ad-form__hashtags" />
         </div>
-      </div>
-      <div v-if="field.type === 'select'" class="create-ad-form__field-hint">
-        {{ field.hint }}
-      </div>
-      <div v-if="field.type === 'hashtags'" class="create-ad-form__field-title">
-        {{ field.name }}
-        <div class="create-ad-form__field-hint">
-          {{ field.hint }}
-        </div>
-        <Tags :onChange="onTagsChange" class="create-ad-form__hashtags" />
-      </div>
-      <Notification
-        :message="error['hashtags']"
-        v-if="error && field.key === 'hashtags'"
-      />
-      <div v-if="field.type === 'text'" class="create-ad-form__field-title">
-        {{ field.name }}
-      </div>
-      <InputText
-        v-if="field.type === 'text'"
-        :set-value="formDataToSend"
-        :id="field.key"
-        :label="field.name"
-        :type="'text'"
-        :placeholder="field.name"
-      />
-      <div v-if="field.type === 'text'" class="create-ad-form__field-hint">
-        {{ field.hint }}
-      </div>
-      <div v-if="field.type === 'number'" class="create-ad-form__field-title">
-        {{ field.name }}
-      </div>
-      <InputText
-        v-if="field.type === 'number'"
-        :set-value="formDataToSend"
-        :id="field.key"
-        :label="field.name"
-        :type="'number'"
-        :placeholder="field.name"
-      />
-      <div v-if="field.type === 'number'" class="create-ad-form__field-hint">
-        {{ field.hint }}
-      </div>
-      <Notification
-        :message="error['width']"
-        v-if="error && field.key === 'width'"
-      />
-      <Notification
-        :message="error['amount']"
-        v-if="error && field.key === 'amount'"
-      />
-      <Notification
-        :message="error['length']"
-        v-if="error && field.key === 'length'"
-      />
-      <Notification
-        :message="error['price']"
-        v-if="error && field.key === 'price'"
-      />
-      <Notification
-        :message="error['reach_audience']"
-        v-if="error && field.key === 'reach_audience'"
-      />
-      <InputCheckbox
-        v-if="field.type === 'checkbox' && field.is_show === true"
-        :set-value="formDataToSend"
-        :id="field.key"
-        :label="field.name"
-      />
-      <div v-if="field.type === 'checkbox'" class="create-ad-form__field-hint">
-        {{ field.hint }}
-      </div>
-      <div v-if="field.type === 'textarea'" class="create-ad-form__field-title">
-        {{ field.name }}
-      </div>
-      <InputTextarea
-        v-if="field.type === 'textarea'"
-        :set-value="formDataToSend"
-        :id="field.key"
-        :label="field.name"
-        :placeholder="field.name"
-      />
-      <div v-if="field.type === 'textarea'" class="create-ad-form__field-hint">
-        {{ field.hint }}
-      </div>
-      <Notification
-        :message="error['description']"
-        v-if="error && field.key === 'description'"
-      />
-      <div v-if="field.type === 'datetime'" class="create-ad-form__field-title">
-        {{ field.name }}
-      </div>
-      <input
-        type="date"
-        v-if="field.type === 'datetime' && field.key === 'date_of_the'"
-        v-model="formDataToSend.datetime.date_of_the"
-        :id="field.form_field_id"
-      />
-      <input
-        type="date"
-        v-if="field.type === 'datetime' && field.key === 'date_start'"
-        v-model="formDataToSend.datetime.date_start"
-        :id="field.form_field_id"
-      />
-      <input
-        type="date"
-        v-if="field.type === 'datetime' && field.key === 'date_finish'"
-        v-model="formDataToSend.datetime.date_finish"
-        :id="field.form_field_id"
-      />
-      <input
-        type="date"
-        v-if="field.type === 'datetime' && field.key === 'deadline_date'"
-        v-model="formDataToSend.datetime.deadline_date"
-        :id="field.form_field_id"
-      />
-
-      <div v-if="field.type === 'datetime'" class="create-ad-form__field-hint">
-        {{ field.hint }}
-      </div>
-      <div class="create-ad-form__file" v-if="field.type === 'file'">
-        <div
-          v-if="field.type === 'file'"
-          class="create-ad-form__field-title-sempl"
-        >
+        <Notification
+          :message="error['hashtags']"
+          v-if="error && field.key === 'hashtags'"
+        />
+        <div v-if="field.type === 'text'" class="create-ad-form__field-title">
           {{ field.name }}
         </div>
-        <div class="create-ad-form__file-update">
-          <div>
-            <label class="create-ad-form__file-block">
-              <span class="create-ad-form__file-upload">Загрузить</span>
-              <input
-                hidden
-                type="file"
-                id="file"
-                ref="file"
-                v-on:change="handleFileUpload()"
-              />
-            </label>
-            <div
-              class="create-ad-form__file-upload-secsesful"
-              v-if="fileUploads"
-            >
-              Файл успешно загружен!
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="create-ad-form__block">
-      <div>Фото*</div>
-      <label>
-        <input
-          :type="this.filePhotos"
-          id="files"
-          ref="files"
-          multiple
-          v-on:change="handleFilesUploads()"
-          hidden
-          accept="image/jpeg, image/png"
-          class="preloadPhoto"
+        <InputText
+          v-if="field.type === 'text'"
+          :set-value="formDataToSend"
+          :id="field.key"
+          :label="field.name"
+          :type="'text'"
+          :placeholder="field.name"
         />
-        <div class="create-ad-form__photos-section">
+        <div v-if="field.type === 'text'" class="create-ad-form__field-hint">
+          {{ field.hint }}
+        </div>
+        <div v-if="field.type === 'number'" class="create-ad-form__field-title">
+          {{ field.name }}
+        </div>
+        <InputText
+          v-if="field.type === 'number'"
+          :set-value="formDataToSend"
+          :id="field.key"
+          :label="field.name"
+          :type="'number'"
+          :placeholder="field.name"
+        />
+        <div v-if="field.type === 'number'" class="create-ad-form__field-hint">
+          {{ field.hint }}
+        </div>
+        <Notification
+          :message="error['width']"
+          v-if="error && field.key === 'width'"
+        />
+        <Notification
+          :message="error['amount']"
+          v-if="error && field.key === 'amount'"
+        />
+        <Notification
+          :message="error['length']"
+          v-if="error && field.key === 'length'"
+        />
+        <Notification
+          :message="error['price']"
+          v-if="error && field.key === 'price'"
+        />
+        <Notification
+          :message="error['reach_audience']"
+          v-if="error && field.key === 'reach_audience'"
+        />
+        <InputCheckbox
+          v-if="field.type === 'checkbox' && field.is_show === true"
+          :set-value="formDataToSend"
+          :id="field.key"
+          :label="field.name"
+        />
+        <div v-if="field.type === 'checkbox'" class="create-ad-form__field-hint">
+          {{ field.hint }}
+        </div>
+        <div v-if="field.type === 'textarea'" class="create-ad-form__field-title">
+          {{ field.name }}
+        </div>
+        <InputTextarea
+          v-if="field.type === 'textarea'"
+          :set-value="formDataToSend"
+          :id="field.key"
+          :label="field.name"
+          :placeholder="field.name"
+        />
+        <div v-if="field.type === 'textarea'" class="create-ad-form__field-hint">
+          {{ field.hint }}
+        </div>
+        <Notification
+          :message="error['description']"
+          v-if="error && field.key === 'description'"
+        />
+        <div v-if="field.type === 'datetime'" class="create-ad-form__field-title">
+          {{ field.name }}
+        </div>
+        <input
+          type="date"
+          v-if="field.type === 'datetime' && field.key === 'date_of_the'"
+          v-model="formDataToSend.datetime.date_of_the"
+          :id="field.form_field_id"
+        />
+        <input
+          type="date"
+          v-if="field.type === 'datetime' && field.key === 'date_start'"
+          v-model="formDataToSend.datetime.date_start"
+          :id="field.form_field_id"
+        />
+        <input
+          type="date"
+          v-if="field.type === 'datetime' && field.key === 'date_finish'"
+          v-model="formDataToSend.datetime.date_finish"
+          :id="field.form_field_id"
+        />
+        <input
+          type="date"
+          v-if="field.type === 'datetime' && field.key === 'deadline_date'"
+          v-model="formDataToSend.datetime.deadline_date"
+          :id="field.form_field_id"
+        />
+
+        <div v-if="field.type === 'datetime'" class="create-ad-form__field-hint">
+          {{ field.hint }}
+        </div>
+        <div class="create-ad-form__file" v-if="field.type === 'file'">
           <div
-            v-for="(file, key) in files"
-            :key="file.id"
-            class="create-ad-form__photos-pre"
+            v-if="field.type === 'file'"
+            class="create-ad-form__field-title-sempl"
           >
-            <img v-bind:ref="'image' + parseInt(key)" />
-            <div class="create-ad-form__photos-background">
+            {{ field.name }}
+          </div>
+          <div class="create-ad-form__file-update">
+            <div>
+              <label class="create-ad-form__file-block">
+                <span class="create-ad-form__file-upload">Загрузить</span>
+                <input
+                  hidden
+                  type="file"
+                  id="file"
+                  ref="file"
+                  v-on:change="handleFileUpload()"
+                />
+              </label>
               <div
-                @click="deletePhotos(key)"
-                class="create-ad-form__photos-delete"
+                class="create-ad-form__file-upload-secsesful"
+                v-if="fileUploads"
               >
-                <Delete />
+                Файл успешно загружен!
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="create-ad-form__block">
+        <div>Фото*</div>
+        <label>
+          <input
+            :type="this.filePhotos"
+            id="files"
+            ref="files"
+            multiple
+            v-on:change="handleFilesUploads()"
+            hidden
+            accept="image/jpeg, image/png"
+            class="preloadPhoto"
+          />
+          <div class="create-ad-form__photos-section">
+            <div
+              v-for="(file, key) in files"
+              :key="file.id"
+              class="create-ad-form__photos-pre"
+            >
+              <img v-bind:ref="'image' + parseInt(key)" />
+              <div class="create-ad-form__photos-background">
+                <div
+                  @click="deletePhotos(key)"
+                  class="create-ad-form__photos-delete"
+                >
+                  <Delete />
+                </div>
+              </div>
+            </div>
+            <div
+              class="create-ad-form__photos"
+              @click="addFlieType"
+              v-if="this.files.length <= 4"
+            >
+              <PlusUpload />
+            </div>
+          </div>
+        </label>
+        <div v-if="this.limitPhotoErrore" class="create-ad-form__photos-errore">
+          Максимальный лимит фотографий 5
+        </div>
+      </div>
+      <Notification :message="error['images']" v-if="error" />
+<!--      <div class="create-ad-form__block create-ad-form__block-link">-->
+<!--        <InputCheckbox-->
+<!--          :set-value="formDataToSend"-->
+<!--          :id="'isHide'"-->
+<!--          :label="'Доступ по ссылке'"-->
+<!--        />-->
+<!--        <span title="Ваше объявление будет доступно только по прямой ссылке">-->
+<!--          <Question />-->
+<!--        </span>-->
+<!--      </div>-->
+      <div class="create-ad-form__nav-group">
+        <DefaultButton :type="'submit'" class="create-ad-form__button">
+          Создать объявление
+        </DefaultButton>
+        <!-- <Nuxt-link to="" class="create-ad-form__link">
+          Предварительный просмотр
+        </Nuxt-link> -->
+      </div>
+
+      <!-- popup -->
+      <DefaultModal
+        v-if="openModal"
+        :on-close="() => (openModal = !openModal)"
+        class="create-ad-form__modal-category"
+      >
+        <p class="create-ad-form__modal-category-title">Выбрать категорию</p>
+        <div class="create-ad-form__modal-category-body">
           <div
-            class="create-ad-form__photos"
-            @click="addFlieType"
-            v-if="this.files.length <= 4"
+            v-for="category in this.category.data"
+            :key="category.id"
+            @click="
+              getCategotyChild(
+                category.category_id,
+                category.category_name,
+                category.photo_url
+              )
+            "
+            class="create-ad-form__modal-category-item"
           >
-            <PlusUpload />
+            <img :src="category.photo_url" :alt="category.photo_url" />
+            {{ category.category_name }}
           </div>
         </div>
-      </label>
-      <div v-if="this.limitPhotoErrore" class="create-ad-form__photos-errore">
-        Максимальный лимит фотографий 5
-      </div>
-    </div>
-    <Notification :message="error['images']" v-if="error" />
-    <div class="create-ad-form__block create-ad-form__block-link">
-      <InputCheckbox
-        :set-value="formDataToSend"
-        :id="'isHide'"
-        :label="'Доступ по ссылке'"
-      />
-      <span title="Ваше объявление будет доступно только по прямой ссылке">
-        <Question />
-      </span>
-    </div>
-    <div class="create-ad-form__nav-group">
-      <DefaultButton :type="'submit'" class="create-ad-form__button">
-        Далее
-      </DefaultButton>
-      <!-- <Nuxt-link to="" class="create-ad-form__link">
-        Предварительный просмотр
-      </Nuxt-link> -->
-    </div>
+      </DefaultModal>
 
-    <!-- popup -->
-    <DefaultModal
-      v-if="openModal"
-      :on-close="() => (openModal = !openModal)"
-      class="create-ad-form__modal-category"
-    >
-      <p class="create-ad-form__modal-category-title">Выбрать категорию</p>
-      <div class="create-ad-form__modal-category-body">
-        <div
-          v-for="category in this.category.data"
-          :key="category.id"
-          @click="
-            getCategotyChild(
-              category.category_id,
-              category.category_name,
-              category.photo_url
-            )
-          "
-          class="create-ad-form__modal-category-item"
-        >
-          <img :src="category.photo_url" :alt="category.photo_url" />
-          {{ category.category_name }}
-        </div>
-      </div>
-    </DefaultModal>
-
-    <DefaultModal
-      v-if="openCategoryChildModal"
-      :on-close="() => (openCategoryChildModal = !openCategoryChildModal)"
-      class="create-ad-form__modal-category"
-    >
-      <p class="create-ad-form__modal-category-child-title">
-        Выбрать подкатегорию
-      </p>
-      <div
-        @click="openModalCategory"
-        class="create-ad-form__modal-category-back"
+      <DefaultModal
+        v-if="openCategoryChildModal"
+        :on-close="() => (openCategoryChildModal = !openCategoryChildModal)"
+        class="create-ad-form__modal-category"
       >
-        Вернуться к категориям
-      </div>
-      <div class="create-ad-form__main-category-title">
-        <img :src="this.mainCategoryImg" :alt="this.mainCategory" />
-        {{ this.mainCategory }}
-      </div>
-      <div
-        v-for="item in this.categoryChild.data.child_categories"
-        :key="item.id"
-        class="create-ad-form__modal-category-child-item"
-      >
+        <p class="create-ad-form__modal-category-child-title">
+          Выбрать подкатегорию
+        </p>
         <div
-          @click="
-            getCategotyFields(item.child_category_name, item.child_category_id)
-          "
+          @click="openModalCategory"
+          class="create-ad-form__modal-category-back"
         >
-          {{ item.child_category_name }}
+          Вернуться к категориям
         </div>
-      </div>
-    </DefaultModal>
+        <div class="create-ad-form__main-category-title">
+          <img :src="this.mainCategoryImg" :alt="this.mainCategory" />
+          {{ this.mainCategory }}
+        </div>
+        <div
+          v-for="item in this.categoryChild.data.child_categories"
+          :key="item.id"
+          class="create-ad-form__modal-category-child-item"
+        >
+          <div
+            @click="
+              getCategotyFields(item.child_category_name, item.child_category_id)
+            "
+          >
+            {{ item.child_category_name }}
+          </div>
+        </div>
+      </DefaultModal>
+    </div>
     <!-- end popup -->
   </form>
 </template>
@@ -504,10 +542,10 @@ import InputCheckbox from "@/components/atoms/inputs/InputCheckboxMain.vue";
 import InputMainSelect from "@/components/atoms/inputs/InputMainSelect.vue";
 import DefaultButton from "@/components/atoms/buttons/MainButton.vue";
 import DefaultModal from "@/components/molecules/DefaultModal.vue";
-import SelectArrow from "@/assets/images/arrow/select-arrow.svg?inline";
+import SelectArrow from "@/assets/images/arrow/arrow_down_select.svg?inline";
 import SelectArrowTop from "@/assets/images/arrow/select-arrow-top.svg?inline";
 import Question from "@/assets/images/icons/question.svg?inline";
-import PlusUpload from "@/assets/images/icons/plus-upload.svg?inline";
+import PlusUpload from "@/assets/images/icons/Add.svg?inline";
 import Tags from "@yaireo/tagify/dist/tagify.vue";
 import Notification from "@/components/errors/Notification";
 import Delete from "@/assets/images/adv/delete.svg?inline";

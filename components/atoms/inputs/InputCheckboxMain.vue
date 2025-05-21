@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import Check from '@/assets/images/icons/check.svg?inline';
+import Check from '@/assets/images/icons/checked.svg?inline';
 
 export default {
   name: 'InputCheckboxMain',

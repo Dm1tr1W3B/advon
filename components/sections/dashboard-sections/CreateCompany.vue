@@ -14,376 +14,378 @@
         Редактировать компанию
       </div>
     </div>
-    <div class="create-company-form__block">
-      <InputText
-        :set-value="formDataToSend"
-        :id="'companyName'"
-        :label="'companyName'"
-        :type="'text'"
-        :placeholder="this.myCompanyData.name || 'Название компании*'"
-      />
-      <Notification :message="error['name']" v-if="error" />
-      <div class="create-company-form__hint">255 знаков осталось</div>
+    <div class="shadow_effect">
       <div class="create-company-form__block">
-        <div class="create-company-form__block-title">Логотип</div>
-        <div class="create-company-form__photo-update">
-          <div>
-            <img
-              v-if="this.imagePreview === '' && this.myCompanyData.logo"
-              :src="this.myCompanyData.logo"
-              alt="company"
-              class="create-company-form__photo-update-preview"
-            />
-            <img
-              v-bind:src="this.imagePreview"
-              v-show="this.showPreview"
-              class="create-company-form__photo-update-preview-create"
-            />
-          </div>
-          <div>
-            <DefaultCompany
-              v-if="
-                this.myCompanyData.logo == undefined && this.imagePreview === ''
-              "
-            />
-          </div>
-          <div>
-            <label class="create-company-form__photo-block">
-              <span class="create-company-form__photo-upload">Загрузить</span>
-              <input
-                type="file"
-                id="file"
-                ref="file"
-                v-on:change="handleFileUpload()"
-                accept="image/jpeg, image/png"
+        <InputText
+          :set-value="formDataToSend"
+          :id="'companyName'"
+          :label="'companyName'"
+          :type="'text'"
+          :placeholder="this.myCompanyData.name || 'Название компании*'"
+        />
+        <Notification :message="error['name']" v-if="error" />
+        <div class="create-company-form__hint">255 знаков осталось</div>
+        <div class="create-company-form__block">
+          <div class="create-company-form__block-title">Логотип</div>
+          <div class="create-company-form__photo-update">
+            <div>
+              <img
+                v-if="this.imagePreview === '' && this.myCompanyData.logo"
+                :src="this.myCompanyData.logo"
+                alt="company"
+                class="create-company-form__photo-update-preview"
               />
-            </label>
-            <span
-              v-if="this.myCompanyData.photo != null"
-              class="create-company-form__photo-delete"
-              @click="deletePhotoCompany"
-            >
-              Удалить фото
-            </span>
-            <span
-              @click="deletePhotoPrev"
-              class="create-company-form__photo-delete"
-            >
-              Удалить фото
-            </span>
+              <img
+                v-bind:src="this.imagePreview"
+                v-show="this.showPreview"
+                class="create-company-form__photo-update-preview-create"
+              />
+            </div>
+            <div>
+              <DefaultCompany
+                v-if="
+                  this.myCompanyData.logo == undefined && this.imagePreview === ''
+                "
+              />
+            </div>
+            <div>
+              <label class="create-company-form__photo-block">
+                <span class="create-company-form__photo-upload">Загрузить</span>
+                <input
+                  type="file"
+                  id="file"
+                  ref="file"
+                  v-on:change="handleFileUpload()"
+                  accept="image/jpeg, image/png"
+                />
+              </label>
+              <span
+                v-if="this.myCompanyData.photo != null"
+                class="create-company-form__photo-delete"
+                @click="deletePhotoCompany"
+              >
+                Удалить фото
+              </span>
+              <span
+                @click="deletePhotoPrev"
+                class="create-company-form__photo-delete"
+              >
+                Удалить фото
+              </span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="create-company-form__photo">
-      <div class="create-company-form__block-title">Фото компании</div>
-      <div class="create-company-form__hint">
-        Профили с фотографиями пользуются большим доверием
-      </div>
-      <div class="create-company-form__block create-company-form__block-photo">
-        <label>
-          <input
-            :type="this.filePhotos"
-            id="files"
-            ref="files"
-            multiple
-            v-on:change="handleFilesUploads()"
-            hidden
-            accept="image/jpeg, image/png"
-          />
-          <div class="create-company-form__photos-section">
-            <div
-              v-for="(file, key) in files"
-              :key="file.id"
-              class="create-company-form__photos-pre"
-            >
-              <img v-bind:ref="'image' + parseInt(key)" />
-              <div class="create-company-form__photos-background">
-                <div
-                  @click="deletePhotos(key)"
-                  class="create-company-form__photos-delete"
-                >
-                  <Delete />
-                </div>
-              </div>
-            </div>
-            <div
-              class="create-company-form__photos-block"
-              v-for="photo in myCompanyData.additional_photos"
-              :key="photo.id"
-            >
-              <div class="create-company-form__photos">
+      <div class="create-company-form__photo">
+        <div class="create-company-form__block-title">Фото компании</div>
+        <div class="create-company-form__hint">
+          Профили с фотографиями пользуются большим доверием
+        </div>
+        <div class="create-company-form__block create-company-form__block-photo">
+          <label>
+            <input
+              :type="this.filePhotos"
+              id="files"
+              ref="files"
+              multiple
+              v-on:change="handleFilesUploads()"
+              hidden
+              accept="image/jpeg, image/png"
+            />
+            <div class="create-company-form__photos-section">
+              <div
+                v-for="(file, key) in files"
+                :key="file.id"
+                class="create-company-form__photos-pre"
+              >
+                <img v-bind:ref="'image' + parseInt(key)" />
                 <div class="create-company-form__photos-background">
-                  <div>
-                    <Upload />
-                  </div>
                   <div
-                    @click="deleteAdditionalPhotoProfile(photo.image_id)"
+                    @click="deletePhotos(key)"
                     class="create-company-form__photos-delete"
                   >
                     <Delete />
                   </div>
                 </div>
-                <img :src="photo.photo_url" alt="photo" />
               </div>
-            </div>
-            <span v-if="myCompanyData.additional_photos">
+              <div
+                class="create-company-form__photos-block"
+                v-for="photo in myCompanyData.additional_photos"
+                :key="photo.id"
+              >
+                <div class="create-company-form__photos">
+                  <div class="create-company-form__photos-background">
+                    <div>
+                      <Upload />
+                    </div>
+                    <div
+                      @click="deleteAdditionalPhotoProfile(photo.image_id)"
+                      class="create-company-form__photos-delete"
+                    >
+                      <Delete />
+                    </div>
+                  </div>
+                  <img :src="photo.photo_url" alt="photo" />
+                </div>
+              </div>
+              <span v-if="myCompanyData.additional_photos">
+                <div
+                  class="create-company-form__photos"
+                  v-if="
+                    this.files.length < 10 &&
+                    myCompanyData.additional_photos.length < '9'
+                  "
+                  @click="addFlieType"
+                >
+                  <PlusUpload />
+                </div>
+              </span>
               <div
                 class="create-company-form__photos"
                 v-if="
                   this.files.length < 10 &&
-                  myCompanyData.additional_photos.length < '9'
+                  this.myProfileData.has_company == false
                 "
                 @click="addFlieType"
               >
                 <PlusUpload />
               </div>
-            </span>
-            <div
-              class="create-company-form__photos"
-              v-if="
-                this.files.length < 10 &&
-                this.myProfileData.has_company == false
-              "
-              @click="addFlieType"
-            >
-              <PlusUpload />
             </div>
+          </label>
+          <Notification :message="error['images']" v-if="error" />
+        </div>
+      </div>
+      <div class="create-company-form__block">
+        <div class="create-company-form__block-title">Описание*</div>
+        <InputTextarea
+          :set-value="formDataToSend"
+          :id="'description'"
+          :label="'description'"
+          :placeholder="this.myCompanyData.description || 'Введите текст'"
+        />
+      </div>
+      <div class="create-company-form__block">
+        <div class="create-company-form__block-title">Сайт</div>
+        <InputText
+          :set-value="formDataToSend"
+          :id="'siteUrl'"
+          :label="'siteUrl'"
+          :type="'text'"
+          :placeholder="'https://advon.me'"
+        />
+      </div>
+      <div class="create-company-form__block">
+        <div class="create-company-form__block-title">Хештеги компании</div>
+        <div class="create-company-form__block-second-title">
+          Введите названия компаний, чьё внимание вы хотели бы обратить на это
+          объявление
+        </div>
+        <div class="create-company-form__hashtags-block">
+          <Tags
+            :onChange="onTagsChange"
+            class="create-company-form__hashtags"
+            :value="this.myCompanyData.hashtags"
+          />
+          <Notification :message="error['hashtags']" v-if="error" />
+        </div>
+        <div class="create-company-form__block-second-title">
+          Ожидаемый результат: Введите хэштеги вашей компании через запятую или
+          пробел (без символа #). Вы сможете увидеть заинтересованных людей в
+          рекламе вашей компании.
+        </div>
+      </div>
+      <div class="create-company-form__block">
+        <div class="create-company-form__block-title">Ссылка на видео</div>
+        <InputText
+          :set-value="formDataToSend"
+          :id="'videoUrl'"
+          :label="'videoUrl'"
+          :type="'text'"
+          :placeholder="'https://advon.me'"
+        />
+      </div>
+      <div class="create-company-form__block">
+        <div class="create-company-form__block-title">Аудио реклама</div>
+        <label for="fileAudio">
+          <div class="create-company-form__add-audio">
+            Загрузить
+            <input
+              type="file"
+              id="fileAudio"
+              ref="fileAudio"
+              hidden
+              v-on:change="handleFileAudioUploads()"
+              accept=".mp3"
+            />
           </div>
         </label>
-        <Notification :message="error['images']" v-if="error" />
-      </div>
-    </div>
-    <div class="create-company-form__block">
-      <div class="create-company-form__block-title">Описание*</div>
-      <InputTextarea
-        :set-value="formDataToSend"
-        :id="'description'"
-        :label="'description'"
-        :placeholder="this.myCompanyData.description || 'Введите текст'"
-      />
-    </div>
-    <div class="create-company-form__block">
-      <div class="create-company-form__block-title">Сайт</div>
-      <InputText
-        :set-value="formDataToSend"
-        :id="'siteUrl'"
-        :label="'siteUrl'"
-        :type="'text'"
-        :placeholder="'https://advon.me'"
-      />
-    </div>
-    <div class="create-company-form__block">
-      <div class="create-company-form__block-title">Хештеги компании</div>
-      <div class="create-company-form__block-second-title">
-        Введите названия компаний, чьё внимание вы хотели бы обратить на это
-        объявление
-      </div>
-      <div class="create-company-form__hashtags-block">
-        <Tags
-          :onChange="onTagsChange"
-          class="create-company-form__hashtags"
-          :value="this.myCompanyData.hashtags"
-        />
-        <Notification :message="error['hashtags']" v-if="error" />
-      </div>
-      <div class="create-company-form__block-second-title">
-        Ожидаемый результат: Введите хэштеги вашей компании через запятую или
-        пробел (без символа #). Вы сможете увидеть заинтересованных людей в
-        рекламе вашей компании.
-      </div>
-    </div>
-    <div class="create-company-form__block">
-      <div class="create-company-form__block-title">Ссылка на видео</div>
-      <InputText
-        :set-value="formDataToSend"
-        :id="'videoUrl'"
-        :label="'videoUrl'"
-        :type="'text'"
-        :placeholder="'https://advon.me'"
-      />
-    </div>
-    <div class="create-company-form__block">
-      <div class="create-company-form__block-title">Аудио реклама</div>
-      <label for="fileAudio">
-        <div class="create-company-form__add-audio">
-          Загрузить
-          <input
-            type="file"
-            id="fileAudio"
-            ref="fileAudio"
-            hidden
-            v-on:change="handleFileAudioUploads()"
-            accept=".mp3"
-          />
+        <div class="create-company-form__block-second-title">
+          Загрузка mp3 сэмпла. Максимальный размер файла 15 MB.
         </div>
-      </label>
-      <div class="create-company-form__block-second-title">
-        Загрузка mp3 сэмпла. Максимальный размер файла 15 MB.
       </div>
-    </div>
-    <div class="create-company-form__block">
-      <div class="create-company-form__block-title">
-        Документ, подтверждающий, что вы имеет отношнение к компании
-      </div>
-      <label for="fileDocument">
-        <div class="create-company-form__add-document">
-          Загрузить
-          <input
-            type="file"
-            id="fileDocument"
-            ref="fileDocument"
-            v-on:change="handleFileUploadDocument()"
-            hidden
-          />
+      <div class="create-company-form__block">
+        <div class="create-company-form__block-title">
+          Документ, подтверждающий, что вы имеет отношнение к компании
         </div>
-      </label>
-    </div>
-    <div class="create-company-form__block">
-      <div class="create-company-form__block-big-title">Контакты</div>
-      <GmapMap
-        :center="{ lat: 48, lng: 35 }"
-        :zoom="5"
-        map-type-id="terrain"
-        style="width: 460px; height: 250px"
-        @click="addMarker"
-        :marker-position="formDataToSend.position"
-        :handle-set-coordinates="handleSetCoordinates"
-        :handle-set-address="handleSetAddress"
-      >
-        <GmapMarker
-          v-if="formDataToSend.position"
-          :position="formDataToSend.position"
-        />
-      </GmapMap>
-    </div>
-    <div class="create-company-form__block" v-if="this.positionLatLng != null">
-      <div class="create-company-form__block-title">Адрес</div>
-      <div v-if="this.positionLatLng == null">
-        <span>{{ this.myCompanyData.country }}</span>
-        <span>{{ this.myCompanyData.region }}</span>
-        <span>{{ this.myCompanyData.city }}</span>
-      </div>
-      {{ this.positionLatLng }}
-    </div>
-    <div class="create-company-form__block">
-      <div class="create-company-form__block-title">Телефон компании</div>
-      <InputText
-        :set-value="formDataToSend"
-        :id="'phone'"
-        :label="'phone'"
-        :type="'number'"
-        :placeholder="this.myCompanyData.phone || 'Номер телефона без +'"
-      />
-    </div>
-    <div class="create-company-form__block">
-      <div class="create-company-form__block-title">Дополнительный телефон</div>
-      <InputText
-        :set-value="formDataToSend"
-        :id="'phoneExtra'"
-        :label="'phoneExtra'"
-        :type="'number'"
-        :placeholder="'Номер телефона без +'"
-      />
-    </div>
-    <div class="create-company-form__more-contacts-block">
-      <div class="create-company-form__section-title">Eще контакты</div>
-      <div class="create-company-form__more-contacts">
-        <div class="create-company-form__social-select" @click="openContacts">
-          <div class="create-company-form__social-select-left">
-            <Facebook
-              class="create-company-form__social-facebook"
-              v-if="this.contactsPhoto === ''"
+        <label for="fileDocument">
+          <div class="create-company-form__add-document">
+            Загрузить
+            <input
+              type="file"
+              id="fileDocument"
+              ref="fileDocument"
+              v-on:change="handleFileUploadDocument()"
+              hidden
             />
-            <img
-              :src="this.contactsPhoto"
-              alt="social"
-              v-if="this.contactsPhoto !== ''"
-            />
-            <span>{{ this.contactsOption }}</span>
           </div>
-          <SelectArrow />
-        </div>
-        <div
-          v-if="openSelectContacts"
-          class="
-            create-company-form__social-open-list
-            create-company-form__social-open-list-contacts
-          "
+        </label>
+      </div>
+      <div class="create-company-form__block">
+        <div class="create-company-form__block-big-title">Контакты</div>
+        <GmapMap
+          :center="{ lat: 48, lng: 35 }"
+          :zoom="5"
+          map-type-id="terrain"
+          style="width: 460px; height: 250px"
+          @click="addMarker"
+          :marker-position="formDataToSend.position"
+          :handle-set-coordinates="handleSetCoordinates"
+          :handle-set-address="handleSetAddress"
         >
+          <GmapMarker
+            v-if="formDataToSend.position"
+            :position="formDataToSend.position"
+          />
+        </GmapMap>
+      </div>
+      <div class="create-company-form__block" v-if="this.positionLatLng != null">
+        <div class="create-company-form__block-title">Адрес</div>
+        <div v-if="this.positionLatLng == null">
+          <span>{{ this.myCompanyData.country }}</span>
+          <span>{{ this.myCompanyData.region }}</span>
+          <span>{{ this.myCompanyData.city }}</span>
+        </div>
+        {{ this.positionLatLng }}
+      </div>
+      <div class="create-company-form__block">
+        <div class="create-company-form__block-title">Телефон компании</div>
+        <InputText
+          :set-value="formDataToSend"
+          :id="'phone'"
+          :label="'phone'"
+          :type="'number'"
+          :placeholder="this.myCompanyData.phone || 'Номер телефона без +'"
+        />
+      </div>
+      <div class="create-company-form__block">
+        <div class="create-company-form__block-title">Дополнительный телефон</div>
+        <InputText
+          :set-value="formDataToSend"
+          :id="'phoneExtra'"
+          :label="'phoneExtra'"
+          :type="'number'"
+          :placeholder="'Номер телефона без +'"
+        />
+      </div>
+      <div class="create-company-form__more-contacts-block">
+        <div class="create-company-form__section-title">Eще контакты</div>
+        <div class="create-company-form__more-contacts">
+          <div class="create-company-form__social-select" @click="openContacts">
+            <div class="create-company-form__social-select-left">
+              <Facebook
+                class="create-company-form__social-facebook"
+                v-if="this.contactsPhoto === ''"
+              />
+              <img
+                :src="this.contactsPhoto"
+                alt="social"
+                v-if="this.contactsPhoto !== ''"
+              />
+              <span>{{ this.contactsOption }}</span>
+            </div>
+            <SelectArrow />
+          </div>
           <div
-            v-for="contact in this.contacts"
-            :key="contact.id"
-            @click="
-              addOptionContacts(contact.name, contact.id, contact.photo_url)
+            v-if="openSelectContacts"
+            class="
+              create-company-form__social-open-list
+              create-company-form__social-open-list-contacts
             "
           >
-            <img :src="contact.photo_url" alt="contact" />
-            {{ contact.name }}
+            <div
+              v-for="contact in this.contacts"
+              :key="contact.id"
+              @click="
+                addOptionContacts(contact.name, contact.id, contact.photo_url)
+              "
+            >
+              <img :src="contact.photo_url" alt="contact" />
+              {{ contact.name }}
+            </div>
           </div>
+          <InputText
+            :set-value="formDataToSend"
+            :id="'contacts'"
+            :label="'contacts'"
+            :type="'contacts'"
+            :placeholder="'Юзернейм'"
+          />
         </div>
+      </div>
+      <div class="create-company-form__block">
+        <div class="create-company-form__block-title">Электронная почта</div>
         <InputText
           :set-value="formDataToSend"
-          :id="'contacts'"
-          :label="'contacts'"
-          :type="'contacts'"
-          :placeholder="'Юзернейм'"
+          :id="'email'"
+          :label="'email'"
+          :type="'email'"
+          :placeholder="'Введите емейл'"
         />
       </div>
-    </div>
-    <div class="create-company-form__block">
-      <div class="create-company-form__block-title">Электронная почта</div>
-      <InputText
-        :set-value="formDataToSend"
-        :id="'email'"
-        :label="'email'"
-        :type="'email'"
-        :placeholder="'Введите емейл'"
-      />
-    </div>
-    <div class="create-company-form__more-contacts-block">
-      <div class="create-company-form__section-title">Социальные сети</div>
-      <div class="create-company-form__more-contacts">
-        <div class="create-company-form__social-select" @click="openSocial">
-          <div class="create-company-form__social-select-left">
-            <Facebook
-              class="create-company-form__social-facebook"
-              v-if="this.socialPhoto === ''"
-            />
-            <img
-              :src="this.socialPhoto"
-              alt="social"
-              v-if="this.socialPhoto !== ''"
-            />
-            <span>{{ this.contactOption }}</span>
+      <div class="create-company-form__more-contacts-block">
+        <div class="create-company-form__section-title">Социальные сети</div>
+        <div class="create-company-form__more-contacts">
+          <div class="create-company-form__social-select" @click="openSocial">
+            <div class="create-company-form__social-select-left">
+              <Facebook
+                class="create-company-form__social-facebook"
+                v-if="this.socialPhoto === ''"
+              />
+              <img
+                :src="this.socialPhoto"
+                alt="social"
+                v-if="this.socialPhoto !== ''"
+              />
+              <span>{{ this.contactOption }}</span>
+            </div>
+            <SelectArrow />
           </div>
-          <SelectArrow />
-        </div>
-        <div
-          v-if="openSelectSocial"
-          class="create-company-form__social-open-list"
-        >
           <div
-            v-for="social in this.social"
-            :key="social.id"
-            @click="addOptionSocial(social.name, social.id, social.photo_url)"
+            v-if="openSelectSocial"
+            class="create-company-form__social-open-list"
           >
-            <img :src="social.photo_url" alt="social" />
-            {{ social.name }}
+            <div
+              v-for="social in this.social"
+              :key="social.id"
+              @click="addOptionSocial(social.name, social.id, social.photo_url)"
+            >
+              <img :src="social.photo_url" alt="social" />
+              {{ social.name }}
+            </div>
           </div>
+          <InputText
+            :set-value="formDataToSend"
+            :id="'socialContact'"
+            :label="'socialContact'"
+            :type="'socialContact'"
+            :placeholder="'Юзернейм'"
+          />
         </div>
-        <InputText
-          :set-value="formDataToSend"
-          :id="'socialContact'"
-          :label="'socialContact'"
-          :type="'socialContact'"
-          :placeholder="'Юзернейм'"
-        />
       </div>
+      <DefaultButton :type="'submit'" class="create-company-form__button-create">
+        Сохранить
+      </DefaultButton>
     </div>
-    <DefaultButton :type="'submit'" class="create-company-form__button-create">
-      Сохранить
-    </DefaultButton>
   </form>
 </template>
 
@@ -396,10 +398,10 @@ import InputMainSelect from "@/components/atoms/inputs/InputMainSelect.vue";
 import DefaultButton from "@/components/atoms/buttons/MainButton.vue";
 import DefaultModal from "@/components/molecules/DefaultModal.vue";
 import InputTextarea from "@/components/atoms/inputs/InputTextarea.vue";
-import PlusUpload from "@/assets/images/icons/plus-upload.svg?inline";
+import PlusUpload from "@/assets/images/icons/Add.svg?inline";
 import Tags from "@yaireo/tagify/dist/tagify.vue";
 import Delete from "@/assets/images/adv/delete.svg?inline";
-import Upload from "@/assets/images/adv/upload.svg?inline";
+import Upload from "@/assets/images/icons/Add.svg?inline";
 import DefaultCompany from "@/assets/images/default-company.svg?inline";
 import Facebook from "@/assets/images/social/facebook.svg?inline";
 import SelectArrow from "@/assets/images/arrow/select-arrow.svg?inline";
