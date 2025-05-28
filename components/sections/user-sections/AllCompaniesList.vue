@@ -5,14 +5,32 @@
     />
     <Search />
     <div class="all-companies-list__title home__section-title">Все компании {{ this.cityName ? 'в городе' : '' }} {{ this.cityName }}</div>
-    <div class="all-companies-list__companys-nav_container">
-      <Sorting
-        :goToMapAdvs="openMapAdvs"
-        :goToListAdvs="openListAdvs"
-        :class="{ isActive: activeGrid }"
-      />
-    </div>
+<!--    <div class="all-companies-list__companys-nav_container">-->
+<!--      <Sorting-->
+<!--        :goToMapAdvs="openMapAdvs"-->
+<!--        :goToListAdvs="openListAdvs"-->
+<!--        :class="{ isActive: activeGrid }"-->
+<!--      />-->
+<!--    </div>-->
     <div class="all-companies-list__body-wrap" v-if="this.openListTemplate">
+      <div class="all-companies-list__body-right-section">
+        <div class="category-sections__field-title" @click="openSortPayment" :class="{ active: sortPayment }">
+          Оплата
+          <SelectArrow />
+        </div>
+        <div class="category_checkboxes" v-if="sortPayment">
+          <div
+              v-for="category in categoryList"
+              :key="category.id"
+              class="category-sections__field-checkbox"
+          >
+            <InputCheckbox
+                :id="category.id"
+                :label="category.name"
+            />
+          </div>
+        </div>
+      </div>
       <div class="all-companies-list__body-left-section">
         <div
           v-for="company in this.allCompanies.data"
@@ -220,6 +238,8 @@ import Sorting from "@/components/molecules/Sorting.vue";
 import Verification from "@/assets/images/verification.svg?inline";
 import StarWishlist from "@/assets/images/icons/StarWishlist.svg?inline";
 import BreadCrumbs from "@/components/molecules/BreadCrumbs.vue";
+import SelectArrow from "@/assets/images/arrow/Alt_Arrow_Down.svg?inline";
+import InputCheckbox from "@/components/atoms/inputs/InputCheckboxMain.vue";
 
 export default {
   name: "AllCompaniesList",
@@ -244,6 +264,25 @@ export default {
       openListTemplate: true,
       cityName: "",
       countryName: "Украина",
+      sortPayment: false,
+      selectedCategories: [],
+      categoryList: [
+        { id: 1, name: 'Кофейни' },
+        { id: 2, name: 'Пекарни' },
+        { id: 3, name: 'Дизайн студии' },
+        { id: 4, name: 'Строительство' },
+        { id: 5, name: 'Салоны красоты' },
+        { id: 6, name: 'Туристические агентства' },
+        { id: 7, name: 'Авиа' },
+        { id: 8, name: 'Аренда авто' },
+        { id: 9, name: 'Организация мероприятий' },
+        { id: 10, name: 'Занятие компании' },
+        { id: 11, name: 'Занятие компании' },
+        { id: 12, name: 'Занятие компании' },
+        { id: 13, name: 'Занятие компании' },
+        { id: 14, name: 'Занятие компании' },
+      ]
+
     };
   },
   components: {
@@ -256,6 +295,8 @@ export default {
     Verification,
     StarWishlist,
     BreadCrumbs,
+    SelectArrow,
+    InputCheckbox,
   },
   watch: {
     formDataToSend: {
@@ -313,6 +354,11 @@ export default {
       } catch (e) {
         this.error = e.response;
       }
+    },
+    openSortPayment() {
+      if (this.sortPayment === false) {
+        this.sortPayment = true;
+      } else this.sortPayment = false;
     },
     performerActive() {
       this.userType = "performer";

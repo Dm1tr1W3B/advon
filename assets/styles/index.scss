@@ -62,6 +62,22 @@ body {
   overflow: hidden;
   position: relative;
 }
+.all-companies-list__body-right-section {
+  width: 25% !important;
+  margin-left: 0 !important;
+}
+.all-companies-list__body-wrap {
+  gap: 20px;
+}
+.all-companies-list__body-left-section {
+  width: 73% !important;
+}
+.all-companies-list__body-wrap {
+  flex-direction: row !important;
+}
+.all-companies-list__body-wrap {
+  padding-top: 0 !important;
+}
 .home__title-block>div::after {
   content: '';
   width: 148px;
