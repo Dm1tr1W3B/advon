@@ -1,5 +1,5 @@
 <template>
-  <div :class="['small-card', adsData.is_allocate ? 'allocate' : '']">
+  <div :class="['small-card', adsData.is_allocate ? 'allocate' : '', adsData.advertisement_type_key == 'performer' ? ' performer' : 'employee']">
     <div class="small-card__image-conatiner">
       <img
         :src="adsData.image"

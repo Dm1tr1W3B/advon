@@ -46,50 +46,29 @@
         <div>Что разместить</div>
       </DefaultButton>
     </div>
-<!--    <div v-if="this.popularHashtags.length != 0">-->
-<!--      <div class="home__section-title">Популярные хештеги</div>-->
-<!--      <div v-swiper:hashtags="optionHashtags" class="home__slick-hashtags">-->
-<!--        <div class="swiper-wrapper">-->
-<!--          <div-->
-<!--            class="swiper-slide"-->
-<!--            v-for="hashtags in this.popularHashtags"-->
-<!--            :key="hashtags.id"-->
-<!--          >-->
-<!--            <NuxtLink-->
-<!--              class="home__hashtag"-->
-<!--              :to="`/searching-results/${hashtags}`"-->
-<!--            >-->
-<!--              {{ hashtags }}-->
-<!--            </NuxtLink>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="swiper-button-prev" slot="button-prev"></div>-->
-<!--        <div class="swiper-button-next" slot="button-next"></div>-->
-<!--      </div>-->
-<!--    </div>-->
     <div v-if="this.mainCategory.length != 0" class="home__section-category">
       <div class="home__section-title">Категории</div>
       <div class="home__slick-category">
-        <div>
+        <div class="home-categories">
           <div
-            class="category-item"
-            v-for="category in mainCategory.slice(0, 9)"
-            :key="category.id"
+              class="category-item"
+              v-for="category in displayedCategories"
+              :key="category.id"
           >
             <div
-              class="home__main-category"
-              @click="goToCategory(category.category_key)"
+                class="home__main-category"
+                @click="goToCategory(category.category_key)"
             >
               <img :src="category.photo_url" :alt="category.photo_url" />
-              <span class="home__main-category_text">{{
-                category.category_name
-              }}</span>
+              <span class="home__main-category_text">{{ category.category_name }}</span>
             </div>
           </div>
         </div>
-<!--        <div class="swiper-button-prev" slot="button-prev"></div>-->
-<!--        <div class="swiper-button-next" slot="button-next"></div>-->
+        <button class="show_all_companies" @click="toggleCategories">
+          {{ showAll ? 'Скрыть категории' : 'Смотреть все категории' }}
+        </button>
       </div>
+
     </div>
     <div v-if="this.mainAds.carousel_city.length != 0" class="new_world">
       <div class="home__section-title home__title-link">
@@ -152,7 +131,7 @@
     <div v-if="this.typeUser === 'performer'">
       <div v-if="this.mainAds.carousel_performer.length != 0">
         <div class="home__section-title home__title-link">
-          Новое по<span @click="goToLocationPage">миру</span>
+          Новое в миру
           <TokenNotProvided
             class="home__token-error"
             :error-comment="errorAddtoFavorite"
@@ -181,7 +160,7 @@
     <div v-if="this.typeUser === 'employer'">
       <div v-if="this.mainAds.carousel_employer.length != 0">
         <div class="home__section-title home__title-link">
-          Новое по<span @click="goToLocationPage">миру</span>
+          Новое в миру
           <TokenNotProvided
             class="home__token-error"
             :error-comment="errorAddtoFavorite"
@@ -210,9 +189,7 @@
     <div v-if="this.typeUser === 'performer'">
       <div v-if="this.mainAds.carousel_employer.length != 0">
         <div class="home__section-title home__title-link">
-          Новое от рекламодателей по<span @click="goToLocationPageEmployer"
-            >миру</span
-          >
+          Новое от рекламодателей со всего мира
           <TokenNotProvided
             class="home__token-error"
             :error-comment="errorAddtoFavorite"
@@ -353,6 +330,24 @@
 <!--        <div class="swiper-button-next" slot="button-next"></div>-->
       </div>
     </div>
+    <div v-if="this.popularHashtags.length != 0" class="home__slick-hashtags">
+      <div  class="shadow_effect">
+        <div class="">
+          <div
+              class="tag"
+              v-for="hashtags in this.popularHashtags"
+              :key="hashtags.id"
+          >
+            <NuxtLink
+                class="home__hashtag"
+                :to="`/searching-results/${hashtags}`"
+            >
+              #{{ hashtags }}
+            </NuxtLink>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -386,6 +381,7 @@ export default {
       mainCompany: {},
       popularHashtags: {},
       mainCategory: {},
+      showAll: false,
       mainAds: {},
       countryCode: "-",
       errorAddtoFavorite: null,
@@ -453,6 +449,9 @@ export default {
   },
   computed: {
     ...mapGetters(["loggedInUser", "isAuthenticated"]),
+    displayedCategories() {
+      return this.showAll ? this.mainCategory : this.mainCategory.slice(0, 9);
+    }
   },
   mounted() {
     this.handleSetBreadCrambs();
@@ -517,6 +516,9 @@ export default {
           localStorage.setItem("ip", JSON.stringify(this.term));
         });
       this.ip = JSON.parse(localStorage.getItem("ip"));
+    },
+    toggleCategories() {
+      this.showAll = !this.showAll;
     },
     advPerformers() {
       this.getAdvertisementListForGuestAllUser();

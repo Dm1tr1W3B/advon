@@ -31,24 +31,6 @@
 <!--            Зарегистрироваться-->
 <!--          </DefaultButton>-->
         </div>
-        <div class="about-us__video_item">
-  <!--        <div class="about-us__video-title">Рекламодателям</div>-->
-          <iframe
-            width="555"
-            height="315"
-            src="https://www.youtube.com/embed/HT1-D79gSBY"
-            title="YouTube video player"
-            frameborder="0"
-            allowfullscreen
-          ></iframe>
-<!--          <DefaultButton-->
-<!--            v-if="!isAuthenticated"-->
-<!--            class="about-us__button-registration"-->
-<!--            @click.native="goToRegistration"-->
-<!--          >-->
-<!--            Зарегистрироваться-->
-<!--          </DefaultButton>-->
-        </div>
       </div>
     </div>
   </div>

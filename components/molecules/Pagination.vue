@@ -3,31 +3,36 @@
     <div class="pagination__container" v-if="pages.length > 1">
       <div
         class="pagination__prev-page"
-        v-if="page !== 1"
+        :class="page !== 1 ? 'active-item' : ''"
         @click="handlePageChange(page - 1)"
       >
-        <div></div>
+        <div><ArrowLeft />Предидущая</div>
       </div>
-      <span
-        v-for="currentPage in pages"
-        :key="currentPage"
-        :class="[currentPage === page && 'active']"
-        @click="handlePageChange(currentPage)"
-      >
-        {{ currentPage }}
-      </span>
+      <div class="pages">
+        <span
+          v-for="currentPage in pages"
+          :key="currentPage"
+          v-if="currentPage"
+          :class="[currentPage === page && 'active']"
+          @click="handlePageChange(currentPage)"
+        >
+          {{ currentPage }}
+        </span>
+      </div>
       <div
         class="pagination__next-page"
-        v-if="page !== maxPage"
+        :class="page !== maxPage ? 'active-item' : ''"
         @click="handlePageChange(page + 1)"
       >
-        <div></div>
+        <div>Следующая <ArrowRight /></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import ArrowRight from "@/assets/images/arrow/Alt_Arrow_Right.svg?inline";
+import ArrowLeft from "@/assets/images/arrow/Alt_Arrow_Left.svg?inline";
 export default {
   name: "Pagination",
   props: {
@@ -45,6 +50,10 @@ export default {
         return [];
       },
     },
+  },
+  components: {
+    ArrowRight,
+    ArrowLeft,
   },
   computed: {
     pages() {

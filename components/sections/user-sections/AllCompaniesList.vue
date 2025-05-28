@@ -4,7 +4,7 @@
         lastItemName="Компании"
     />
     <Search />
-    <div class="all-companies-list__title home__section-title">Все компании в городе {{ this.cityName }}</div>
+    <div class="all-companies-list__title home__section-title">Все компании {{ this.cityName ? 'в городе' : '' }} {{ this.cityName }}</div>
     <div class="all-companies-list__companys-nav_container">
       <Sorting
         :goToMapAdvs="openMapAdvs"
@@ -242,7 +242,7 @@ export default {
       activeGrid: false,
       openMapTemplate: false,
       openListTemplate: true,
-      cityName: "Днепр",
+      cityName: "",
       countryName: "Украина",
     };
   },

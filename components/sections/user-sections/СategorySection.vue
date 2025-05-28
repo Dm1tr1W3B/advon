@@ -42,8 +42,9 @@
         :key="category.id"
         @click="goToChildCategory(category.child_category_key)"
         class="category-sections__child-category_item"
+        v-if="category.count > 0"
       >
-        <div v-if="category.count > 0">
+        <div>
           <span>
             {{ category.child_category_name }}
             <span class="category-sections__child-category-count">
@@ -124,7 +125,7 @@
             <div class="category-section__person">
               <div class="">Тип объявления</div>
               <div class="category-sections__filter-person">
-                <label for="all" class="custom-radio">
+                <label for="all" class="custom-radio create-ad-form__radio">
                   <input
                       type="radio"
                       value=""
