@@ -4,7 +4,7 @@
       :set-value="formDataToSend"
       :id="'textSearch'"
       :label="'textSearch'"
-      :placeholder="'Поиск по объявлениям и по хештегам'"
+      :placeholder="searchPlaceholder"
       class="search__text"
     />
     <SearchIcon class="search__search-icon" />
@@ -179,6 +179,16 @@ export default {
       citysData: {},
       locationBody: false,
     };
+  },
+  computed: {
+    searchPlaceholder() {
+      const path = this.$route.path;
+      if (path.includes('/all-companies')) {
+        return 'Поиск компаний';
+      } else {
+        return 'Поиск по объявлениям и по хештегам';
+      }
+    },
   },
   directives: {
     ClickOutside,

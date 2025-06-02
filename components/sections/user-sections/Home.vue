@@ -775,7 +775,7 @@ export default {
       if (JSON.parse(localStorage.getItem("localCountryName")) === null) {
         navigator.geolocation.getCurrentPosition(
           successFunction,
-          // errorFunction
+          errorFunction
         );
         function successFunction(position) {
           var lat = position.coords.latitude;
