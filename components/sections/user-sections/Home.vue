@@ -34,7 +34,7 @@
         @click.native="advPerformers"
         :class="{ activePerformers: activePerformers }"
       >
-        <div class="home__main-title">Исполнители</div>
+        <div class="home__main-title">Исполнителям</div>
         <div>Где разместить</div>
       </DefaultButton>
       <DefaultButton
@@ -42,7 +42,7 @@
         @click.native="advAdvertisers"
         :class="{ activeAdvertisers: activeAdvertisers }"
       >
-        <div class="home__main-title">Рекламодатели</div>
+        <div class="home__main-title">Рекламодателям</div>
         <div>Что разместить</div>
       </DefaultButton>
     </div>
@@ -305,7 +305,7 @@
     </div>
     <div v-if="this.mainTopAdvs.length > 0">
       <div class="home__section-title">
-        Топ предложения
+        Топ объявления
         <TokenNotProvided
           class="home__token-error"
           :error-comment="errorAddtoFavorite"
@@ -329,6 +329,9 @@
 <!--        <div class="swiper-button-prev" slot="button-prev"></div>-->
 <!--        <div class="swiper-button-next" slot="button-next"></div>-->
       </div>
+      <button class="top_advs home__companys-registration">
+        Попасть сюда
+      </button>
     </div>
     <div v-if="this.popularHashtags.length != 0" class="home__slick-hashtags">
       <div  class="shadow_effect">
