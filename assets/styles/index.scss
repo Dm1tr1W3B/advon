@@ -1795,16 +1795,18 @@ form.registration-form, form.login-form, .login-form__login {
   }
   .home__banner-main h1 {
     font-size: 24px;
-    line-height: 30px;
-    font-weight: 400;
+    line-height: 40px !important;
   }
   .container.home-page {
     padding: 0;
   }
   .home__banner {
     min-height: unset;
-    padding: 60px 12px 40px;
+    padding: 60px 16px 40px !important;
     margin-bottom: 32px;
+  }
+  .home__banner .search {
+    margin-top: 25px !important;
   }
   .home {
     padding-top: 40px !important;
@@ -1836,11 +1838,18 @@ form.registration-form, form.login-form, .login-form__login {
   .home__main-category {
     height: 60px;
     border-radius: 12px 12px 0 0;
+    padding-bottom: 0 !important;
   }
   .home__main-category img {
-    max-width: 100%;
+    max-width: 40%;
     max-height: 100%;
     object-fit: cover;
+  }
+  .home__slick-hashtags .shadow_effect > div {
+    gap: 8px;
+  }
+  .home__slick-hashtags .shadow_effect {
+    padding: 12px !important;
   }
   .home__main-category_text {
     font-size: 12px;
