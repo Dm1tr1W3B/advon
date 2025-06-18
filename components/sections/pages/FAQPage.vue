@@ -1,6 +1,9 @@
 <template>
   <div class="faq-page container">
 <!--    <Search />-->
+    <BreadCrumbs
+        lastItemName="Ответы на часто задаваемые вопросы"
+    />
     <h1 class="faq-page__title">Ответы на часто задаваемые вопросы</h1>
     <div class="faq-page__container">
       <div class="left_part">
@@ -21,6 +24,7 @@ import ContactForm from "@/components/forms/ContactForm.vue";
 import CollapseItem from "@/components/molecules/CollapseItem.vue"
 import FaqImage from "@/assets/images/FAQ.svg?inline";
 import FaqImageMobile from "@/assets/images/FAQ_mobile.svg?inline";
+import BreadCrumbs from "@/components/molecules/BreadCrumbs.vue";
 
 export default {
   name: "FAQPage",
@@ -30,6 +34,7 @@ export default {
     CollapseItem,
     FaqImage,
     FaqImageMobile,
+    BreadCrumbs,
   },
   data() {
     return {

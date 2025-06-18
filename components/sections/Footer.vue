@@ -11,7 +11,7 @@
             <NuxtLink to="/" class="footer__menu-item"
               >Карта</NuxtLink>
             <NuxtLink to="/all-companies" class="footer__menu-item">Компании</NuxtLink>
-            <NuxtLink to="/" class="footer__menu-item">Юрликбез</NuxtLink>
+            <NuxtLink to="/legal-information" class="footer__menu-item">Юрликбез</NuxtLink>
             <NuxtLink to="/" class="footer__menu-item">Реклама на сайте</NuxtLink>
             <NuxtLink to="/faq" class="footer__menu-item">FAQ</NuxtLink>
           </div>

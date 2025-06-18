@@ -332,6 +332,7 @@ div#__layout>div {
   border-radius: 20px;
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2), -10px -10px 30px #fff;
   margin: 0 auto;
+  z-index: 999;
 }
 .searching-results-section__filter {
   position: unset !important;
@@ -371,10 +372,10 @@ div#__layout>div {
   align-items: center;
 }
 .login, .dashboard-my-company, .header+div:not(.home-page) {
-  padding-top: 170px !important;
+  padding-top: 155px !important;
 }
 .dashboard-profile {
-  padding-top: 170px;
+  padding-top: 155px;
 }
 .about-us__title {
   padding: 20px 32px !important;
@@ -579,8 +580,10 @@ div#__layout>div {
 .user-detail.container,
 .all-advertisement.container,
 .searching-results-section.container,
+.about.container,
 .footer__wrap.container,
 .create-company.container,
+.legal-information-page.container,
 .dashboard-favorites.container{
   max-width: 1320px;
   margin: 0 auto;
@@ -907,6 +910,11 @@ div#__layout>div {
   position: relative;
   top: 2px;
 }
+.nav-menu__item.active {
+  background: linear-gradient(45deg, #FE4819, #DC291E);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 .dashboard-nav-menu.dashboard_nav_menu {
   padding: 32px 20px !important;
   border: 1px solid #B8C1CC;
@@ -925,12 +933,31 @@ div#__layout>div {
 .user-detail-list.container,
 .user-detail.container,
 .create-company.container,
+.legal-information-page.container,
 .searching-results-section.container,
 .all-advertisement.container,
+.about.container,
 .dashboard-favorites.container{
   margin-bottom: 60px;
   gap: 20px;
   align-items: flex-start;
+}
+.legal-information-page.container {
+  padding: 0 20px;
+}
+.legal-information-page .left_part {
+  position: relative;
+  bottom: 100px;
+}
+.legal_description {
+  font-size: 16px !important;
+  color: #6D7885;
+  margin-bottom: 40px;
+  width: 80%;
+}
+.legal-information-page__link {
+  padding-bottom: 0 !important;
+  color: #2A65D7 !important;
 }
 .dashboard-nav-menu.dashboard_nav_menu>a, .dashboard-nav-menu.dashboard_nav_menu>div:not(.header-menu__logout) {
   padding: 12px !important;
@@ -1790,6 +1817,9 @@ form.registration-form, form.login-form, .login-form__login {
     top: 10px;
     z-index: 999;
   }
+  .legal_description {
+    font-size: 14px !important;
+  }
   .header__wrap {
     padding: 12px !important;
   }
@@ -2074,6 +2104,32 @@ form.registration-form, form.login-form, .login-form__login {
     height: 100px !important;
     overflow: hidden;
     z-index: 0;
+  }
+  .legal-information .left_part {
+    top: -160px;
+  }
+  .collapse-item__wrap {
+    margin-bottom: 12px !important;
+  }
+  .legal-information-page__title {
+    padding-left: 0 !important;
+  }
+  .legal-information-page__link {
+    text-align: left !important;
+  }
+  .collapse-item__title-section div {
+    font-size: 16px !important;
+    font-weight: 600;
+  }
+  .collapse-item__body-section div {
+    font-size: 14px !important;
+    color: #6D7885;
+  }
+  .collapse-item__title-section {
+    padding: 16px !important;
+  }
+  .collapse-item__body-section {
+    padding: 16px !important;
   }
   .faq-page__container {
     position: relative;

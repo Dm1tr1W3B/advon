@@ -58,6 +58,7 @@
             <div
                 class="home__main-category"
                 @click="goToCategory(category.category_key)"
+                :style="{ backgroundColor: category.color }"
             >
               <img :src="category.photo_url" :alt="category.photo_url" />
               <span class="home__main-category_text">{{ category.category_name }}</span>
@@ -440,6 +441,11 @@ export default {
           },
         },
       },
+      colors: [
+        '#FF6B6B', '#6BCB77', '#4D96FF', '#FFD93D', '#F6A6B2',
+        '#9D4EDD', '#00B8A9', '#F9A826', '#6A0572'
+      ],
+      colorUsage: {},
     };
   },
   components: {
@@ -453,7 +459,8 @@ export default {
   computed: {
     ...mapGetters(["loggedInUser", "isAuthenticated"]),
     displayedCategories() {
-      return this.showAll ? this.mainCategory : this.mainCategory.slice(0, 9);
+      const categories =  this.showAll ? this.mainCategory : this.mainCategory.slice(0, 9);
+      return this.assignColors(categories);
     }
   },
   mounted() {
@@ -511,6 +518,39 @@ export default {
     this.mainAds = mainAds.data.data;
   },
   methods: {
+    assignColors(categories) {
+      const colors = [
+        '#FCDED6', '#83A5F2', '#D8BBF6', '#66D7D1', '#FBAECF', '#E9CE2C', '#C6B2A5', '#AFE091', '#ADD7FF'
+      ];
+      const colorCount = colors.length;
+      const totalItems = categories.length;
+
+      const maxPerColor = Math.ceil(totalItems / colorCount);
+
+      const colorUsage = new Array(colorCount).fill(0);
+      const result = [];``
+
+      let colorIndex = 0;
+
+      for (let i = 0; i < totalItems; i++) {
+        let assigned = false;
+
+        while (!assigned) {
+          if (colorUsage[colorIndex] < maxPerColor) {
+            result.push({
+              ...categories[i],
+              color: colors[colorIndex],
+            });
+            colorUsage[colorIndex]++;
+            assigned = true;
+          }
+
+          colorIndex = (colorIndex + 1) % colorCount;
+        }
+      }
+
+      return result;
+    },
     getServerIp() {
       fetch("https://api.ipify.org?format=json")
         .then((x) => x.json())

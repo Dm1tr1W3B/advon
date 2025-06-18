@@ -1,5 +1,5 @@
 <template>
-  <div class="legal-information l-wrap">
+  <div class="legal-information container">
     <LegalInformationPage />
   </div>
 </template>
