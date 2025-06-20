@@ -778,6 +778,10 @@
         </div>
       </div>
     </div>
+    <div class="reviews">
+      <h2>Отзывы</h2>
+      <Review />
+    </div>
     <div
       class="main-adv__block-carousel"
       v-if="this.intersectAdvertisements.length"
@@ -887,6 +891,7 @@
 <script>
 import { mapGetters } from "vuex";
 import DefaultButton from "@/components/atoms/buttons/MainButton.vue";
+import Review from "@/components/molecules/Reviews.vue";
 import VueSlickCarousel from "vue-slick-carousel";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
@@ -1013,6 +1018,7 @@ export default {
     BreadCrumbs,
     MessageSend,
     CloseIcon,
+    Review,
   },
   computed: {
     ...mapGetters(["loggedInUser"]),
@@ -1367,8 +1373,12 @@ export default {
 <style lang="scss" scoped>
 .main-adv {
   &__title {
-    font-size: $g-second-title-size;
-    padding: 15px 0 20px 0;
+    font-size: 32px;
+    padding: 15px 0 20px;
+    font-weight: 500;
+  }
+  &__block-carousel {
+    margin-top: 80px;
   }
 
   &__main-section {
@@ -2132,7 +2142,7 @@ export default {
     }
 
     &__block-carousel {
-      margin-top: 35px;
+      margin-top: 100px;
 
       .main-adv__title {
         padding-bottom: 15px;

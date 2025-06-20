@@ -304,6 +304,17 @@ body {
   gap: 20px 90px;
   justify-content: space-between;
 }
+.category-sections__small-card.category-sections__small-card-map-left {
+  width: 100% !important;
+}
+.reviews {
+  margin-top: 100px;
+}
+.reviews h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
 .category-sections__sort {
   display: flex;
   justify-content: space-between;
@@ -584,6 +595,7 @@ div#__layout>div {
 .footer__wrap.container,
 .create-company.container,
 .legal-information-page.container,
+.history.container,
 .dashboard-favorites.container{
   max-width: 1320px;
   margin: 0 auto;
@@ -935,6 +947,7 @@ div#__layout>div {
 .create-company.container,
 .legal-information-page.container,
 .searching-results-section.container,
+.history.container,
 .all-advertisement.container,
 .about.container,
 .dashboard-favorites.container{
@@ -1110,7 +1123,73 @@ div#__layout>div {
   outline: none;
 }
 .chat-dashboard__nav-menu {
+  display: flex;
+  align-items: center;
   gap: 20px;
+}
+.history-section .chat-dashboard__nav-item {
+  max-width: max-content;
+}
+.history-section,
+.chat-dashboard,
+.favorites,
+.ads-dashboard,
+.bonus-dashboard,
+.create-ad-form,
+.create-company-form {
+  padding: 0 !important;
+}
+.dashboard_container .bread-crumbs {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-bottom: 40px;
+}
+.history-section__nav-menu.shadow_effect {
+  margin: 20px 0;
+  padding: 40px !important;
+}
+.history-section__nav-menu.shadow_effect div:first-child {
+  max-width: 60%;
+  padding: 13.5px 20px !important;
+  text-align: left;
+}
+.history-section__nav-menu.shadow_effect>span {
+  max-width: 20% !important;
+  font-weight: 500;
+  padding: 14.5px !important;
+}
+.history-section__button {
+  font-size: 18px;
+  padding: 14.5px !important;
+  width: 20% !important;
+  height: 100% !important;
+  border-radius: 12px;
+  background: linear-gradient(45deg, #FE4819, #DC291E) !important;
+  cursor: pointer;
+}
+.history-section__nav-table-body.shadow_effect {
+  padding: 40px !important;
+  margin-top: 20px;
+}
+.history-section__table {
+  border-bottom: none !important;
+  padding: 0 !important;
+  gap: 12px;
+}
+.history-section__table>div {
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: #F5F5F5;
+  font-size: 16px;
+}
+.history-section__table>div:not(:nth-child(3)) {
+  text-align: center;
+}
+.history-section__nav-table-namber {
+  justify-content: center;
+}
+.history-section__table>div:nth-child(3), .history-section__table>div:nth-child(4) {
+  font-size: 18px;
 }
 .chat-dashboard__nav-item {
   padding: 16px !important;
@@ -1819,6 +1898,10 @@ form.registration-form, form.login-form, .login-form__login {
   }
   .legal_description {
     font-size: 14px !important;
+  }
+  .legal-information-page .left_part {
+    position: absolute;
+    bottom: 100px;
   }
   .header__wrap {
     padding: 12px !important;

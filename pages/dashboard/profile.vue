@@ -1,13 +1,17 @@
 <template>
-  <div class="dashboard-profile container">
-    <DashboardNavMenu v-if="$device.isDesktop" />
-    <Profile />
+  <div class="dashboard_container">
+    <BreadCrumbs lastItemName="Личный кабинет" />
+    <div class="dashboard-profile container">
+      <DashboardNavMenu v-if="$device.isDesktop" />
+      <Profile />
+    </div>
   </div>
 </template>
 
 <script>
 import DashboardNavMenu from '@/components/sections/DashboardNavMenu.vue';
 import Profile from '@/components/sections/dashboard-sections/Profile.vue';
+import BreadCrumbs from "@/components/molecules/BreadCrumbs.vue";
 
 export default {
   middleware: 'auth',
@@ -15,6 +19,7 @@ export default {
   components: {
     DashboardNavMenu,
     Profile,
+    BreadCrumbs,
   },
 }
 </script>

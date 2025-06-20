@@ -1,13 +1,17 @@
 <template>
-  <div class="chat container">
-    <DashboardNavMenu v-if="$device.isDesktop"/>
-    <ChatDashboard />
+  <div class="dashboard_container">
+    <BreadCrumbs lastItemName="Личный кабинет" />
+    <div class="chat container">
+      <DashboardNavMenu v-if="$device.isDesktop"/>
+      <ChatDashboard />
+    </div>
   </div>
 </template>
 
 <script>
 import DashboardNavMenu from "@/components/sections/DashboardNavMenu.vue";
 import ChatDashboard from "@/components/sections/dashboard-sections/ChatDashboard.vue";
+import BreadCrumbs from "@/components/molecules/BreadCrumbs.vue";
 
 export default {
   middleware: "auth",
@@ -15,6 +19,7 @@ export default {
   components: {
     DashboardNavMenu,
     ChatDashboard,
+    BreadCrumbs,
   },
 };
 </script>

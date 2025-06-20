@@ -1,13 +1,17 @@
 <template>
-  <div class="dashboard-AdsDashboard container">
-    <DashboardNavMenu v-if="$device.isDesktop" />
-    <AdsDashboard />
+  <div class="dashboard_container">
+    <BreadCrumbs lastItemName="Личный кабинет" />
+    <div class="dashboard-AdsDashboard container">
+      <DashboardNavMenu v-if="$device.isDesktop" />
+      <AdsDashboard />
+    </div>
   </div>
 </template>
 
 <script>
 import DashboardNavMenu from '@/components/sections/DashboardNavMenu.vue';
 import AdsDashboard from '@/components/sections/dashboard-sections/AdsDashboard.vue';
+import BreadCrumbs from "@/components/molecules/BreadCrumbs.vue";
 
 export default {
   middleware: 'auth',
@@ -15,6 +19,7 @@ export default {
   components: {
     DashboardNavMenu,
     AdsDashboard,
+    BreadCrumbs,
   },
 }
 </script>

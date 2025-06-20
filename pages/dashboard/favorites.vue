@@ -1,13 +1,17 @@
 <template>
-  <div class="dashboard-favorites container">
-    <DashboardNavMenu v-if="$device.isDesktop" />
-    <Favorites />
+  <div class="dashboard_container">
+    <BreadCrumbs lastItemName="Личный кабинет" />
+    <div class="dashboard-favorites container">
+      <DashboardNavMenu v-if="$device.isDesktop" />
+      <Favorites />
+    </div>
   </div>
 </template>
 
 <script>
 import DashboardNavMenu from '@/components/sections/DashboardNavMenu.vue';
 import Favorites from '@/components/sections/dashboard-sections/Favorites.vue';
+import BreadCrumbs from "@/components/molecules/BreadCrumbs.vue";
 
 export default {
   middleware: 'auth',
@@ -15,6 +19,7 @@ export default {
   components: {
     DashboardNavMenu,
     Favorites,
+    BreadCrumbs,
   },
 }
 </script>

@@ -21,6 +21,7 @@
       <div
         class="bonus-dashboard__container"
         v-for="category in this.mainCategory"
+        :style="{ backgroundColor: category.color }"
         :key="category.id"
       >
         <div
@@ -64,6 +65,11 @@ export default {
       mainCategory: {},
       link: "",
       categorySelected: false,
+      colors: [
+        '#FF6B6B', '#6BCB77', '#4D96FF', '#FFD93D', '#F6A6B2',
+        '#9D4EDD', '#00B8A9', '#F9A826', '#6A0572'
+      ],
+      colorUsage: {},
     };
   },
   components: {
@@ -85,7 +91,7 @@ export default {
             },
           })
           .then((res) => {
-            this.mainCategory = res.data.data;
+            this.mainCategory = this.assignColors(res.data.data);
           });
       } catch (e) {
         this.error = e.response.data;
@@ -99,6 +105,39 @@ export default {
       } catch (e) {
         this.error = e.response.data;
       }
+    },
+    assignColors(categories) {
+      const colors = [
+        '#FCDED6', '#83A5F2', '#D8BBF6', '#66D7D1', '#FBAECF', '#E9CE2C', '#C6B2A5', '#AFE091', '#ADD7FF'
+      ];
+      const colorCount = colors.length;
+      const totalItems = categories.length;
+
+      const maxPerColor = Math.ceil(totalItems / colorCount);
+
+      const colorUsage = new Array(colorCount).fill(0);
+      const result = [];``
+
+      let colorIndex = 0;
+
+      for (let i = 0; i < totalItems; i++) {
+        let assigned = false;
+
+        while (!assigned) {
+          if (colorUsage[colorIndex] < maxPerColor) {
+            result.push({
+              ...categories[i],
+              color: colors[colorIndex],
+            });
+            colorUsage[colorIndex]++;
+            assigned = true;
+          }
+
+          colorIndex = (colorIndex + 1) % colorCount;
+        }
+      }
+
+      return result;
     },
     copyRef() {
       var copyText = document.getElementById("myInput");

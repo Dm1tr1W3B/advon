@@ -1,13 +1,17 @@
 <template>
-  <div class="dashboard-my-company container">
-    <DashboardNavMenu v-if="$device.isDesktop" />
-    <MyCompany />
+  <div class="dashboard_container">
+    <BreadCrumbs lastItemName="Личный кабинет" />
+    <div class="dashboard-my-company container">
+      <DashboardNavMenu v-if="$device.isDesktop" />
+      <MyCompany />
+    </div>
   </div>
 </template>
 
 <script>
 import DashboardNavMenu from '@/components/sections/DashboardNavMenu.vue';
 import MyCompany from '@/components/sections/dashboard-sections/MyCompany.vue';
+import BreadCrumbs from "@/components/molecules/BreadCrumbs.vue";
 
 export default {
   middleware: 'auth',
@@ -15,6 +19,7 @@ export default {
   components: {
     DashboardNavMenu,
     MyCompany,
+    BreadCrumbs
   },
 }
 </script>

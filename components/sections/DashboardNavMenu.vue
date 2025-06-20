@@ -9,22 +9,14 @@
     <NuxtLink to="/dashboard/chat" class="dashboard-nav-menu__chat">
       Сообщения
     </NuxtLink>
-    <div class="dashboard-nav-menu__bill-block" @click="isSubMenuOpen">
-      <span>
+    <NuxtLink to="/dashboard/history" class="dashboard-nav-menu__history">
         Счёт
 <!--        <span class="dashboard-nav-menu__bill">-->
 <!--          {{ loggedInUser.balance }} ₽-->
 <!--        </span>-->
-      </span>
 <!--      <SelectArrow class="dashboard-nav-menu__arrow" v-if="!isSubMenu" />-->
 <!--      <SelectArrowTop class="dashboard-nav-menu__arrow" v-if="isSubMenu" />-->
-    </div>
-    <div class="dashboard-nav-menu__sub-menu" v-if="isSubMenu">
-      <NuxtLink to="/dashboard/history" class="dashboard-nav-menu__"> История операций </NuxtLink>
-      <NuxtLink to="" class="dashboard-nav-menu__">
-        Просмотры контактов
-      </NuxtLink>
-    </div>
+    </NuxtLink>
     <NuxtLink to="/dashboard/bonus" class="dashboard-nav-menu__bonus">
       Бонусы
     </NuxtLink>
@@ -44,9 +36,9 @@
     >
       Настройки
     </NuxtLink>
-    <NuxtLink to="/dashboard/my-company" class="dashboard-nav-menu__my-company">
-      Моя компания
-    </NuxtLink>
+<!--    <NuxtLink to="/dashboard/my-company" class="dashboard-nav-menu__my-company">-->
+<!--      Моя компания-->
+<!--    </NuxtLink>-->
     <div class="ads-dashboard__button-create-adv" @click="createAdv">
       Создать объявление
     </div>

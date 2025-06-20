@@ -1,49 +1,50 @@
 <template>
   <div class="history-section">
     <div class="history-section__title">Счет</div>
-    <div class="history-section__nav-menu">
-      <div class="history-section__nav-menu-history-block">
-        История операций
-      </div>
-      <div>
-        На вашем счету:
-        <span class="history-section__nav-menu-balance"
-          >{{ loggedInUser.balance }} ₽</span
-        >
-      </div>
-      <div class="history-section__button">Пополнить счет</div>
+    <div class="chat-dashboard__nav-menu">
+      <NuxtLink to="/dashboard/history" class="dashboard-nav-menu__ chat-dashboard__nav-item activeChat"> История операций </NuxtLink>
+      <NuxtLink to="" class="dashboard-nav-menu__ chat-dashboard__nav-item">
+        Просмотры контактов
+      </NuxtLink>
     </div>
-    <div class="history-section__nav-table">
-      <div class="history-section__nav-table-namber">
-        <div>№</div>
-        <div>
-          <SortArrow class="history-section__nav-sort-top" @click="sortIdTop" />
-          <SortArrow class="history-section__nav-sort-bottom" @click="sortIdBottom" />
-        </div>
+    <div class="history-section__nav-menu chat-dashboard__nav-menu shadow_effect">
+      <div class="chat-dashboard__nav-item activeChat">
+        На вашем счету
       </div>
-      <div class="history-section__nav-table-item">
-        <div>Дата</div>
-        <div>
-          <SortArrow class="history-section__nav-sort-top" @click="sortCreatedAtTop" />
-          <SortArrow class="history-section__nav-sort-bottom" @click="sortCreatedAtBottom" />
-        </div>
-      </div>
-      <div class="history-section__nav-table-item">
-        <div>Описание</div>
-        <div>
-          <SortArrow class="history-section__nav-sort-top" @click="sortTypeTop" />
-          <SortArrow class="history-section__nav-sort-bottom" @click="sortTypeBottom" />
-        </div>
-      </div>
-      <div class="history-section__nav-table-item">
-        <div>Сумма, ₽</div>
-        <div>
-          <SortArrow class="history-section__nav-sort-top" @click="sortAmountTop" />
-          <SortArrow class="history-section__nav-sort-bottom" @click="sortAmountBottom" />
-        </div>
-      </div>
+      <span class="history-section__nav-menu-balance chat-dashboard__nav-item activeChat">{{ loggedInUser.balance }} ₽</span>
+      <div class="history-section__button">Пополнить</div>
     </div>
-    <div class="history-section__nav-table-body" v-if="history.data">
+<!--    <div class="history-section__nav-table">-->
+<!--      <div class="history-section__nav-table-namber">-->
+<!--        <div>№</div>-->
+<!--        <div>-->
+<!--          <SortArrow class="history-section__nav-sort-top" @click="sortIdTop" />-->
+<!--          <SortArrow class="history-section__nav-sort-bottom" @click="sortIdBottom" />-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="history-section__nav-table-item">-->
+<!--        <div>Дата</div>-->
+<!--        <div>-->
+<!--          <SortArrow class="history-section__nav-sort-top" @click="sortCreatedAtTop" />-->
+<!--          <SortArrow class="history-section__nav-sort-bottom" @click="sortCreatedAtBottom" />-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="history-section__nav-table-item">-->
+<!--        <div>Описание</div>-->
+<!--        <div>-->
+<!--          <SortArrow class="history-section__nav-sort-top" @click="sortTypeTop" />-->
+<!--          <SortArrow class="history-section__nav-sort-bottom" @click="sortTypeBottom" />-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="history-section__nav-table-item">-->
+<!--        <div>Сумма, ₽</div>-->
+<!--        <div>-->
+<!--          <SortArrow class="history-section__nav-sort-top" @click="sortAmountTop" />-->
+<!--          <SortArrow class="history-section__nav-sort-bottom" @click="sortAmountBottom" />-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+    <div class="history-section__nav-table-body shadow_effect" v-if="history.data">
       <div
         v-for="item in history.data"
         :key="item.id"

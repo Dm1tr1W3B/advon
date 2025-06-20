@@ -13,23 +13,26 @@
           эффективные рекламные кампании — всё это на одной платформе!</p>
       </div>
       <div class="about-us__video">
-        <div class="about-us__video_item">
-  <!--        <div class="about-us__video-title">Исполнителям</div>-->
+        <div class="about-us__video_item" v-for="(video, index) in videos">
           <iframe
             width="555"
             height="315"
-            src="https://www.youtube.com/embed/b2_pdTm3EQo"
+            :src="getVideoSrc(video)"
             title="YouTube video player"
             frameborder="0"
+            allow="autoplay; encrypted-media"
             allowfullscreen
           ></iframe>
-<!--          <DefaultButton-->
-<!--            v-if="!isAuthenticated"-->
-<!--            class="about-us__button-registration"-->
-<!--            @click.native="goToRegistration"-->
-<!--          >-->
-<!--            Зарегистрироваться-->
-<!--          </DefaultButton>-->
+          <PlayButton
+              v-if="!video.playing && $device.isDesktop"
+              @click="playVideo(index)"
+              class="about-us__video_play"
+          />
+          <PlayButtonMobile
+              v-if="!video.playing && $device.isMobile"
+              @click="playVideo(index)"
+              class="about-us__video_play"
+          />
         </div>
       </div>
     </div>
@@ -39,11 +42,22 @@
 <script>
 import { mapGetters } from "vuex";
 import DefaultButton from "@/components/atoms/buttons/MainButton.vue";
+import PlayButton from "@/assets/images/play-dynamic-clay.svg?inline";
+import PlayButtonMobile from "@/assets/images/play-dynamic-clay_mobile.svg?inline";
 
 export default {
   name: "AboutUs",
+  data() {
+    return {
+      videos: [
+        { id: "b2_pdTm3EQo", playing: false },
+      ],
+    };
+  },
   components: {
     DefaultButton,
+    PlayButton,
+    PlayButtonMobile,
   },
   computed: {
     ...mapGetters(["isAuthenticated"]),
@@ -51,6 +65,12 @@ export default {
   methods: {
     goToRegistration() {
       this.$router.push("/registration");
+    },
+    playVideo(index) {
+      this.videos[index].playing = true;
+    },
+    getVideoSrc(video) {
+      return `https://www.youtube.com/embed/${video.id}${video.playing ? '?autoplay=1&modestbranding=1&rel=0' : ''}`;
     },
   },
 };
@@ -78,6 +98,23 @@ export default {
     justify-content: space-between;
     padding-bottom: 50px;
   }
+  &__video_item {
+    width: 100%;
+    height: 315px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+  }
+  &__video_play {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    cursor: pointer;
+    z-index: 2;
+  }
 
   &__button-registration {
     background: $mainColor;
@@ -96,13 +133,15 @@ export default {
     &__text {
       padding: 0;
     }
-    &__video_item {
-      width: 48%;
-
-      iframe {
-        width: 100% !important;
-        height: 220px !important;
-      }
+    &__video_play {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -60%);
+      cursor: pointer;
+      z-index: 2;
     }
   }
 }

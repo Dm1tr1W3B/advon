@@ -22,12 +22,12 @@
     <NuxtLink to="/dashboard/bonus" class="header-menu__bonus">
       Бонусы
     </NuxtLink>
-    <NuxtLink
-      to="/dashboard/subscriptions"
-      class="header-menu__subscriptions"
-    >
-      Подписки
-    </NuxtLink>
+<!--    <NuxtLink-->
+<!--      to="/dashboard/subscriptions"-->
+<!--      class="header-menu__subscriptions"-->
+<!--    >-->
+<!--      Подписки-->
+<!--    </NuxtLink>-->
     <NuxtLink to="/dashboard/my-page" class=""> Моя страница </NuxtLink>
     <NuxtLink to="/dashboard/profile" class="header-menu__profile">
       Мой профиль
