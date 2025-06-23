@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard_container">
     <BreadCrumbs lastItemName="Личный кабинет" />
-    <div class="dashboard-edit-profile l-wrap">
+    <div class="dashboard-edit-profile container">
       <DashboardNavMenu v-if="$device.isDesktop" />
       <EditProfile />
     </div>

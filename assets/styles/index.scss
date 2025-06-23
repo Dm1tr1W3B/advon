@@ -385,9 +385,9 @@ div#__layout>div {
 .login, .dashboard-my-company, .header+div:not(.home-page) {
   padding-top: 155px !important;
 }
-.dashboard-profile {
-  padding-top: 155px;
-}
+//.dashboard-profile {
+//  padding-top: 155px;
+//}
 .about-us__title {
   padding: 20px 32px !important;
   color: #070707 !important;
@@ -596,6 +596,7 @@ div#__layout>div {
 .create-company.container,
 .legal-information-page.container,
 .history.container,
+.dashboard-edit-profile.container,
 .dashboard-favorites.container{
   max-width: 1320px;
   margin: 0 auto;
@@ -948,6 +949,7 @@ div#__layout>div {
 .legal-information-page.container,
 .searching-results-section.container,
 .history.container,
+.dashboard-edit-profile.container,
 .all-advertisement.container,
 .about.container,
 .dashboard-favorites.container{
@@ -1054,6 +1056,8 @@ div#__layout>div {
   background: linear-gradient(45deg, #FE4819, #DC291E);
   border-radius: 12px;
   font-size: 18px !important;
+  font-family: system-ui;
+  font-weight: 500 !important;
 }
 .profile__button-edit {
   width: 100% !important;
@@ -1136,8 +1140,52 @@ div#__layout>div {
 .ads-dashboard,
 .bonus-dashboard,
 .create-ad-form,
+.profile,
+.edit-profile,
 .create-company-form {
   padding: 0 !important;
+}
+.name_surname {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+}
+.additional_photos {
+  display: flex;
+  gap: 20px;
+}
+.edit-profile__name {
+  width: 100% !important;
+}
+.name_surname .text-default-input {
+  width: 50%;
+}
+.name_surname .text-default-input input {
+  max-width: unset !important;
+  border: 1px solid #B8C1CC !important;
+  border-radius: 12px;
+}
+.dashboard-edit-profile .shadow_effect {
+  padding: 40px !important;
+}
+.edit-profile__section-title {
+  font-size: 24px !important;
+  margin-bottom: 20px;
+  padding: 0 !important;
+}
+.edit-profile__photo-update-preview {
+  width: 100px !important;
+  height: 100px !important;
+  border-radius: 12px;
+}
+.edit-profile__photo-update div {
+  margin-left: 20px !important;
+}
+.edit-profile__photo-update label, .edit-profile__photo-update span {
+  margin-left: 0 !important;
+}
+.edit-profile__photo {
+  padding-top: 40px !important;
 }
 .dashboard_container .bread-crumbs {
   max-width: 1320px;

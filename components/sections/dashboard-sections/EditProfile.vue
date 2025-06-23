@@ -2,313 +2,267 @@
   <div class="edit-profile">
     <form @submit.prevent="handleSubmit">
       <div class="edit-profile__title-block">
-        <div class="edit-profile__title">Мой профиль</div>
+        <div class="edit-profile__title">Редактирование профиля </div>
         <div class="edit-profile__date-registration">
           Дата регистрации:
           {{ myProfileData.created_at }}
         </div>
       </div>
-      <div class="edit-profile__name-block">
-        <div class="edit-profile__name">
-          <InputText
-            :set-value="formDataToSend"
-            :id="'name'"
-            :label="'name'"
-            :type="'name'"
-            :placeholder="myProfileData.name"
-          />
-        </div>
-      </div>
-      <div class="edit-profile__photo">
-        <div class="edit-profile__section-title">Фото профиля</div>
-        <div class="edit-profile__photo-update">
-          <img
-            :src="myProfileData.avatar"
-            alt=""
-            class="edit-profile__photo-update-preview"
-          />
-          <div>
-            <label class="edit-profile__photo-block">
-              <span class="edit-profile__photo-upload">Загрузить</span>
-              <input
-                type="file"
-                id="file"
-                ref="file"
-                v-on:change="handleFileUpload()"
-                accept="image/jpeg, image/png"
+      <div class="shadow_effect">
+        <div class="edit-profile__name-block">
+          <div class="edit-profile__name">
+            <div class="edit-profile__section-title">Имя и Фамилия</div>
+            <div class="name_surname">
+              <InputText
+                :set-value="formDataToSend"
+                :id="'name'"
+                :label="'name'"
+                :type="'name'"
+                :placeholder="myProfileData.name"
               />
-            </label>
-            <span
-              class="edit-profile__photo-delete"
-              @click="deletePhotoProfile"
-            >
-              Удалить фото
-            </span>
+              <InputText
+                :id="'last_name'"
+                :label="'Last name'"
+                :type="'name'"
+                placeholder="Фамилия"
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <div class="edit-profile__photo">
-        <div class="edit-profile__section-title">Ваши фото</div>
-        <div class="edit-profile__about-me-title-text">
-          Загрузите побольше ваших личных фото
-        </div>
-        <div class="edit-profile__block">
-          <label>
-            <input
-              :type="this.filePhotos"
-              id="files"
-              ref="files"
-              multiple
-              v-on:change="handleFilesUploads()"
-              hidden
-              accept="image/jpeg, image/png"
+        <div class="edit-profile__photo">
+          <div class="edit-profile__section-title">Фото профиля</div>
+          <div class="edit-profile__photo-update">
+            <img
+              :src="myProfileData.avatar"
+              alt=""
+              class="edit-profile__photo-update-preview"
             />
-            <div class="edit-profile__photos-section">
-              <div
-                class="edit-profile__photos-block"
-                v-for="photo in myProfileData.additional_photos"
-                :key="photo.id"
+            <div>
+              <label class="edit-profile__photo-block">
+                <DownloadIcon />
+                <span class="edit-profile__photo-upload">Загрузить новое фото</span>
+                <input
+                  type="file"
+                  id="file"
+                  ref="file"
+                  v-on:change="handleFileUpload()"
+                  accept="image/jpeg, image/png"
+                />
+              </label>
+              <span
+                class="edit-profile__photo-delete"
+                @click="deletePhotoProfile"
               >
-                <div class="edit-profile__photos">
-                  <div class="edit-profile__photos-background">
-                    <Upload />
-                    <div
-                      @click="deleteAdditionalPhotoProfile(photo.id)"
-                      class="edit-profile__photos-delete"
-                    >
-                      <Delete />
-                    </div>
-                  </div>
-                  <img :src="photo.photo_url" alt="photo" />
-                </div>
-              </div>
-              <div v-if="myProfileData.additional_photos">
-                <div
-                  class="edit-profile__photos"
-                  v-if="myProfileData.additional_photos.length <= '9'"
-                >
-                  <PlusUpload />
-                </div>
-              </div>
+                Удалить фото
+              </span>
             </div>
-          </label>
+          </div>
         </div>
-        <Notification :message="error['images']" v-if="error" />
-        <Notification :message="error['additional_photos']" v-if="error" />
-      </div>
-      <div class="edit-profile__about-me">
-        <div class="edit-profile__section-title">О себе</div>
-        <div class="edit-profile__about-me-title-text">
-          Профили с личной информацией пользуются большим доверием
+        <div class="edit-profile__photo">
+          <div class="edit-profile__section-title">Личные фото</div>
+<!--          <div class="edit-profile__about-me-title-text">-->
+<!--            Загрузите побольше ваших личных фото-->
+<!--          </div>-->
+          <div class="edit-profile__block">
+            <label>
+              <input
+                :type="this.filePhotos"
+                id="files"
+                ref="files"
+                multiple
+                v-on:change="handleFilesUploads()"
+                hidden
+                accept="image/jpeg, image/png"
+              />
+              <div class="edit-profile__photos-section">
+                <div
+                  class="edit-profile__photos-block"
+                  v-for="photo in myProfileData.additional_photos"
+                  :key="photo.id"
+                >
+                  <div class="edit-profile__photos create-ad-form__photos">
+                    <div class="edit-profile__photos-background">
+                      <Upload />
+                      <div
+                        @click="deleteAdditionalPhotoProfile(photo.id)"
+                        class="edit-profile__photos-delete"
+                      >
+                        <Delete />
+                      </div>
+                    </div>
+                    <img :src="photo.photo_url" alt="photo" />
+                  </div>
+                </div>
+                <div v-if="myProfileData.additional_photos" class="additional_photos">
+                  <div
+                    class="edit-profile__photos create-ad-form__photos"
+                    v-if="myProfileData.additional_photos.length <= '9'"
+                  >
+                    <PlusUpload />
+                  </div>
+                  <div
+                    class="edit-profile__photos create-ad-form__photos"
+                    v-if="myProfileData.additional_photos.length <= '8'"
+                  >
+                    <PlusUpload />
+                  </div>
+                  <div
+                    class="edit-profile__photos create-ad-form__photos"
+                    v-if="myProfileData.additional_photos.length <= '7'"
+                  >
+                    <PlusUpload />
+                  </div>
+                  <div
+                    class="edit-profile__photos create-ad-form__photos"
+                    v-if="myProfileData.additional_photos.length <= '6'"
+                  >
+                    <PlusUpload />
+                  </div>
+                  <div
+                    class="edit-profile__photos create-ad-form__photos"
+                    v-if="myProfileData.additional_photos.length <= '5'"
+                  >
+                    <PlusUpload />
+                  </div>
+                </div>
+              </div>
+            </label>
+          </div>
+          <Notification :message="error['images']" v-if="error" />
+          <Notification :message="error['additional_photos']" v-if="error" />
         </div>
-        <InputTextarea
-          class="edit-profile__textarea"
-          :set-value="formDataToSend"
-          :id="'textarea'"
-          :label="'textarea'"
-          :placeholder="myProfileData.description"
-        />
-        <Notification :message="error['description']" v-if="error" />
-      </div>
-      <div class="edit-profile__contact-block">
-        <div class="edit-profile__section-big-title">Контакты</div>
-        <div>
-          <GmapMap
-            :center="{ lat: 48, lng: 35 }"
-            :zoom="5"
-            map-type-id="terrain"
-            style="width: 460px; height: 250px"
-            @click="addMarker"
-            :marker-position="formDataToSend.position"
-            :handle-set-coordinates="handleSetCoordinates"
-            :handle-set-address="handleSetAddress"
+        <div class="edit-profile__about-me">
+          <div class="edit-profile__section-title">О себе</div>
+          <div class="edit-profile__about-me-title-text">
+            Профили с личной информацией пользуются большим доверием
+          </div>
+          <InputTextarea
+            class="edit-profile__textarea"
+            :set-value="formDataToSend"
+            :id="'textarea'"
+            :label="'textarea'"
+            :placeholder="myProfileData.description"
+          />
+          <Notification :message="error['description']" v-if="error" />
+        </div>
+        <div class="edit-profile__contact-block">
+          <div class="edit-profile__section-big-title">Контакты</div>
+        </div>
+        <div class="edit-profile__email-block">
+          <div class="edit-profile__section-title">Электронаая почта</div>
+          {{ myProfileData.email }}
+          <div
+              class="edit-profile__confirm-email"
+              v-if="myProfileData.email_verified_at === null"
           >
-            <GmapMarker
-              v-if="formDataToSend.position"
-              :position="formDataToSend.position"
-            />
-          </GmapMap>
+            Email не подтвержден
+            <NuxtLink to="/registration/email-verification">
+              Подтвердить
+            </NuxtLink>
+          </div>
+          <div
+              class="edit-profile__confirm-email"
+              v-if="myProfileData.email_verified_at !== null"
+          >
+            <Verified />
+            Email подтвержден
+          </div>
         </div>
-      </div>
-      <div
-        class="edit-profile__address-block"
-        v-if="this.positionLatLng != null"
-      >
-        <div class="edit-profile__section-title">Адрес</div>
-        <div class="edit-profile__address" v-if="this.positionLatLng == null">
-          <span>{{ myProfileData.country }},</span>
-          <span>{{ myProfileData.region }},</span>
-          <span>{{ myProfileData.city }},</span>
-        </div>
-        {{ this.positionLatLng }}
-      </div>
-      <InputText
-        :set-value="formDataToSend"
-        :id="formDataToSend.position.lat"
-        hidden
-      />
-      <InputText
-        :set-value="formDataToSend"
-        :id="formDataToSend.position.lng"
-        hidden
-      />
-      <div class="edit-profile__phone-block" v-if="myProfileData.phone">
-        <div class="edit-profile__section-title">Телефон</div>
-        <div class="edit-profile__phone">
-          {{ myProfileData.phone }}
-        </div>
-        <InputText
-          v-if="myProfileData.phone === null"
-          class="edit-profile__phone-main"
-          :set-value="formDataToSend"
-          :id="'phone'"
-          :label="'phone'"
-          :type="'number'"
-          :placeholder="'Номер телефона без +'"
-        />
-        <div
-          class="edit-profile__confirm-phone"
-          v-if="
-            myProfileData.phone_verified_at === null &&
-            myProfileData.phone != null
-          "
-        >
-          Телефон не подтвержден
-          <NuxtLink to="/registration/phone-verification">
-            Подтвердить
-          </NuxtLink>
-        </div>
-        <div
-          class="edit-profile__confirm-phone"
-          v-if="myProfileData.phone_verified_at !== null"
-        >
-          <Verified />
-          Телефон подтвержден
-        </div>
-      </div>
-      <div class="edit-profile__more-phone-block">
-        <div class="edit-profile__more-phone-title">Дополнительный телефон</div>
-        <div class="edit-profile__more-contacts" v-for="(phone, index) in phoneExtra" :key="phone.name">
+        <div class="edit-profile__phone-block" v-if="myProfileData.phone">
+          <div class="edit-profile__section-title">Телефон</div>
+          <div class="edit-profile__phone">
+            {{ myProfileData.phone }}
+          </div>
           <InputText
-            :set-value="phone"
-            :id="'value'"
-            :label="'value'"
+            v-if="myProfileData.phone === null"
+            class="edit-profile__phone-main"
+            :set-value="formDataToSend"
+            :id="'phone'"
+            :label="'phone'"
             :type="'number'"
             :placeholder="'Номер телефона без +'"
           />
-          <div @click="deletePhone(index)" class="edit-profile__delete-field">Удалить</div>
-          <Notification :message="error[`additional_phones.${index}`]" v-if="error" />
+          <div
+            class="edit-profile__confirm-phone"
+            v-if="
+              myProfileData.phone_verified_at === null &&
+              myProfileData.phone != null
+            "
+          >
+            Телефон не подтвержден
+            <NuxtLink to="/registration/phone-verification">
+              Подтвердить
+            </NuxtLink>
+          </div>
+          <div
+            class="edit-profile__confirm-phone"
+            v-if="myProfileData.phone_verified_at !== null"
+          >
+            <Verified />
+            Телефон подтвержден
+          </div>
         </div>
-        <div v-if="errorPhone" class="edit-profile__error">Заполните предыдущие поля!</div>
-        <div @click="addMorePhone" class="edit-profile__more-button">Добавить еще</div>
-      </div>
-      <div class="edit-profile__more-contacts-block">
-        <div class="edit-profile__section-title">Eще контакты</div>
-          <div v-for="(contact, index) in contacts" :key="contact.index" class="edit-profile__more-contacts">
-            <div class="edit-profile__social-select" @click="openContacts(index)">
+        <div class="edit-profile__more-phone-block">
+          <div class="edit-profile__more-phone-title">Дополнительный телефон</div>
+          <div class="edit-profile__more-contacts" v-for="(phone, index) in phoneExtra" :key="phone.name">
+            <InputText
+              :set-value="phone"
+              :id="'value'"
+              :label="'value'"
+              :type="'number'"
+              :placeholder="'Номер телефона без +'"
+            />
+            <div @click="deletePhone(index)" class="edit-profile__delete-field">Удалить</div>
+            <Notification :message="error[`additional_phones.${index}`]" v-if="error" />
+          </div>
+          <div v-if="errorPhone" class="edit-profile__error">Заполните предыдущие поля!</div>
+          <div @click="addMorePhone" class="edit-profile__more-button">Добавить еще</div>
+        </div>
+        <div v-if="socialShow" class="edit-profile__more-contacts-block">
+          <div class="edit-profile__section-title">Социальные сети</div>
+          <div v-for="(socialItem, index) in social" :key="socialItem.index" class="edit-profile__more-contacts">
+            <div class="edit-profile__social-select" @click="openSocial(index)">
               <div class="edit-profile__social-select-left">
                 <Facebook
                   class="edit-profile__social-facebook"
-                  v-if="contact.photo_url === ''"
+                  v-if="socialItem.photo_url === ''"
                 />
                 <img
-                  :src="contact.photo_url"
+                  :src="socialItem.photo_url"
                   alt="social"
-                  v-else
+                  v-if="socialItem.photo_url !== ''"
                 />
-                <span>{{ contact.name }}</span>
+                <span>{{ socialItem.name }}</span>
               </div>
               <SelectArrow />
             </div>
-            <div v-if="contact.trigger" class="edit-profile__social-open-list">
+            <div v-if="socialItem.trigger" class="edit-profile__social-open-list">
               <div
-                v-for="contactChoose in contactsChoose"
-                :key="contactChoose.id"
-                @click="
-                  addOptionContacts(contactChoose.name, contactChoose.id, contactChoose.photo_url, index)
-                "
+                v-for="socialChooseItem in socialChoose"
+                :key="socialChooseItem.id"
+                @click="addOptionSocial(socialChooseItem.name, socialChooseItem.id, socialChooseItem.photo_url, index)"
               >
-                <img :src="contactChoose.photo_url" alt="contact" />
-                {{ contactChoose.name }}
+                <img :src="socialChooseItem.photo_url" alt="social" />
+                {{ socialChooseItem.name }}
               </div>
             </div>
             <InputText
-              :set-value="contact"
+              :set-value="socialItem"
               :id="'values'"
               :label="'values'"
               :type="'values'"
               :placeholder="'Юзернейм'"
             />
-            <Notification :message="error[`contacts.${index}.value`]" v-if="error" />
-            <div @click="deleteContact(index)" class="edit-profile__delete-field">Удалить</div>
+            <Notification :message="error[`social_media.${index}.value`]" v-if="error" />
+            <div @click="deleteSocial(index)" class="edit-profile__delete-field">Удалить</div>
           </div>
-          <div v-if="errorContacts" class="edit-profile__error">Заполните предыдущие поля!</div>
-          <div @click="addMoreContacts" class="edit-profile__more-button">Добавить еще</div>
-      </div>
-      <div class="edit-profile__email-block">
-        <div class="edit-profile__section-title">Электронаая почта</div>
-        {{ myProfileData.email }}
-        <div
-          class="edit-profile__confirm-email"
-          v-if="myProfileData.email_verified_at === null"
-        >
-          Email не подтвержден
-          <NuxtLink to="/registration/email-verification">
-            Подтвердить
-          </NuxtLink>
+          <div v-if="errorSocial" class="edit-profile__error">Заполните предыдущие поля!</div>
+          <div @click="addMoreSocial" class="edit-profile__more-button">Добавить еще</div>
         </div>
-        <div
-          class="edit-profile__confirm-email"
-          v-if="myProfileData.email_verified_at !== null"
-        >
-          <Verified />
-          Email подтвержден
-        </div>
+        <DefaultButton :type="'submit'" class="edit-profile__button-edit">
+          Сохранить
+        </DefaultButton>
       </div>
-      <div v-if="socialShow" class="edit-profile__more-contacts-block">
-        <div class="edit-profile__section-title">Социальные сети</div>
-        <div v-for="(socialItem, index) in social" :key="socialItem.index" class="edit-profile__more-contacts">
-          <div class="edit-profile__social-select" @click="openSocial(index)">
-            <div class="edit-profile__social-select-left">
-              <Facebook
-                class="edit-profile__social-facebook"
-                v-if="socialItem.photo_url === ''"
-              />
-              <img
-                :src="socialItem.photo_url"
-                alt="social"
-                v-if="socialItem.photo_url !== ''"
-              />
-              <span>{{ socialItem.name }}</span>
-            </div>
-            <SelectArrow />
-          </div>
-          <div v-if="socialItem.trigger" class="edit-profile__social-open-list">
-            <div
-              v-for="socialChooseItem in socialChoose"
-              :key="socialChooseItem.id"
-              @click="addOptionSocial(socialChooseItem.name, socialChooseItem.id, socialChooseItem.photo_url, index)"
-            >
-              <img :src="socialChooseItem.photo_url" alt="social" />
-              {{ socialChooseItem.name }}
-            </div>
-          </div>
-          <InputText
-            :set-value="socialItem"
-            :id="'values'"
-            :label="'values'"
-            :type="'values'"
-            :placeholder="'Юзернейм'"
-          />
-          <Notification :message="error[`social_media.${index}.value`]" v-if="error" />
-          <div @click="deleteSocial(index)" class="edit-profile__delete-field">Удалить</div>
-        </div>
-        <div v-if="errorSocial" class="edit-profile__error">Заполните предыдущие поля!</div>
-        <div @click="addMoreSocial" class="edit-profile__more-button">Добавить еще</div>
-      </div>
-      <DefaultButton :type="'submit'" class="edit-profile__button-edit">
-        Сохранить
-      </DefaultButton>
     </form>
   </div>
 </template>
@@ -319,7 +273,7 @@ import Skype from "@/assets/images/social/skype.svg?inline";
 import Viber from "@/assets/images/social/viber.svg?inline";
 import Telegram from "@/assets/images/social/telegram.svg?inline";
 import Facebook from "@/assets/images/social/facebook.svg?inline";
-import PlusUpload from "@/assets/images/icons/plus-upload.svg?inline";
+import PlusUpload from "@/assets/images/icons/Add.svg?inline";
 import Vk from "@/assets/images/social/vk.svg?inline";
 import DefaultButton from "@/components/atoms/buttons/MainButton.vue";
 import InputText from "@/components/atoms/inputs/InputText.vue";
@@ -329,6 +283,7 @@ import SelectArrow from "@/assets/images/arrow/select-arrow.svg?inline";
 import Delete from "@/assets/images/adv/delete.svg?inline";
 import Upload from "@/assets/images/adv/upload.svg?inline";
 import Notification from "@/components/errors/Notification";
+import DownloadIcon from "@/assets/images/icons/DownloadSquare.svg?inline";
 
 export default {
   name: "edit-Profile",
@@ -383,6 +338,7 @@ export default {
     Delete,
     Upload,
     Notification,
+    DownloadIcon,
   },
   mounted() {
     this.getContacts();
@@ -831,7 +787,7 @@ export default {
 
   &__photo-block {
     display: flex;
-    flex-direction: column;
+    gap: 8px;
     margin-left: 30px;
     justify-content: center;
   }

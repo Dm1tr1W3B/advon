@@ -147,7 +147,7 @@
         </div>
       </div>
       <DefaultButton class="profile__button-edit" @click.native="edit">
-        Редактировать
+        Редактировать профиль
       </DefaultButton>
     </div>
   </div>
