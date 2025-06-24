@@ -118,7 +118,7 @@ export default {
     ]
   },
   axios: {
-    baseURL: 'https://api.advon.test.ut.in.ua/api/v1/',
+    baseURL: 'https://api.advon.me/api/v1/',
     proxyHeaders: false,
     credentials: false
   },

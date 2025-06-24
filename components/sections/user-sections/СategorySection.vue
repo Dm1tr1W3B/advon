@@ -678,17 +678,17 @@ export default {
     this.getPages();
     this.getAdvertisementsByCategory();
   },
-  // async fetch() {
-  //   this.categoryData = await this.$http
-  //     .$get(
-  //       `https://api.advon.test.ut.in.ua/api/v1/getAdvertisementsByCategory?${
-  //         "category_key" + "=" + this.$route.params.pathMatch
-  //       }${
-  //         "advertisement_type" + "=" + this.$route.query.user
-  //       }`
-  //     )
-  //     .then((res) => res.data);
-  // },
+  async fetch() {
+    this.categoryData = await this.$http
+      .$get(
+        `https://api.advon.me/api/v1/getAdvertisementsByCategory?${
+          "category_key" + "=" + this.$route.params.pathMatch
+        }${
+          "advertisement_type" + "=" + this.$route.query.user
+        }`
+      )
+      .then((res) => res.data);
+  },
   methods: {
     async getAdvertisementsByCategory() {
       const { formDataToSend } = this;

@@ -1,3 +1,3 @@
 export default {
-  USER_LOGIN: 'https://api.advon.test.ut.in.ua/api/v1/login',
+  USER_LOGIN: 'https://api.advon.me/api/v1/login',
 }

@@ -1075,6 +1075,15 @@ div#__layout>div {
   border-radius: 12px;
   height: 100%;
 }
+.small-card__body-block {
+  min-height: 220px;
+}
+.home .isAllocate {
+  border-image: none !important;
+}
+.edit-profile__more-phone-block input {
+  padding: 16px 32px !important;
+}
 .edit-profile__textarea.textarea-input {
   width: 100% !important;
 }

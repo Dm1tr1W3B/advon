@@ -821,7 +821,7 @@
             var lat = position.coords.latitude;
             var lng = position.coords.longitude;
             fetch(
-              `https://api.advon.test.ut.in.ua/api/v1/getCountryAndCity?latitude=${lat}&longitude=${lng}`
+              `https://api.advon.me/api/v1/getCountryAndCity?latitude=${lat}&longitude=${lng}`
             )
               .then(function (response) {
                 return response.text();
