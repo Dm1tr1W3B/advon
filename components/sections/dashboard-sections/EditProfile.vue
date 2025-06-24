@@ -3,10 +3,10 @@
     <form @submit.prevent="handleSubmit">
       <div class="edit-profile__title-block">
         <div class="edit-profile__title">Редактирование профиля </div>
-        <div class="edit-profile__date-registration">
-          Дата регистрации:
-          {{ myProfileData.created_at }}
-        </div>
+<!--        <div class="edit-profile__date-registration">-->
+<!--          Дата регистрации:-->
+<!--          {{ myProfileData.created_at }}-->
+<!--        </div>-->
       </div>
       <div class="shadow_effect">
         <div class="edit-profile__name-block">
@@ -148,18 +148,20 @@
         <div class="edit-profile__contact-block">
           <div class="edit-profile__section-big-title">Контакты</div>
         </div>
+        <div class="edit-profile__section-subtitle">E-mail</div>
         <div class="edit-profile__email-block">
-          <div class="edit-profile__section-title">Электронаая почта</div>
-          {{ myProfileData.email }}
-          <div
-              class="edit-profile__confirm-email"
-              v-if="myProfileData.email_verified_at === null"
-          >
-            Email не подтвержден
-            <NuxtLink to="/registration/email-verification">
-              Подтвердить
-            </NuxtLink>
+          <div class="edit-profile__email">
+            <div class="edit-profile_email_address">{{ myProfileData.email }}</div>
+            <div
+                class="edit-profile__confirm-email"
+                v-if="myProfileData.email_verified_at === null"
+            >
+              Email не подтвержден
+            </div>
           </div>
+          <NuxtLink v-if="myProfileData.email_verified_at === null" to="/registration/email-verification">
+            Подтвердить
+          </NuxtLink>
           <div
               class="edit-profile__confirm-email"
               v-if="myProfileData.email_verified_at !== null"
@@ -168,32 +170,35 @@
             Email подтвержден
           </div>
         </div>
+        <div class="edit-profile__section-subtitle">Телефон</div>
         <div class="edit-profile__phone-block" v-if="myProfileData.phone">
-          <div class="edit-profile__section-title">Телефон</div>
           <div class="edit-profile__phone">
-            {{ myProfileData.phone }}
-          </div>
-          <InputText
-            v-if="myProfileData.phone === null"
-            class="edit-profile__phone-main"
-            :set-value="formDataToSend"
-            :id="'phone'"
-            :label="'phone'"
-            :type="'number'"
-            :placeholder="'Номер телефона без +'"
-          />
-          <div
-            class="edit-profile__confirm-phone"
-            v-if="
+            <div class="edit-profile_phone">{{ myProfileData.phone }}</div>
+            <InputText
+                v-if="myProfileData.phone === null"
+                class="edit-profile__phone-main"
+                :set-value="formDataToSend"
+                :id="'phone'"
+                :label="'phone'"
+                :type="'number'"
+                :placeholder="'Номер телефона без +'"
+            />
+            <div
+                class="edit-profile__confirm-phone"
+                v-if="
               myProfileData.phone_verified_at === null &&
               myProfileData.phone != null
             "
-          >
-            Телефон не подтвержден
-            <NuxtLink to="/registration/phone-verification">
-              Подтвердить
-            </NuxtLink>
+            >
+              Телефон не подтвержден
+            </div>
           </div>
+          <NuxtLink to="/registration/phone-verification" v-if="
+              myProfileData.phone_verified_at === null &&
+              myProfileData.phone != null
+            ">
+            Подтвердить
+          </NuxtLink>
           <div
             class="edit-profile__confirm-phone"
             v-if="myProfileData.phone_verified_at !== null"
@@ -202,8 +207,8 @@
             Телефон подтвержден
           </div>
         </div>
+        <div class="edit-profile__section-subtitle">Дополнительный телефон</div>
         <div class="edit-profile__more-phone-block">
-          <div class="edit-profile__more-phone-title">Дополнительный телефон</div>
           <div class="edit-profile__more-contacts" v-for="(phone, index) in phoneExtra" :key="phone.name">
             <InputText
               :set-value="phone"
@@ -212,11 +217,16 @@
               :type="'number'"
               :placeholder="'Номер телефона без +'"
             />
-            <div @click="deletePhone(index)" class="edit-profile__delete-field">Удалить</div>
             <Notification :message="error[`additional_phones.${index}`]" v-if="error" />
           </div>
+          <NuxtLink to="/registration/phone-verification" v-if="
+              myProfileData.phone_verified_at === null &&
+              myProfileData.phone != null
+            ">
+            Подтвердить
+          </NuxtLink>
           <div v-if="errorPhone" class="edit-profile__error">Заполните предыдущие поля!</div>
-          <div @click="addMorePhone" class="edit-profile__more-button">Добавить еще</div>
+<!--          <div @click="addMorePhone" class="edit-profile__more-button">Добавить еще</div>-->
         </div>
         <div v-if="socialShow" class="edit-profile__more-contacts-block">
           <div class="edit-profile__section-title">Социальные сети</div>
@@ -257,7 +267,7 @@
             <div @click="deleteSocial(index)" class="edit-profile__delete-field">Удалить</div>
           </div>
           <div v-if="errorSocial" class="edit-profile__error">Заполните предыдущие поля!</div>
-          <div @click="addMoreSocial" class="edit-profile__more-button">Добавить еще</div>
+<!--          <div @click="addMoreSocial" class="edit-profile__more-button">Добавить еще</div>-->
         </div>
         <DefaultButton :type="'submit'" class="edit-profile__button-edit">
           Сохранить
