@@ -6,7 +6,8 @@
         :class="page !== 1 ? 'active-item' : ''"
         @click="handlePageChange(page - 1)"
       >
-        <div><ArrowLeft />Предидущая</div>
+        <ArrowLeft v-if="$device.isMobile" />
+        <div v-if="$device.isDesktop"><ArrowLeft />Предидущая</div>
       </div>
       <div class="pages">
         <span
@@ -24,7 +25,8 @@
         :class="page !== maxPage ? 'active-item' : ''"
         @click="handlePageChange(page + 1)"
       >
-        <div>Следующая <ArrowRight /></div>
+        <ArrowRight v-if="$device.isMobile" />
+        <div v-if="$device.isDesktop">Следующая <ArrowRight /></div>
       </div>
     </div>
   </div>

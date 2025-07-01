@@ -1091,7 +1091,27 @@ div#__layout>div {
   border-radius: 12px;
   border: 1px solid #B8C1CC !important;
 }
-
+.create-ad-form__block {
+  position: relative;
+}
+.create-ad-form__placeholder {
+  position: absolute;
+  bottom: 20px;
+  right: 36px;
+}
+.create-ad-form__field-title .tagify__tag {
+  position: relative;
+  top: 40px;
+  left: -36px;
+}
+.create-ad-form .create-ad-form__hashtags {
+  height: 54px !important;
+  min-height: unset !important;
+}
+.tagify__input {
+  position: absolute !important;
+  top: 0;
+}
 .edit-profile__contact-block {
   padding-bottom: 0 !important;
   padding-top: 40px !important;
@@ -2160,9 +2180,10 @@ form.registration-form, form.login-form, .login-form__login {
   .home__companys-nav {
     padding: 4px !important;
     width: 100%;
+    flex-direction: column;
   }
   .home__companys-nav-item {
-    width: 50% !important;
+    width: 100% !important;
   }
   .home__companys-nav-block.home__section-title>div:first-child {
     padding: 12px 20px;
@@ -2502,5 +2523,66 @@ form.registration-form, form.login-form, .login-form__login {
   .create-ad-form__block label {
     width: 100% !important;
     text-align: left;
+  }
+  .all-companies-list__body-wrap {
+    flex-direction: column !important;
+  }
+  .all-companies-list__body-right-section, .all-companies-list__body-left-section {
+    width:  100% !important;
+  }
+  .pagination {
+    width: 100% !important;
+  }
+  .home__slick-advs {
+    width: calc(100% - 32px) !important;
+    margin: 20px 16px 0 !important;
+  }
+  .new_world .small-card__body-block {
+    min-height: 160px !important;
+  }
+  .home__companys-nav-item {
+    font-size: 14px !important;
+  }
+  .new_world .swiper-wrapper {
+    gap: 12px;
+  }
+  .about.container {
+    margin: 0 16px;
+  }
+  .about__text {
+    width: 100% !important;
+  }
+  .about__video_item {
+    max-height: 300px;
+  }
+  .reviews .swiper-container {
+    margin-bottom: 40px;
+  }
+  .about-us__social .swiper-wrapper {
+    flex-direction: column;
+    transform: none !important;
+  }
+  .about .about-us__social .social-item {
+    width: 100% !important;
+  }
+  .reviews {
+    margin-top: 40px;
+  }
+  .searching-results-section__small-card {
+    width: 100% !important;
+  }
+  .searching-results-section__small-card .small-card.allocate {
+    border-image: unset;
+  }
+  .new_world .small-card__image-conatiner img {
+    object-fit: cover !important;
+    top: 0;
+  }
+  .searching-results-section__filter-button {
+    background: linear-gradient(45deg, #FE4819, #DC291E) !important;
+    border-radius: 12px;
+  }
+  .searching-results-section__search-block {
+    margin-top: 20px;
   }
 }

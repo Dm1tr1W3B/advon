@@ -9,16 +9,17 @@
     <NuxtLink to="/dashboard/chat" class="header-menu__chat">
       Сообщения
     </NuxtLink>
-    <div class="header-menu__bill-block" @click="isSubMenuOpen">
-      <span>
-        Счёт
-<!--        <span class="header-menu__bill"> {{ loggedInUser.balance }} ₽</span>-->
-      </span>
-    </div>
-    <div class="header-menu__sub-menu" v-if="isSubMenu">
-      <NuxtLink to="/dashboard/history" class="header-menu__">История операций </NuxtLink>
-      <NuxtLink to="" class="header-menu__">Просмотры контактов </NuxtLink>
-    </div>
+<!--    <div class="header-menu__bill-block" @click="isSubMenuOpen">-->
+      <NuxtLink to="/dashboard/history" class="">Счёт </NuxtLink>
+<!--      <span>-->
+<!--        Счёт-->
+<!--&lt;!&ndash;        <span class="header-menu__bill"> {{ loggedInUser.balance }} ₽</span>&ndash;&gt;-->
+<!--      </span>-->
+<!--    </div>-->
+<!--    <div class="header-menu__sub-menu" v-if="isSubMenu">-->
+<!--      <NuxtLink to="/dashboard/history" class="header-menu__">История операций </NuxtLink>-->
+<!--      <NuxtLink to="" class="header-menu__">Просмотры контактов </NuxtLink>-->
+<!--    </div>-->
     <NuxtLink to="/dashboard/bonus" class="header-menu__bonus">
       Бонусы
     </NuxtLink>

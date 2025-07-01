@@ -97,7 +97,7 @@
         />
         <Notification :message="error['title']" v-if="error" />
         <div class="create-ad-form__placeholder">
-          {{ characters }}
+          {{ characters }} / 255
         </div>
       </div>
       <div class="create-ad-form__category-new" v-if="this.mainCategoryImg">
