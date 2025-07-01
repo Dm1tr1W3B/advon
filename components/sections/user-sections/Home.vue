@@ -132,7 +132,7 @@
       <div v-if="this.typeUser === 'performer'">
         <div v-if="this.mainAds.carousel_performer.length != 0">
           <div class="home__section-title home__title-link">
-            Новое в миру
+            Новое в мире
             <TokenNotProvided
               class="home__token-error"
               :error-comment="errorAddtoFavorite"
@@ -161,7 +161,7 @@
       <div v-if="this.typeUser === 'employer'">
         <div v-if="this.mainAds.carousel_employer.length != 0">
           <div class="home__section-title home__title-link">
-            Новое в миру
+            Новое в мире
             <TokenNotProvided
               class="home__token-error"
               :error-comment="errorAddtoFavorite"
@@ -217,8 +217,8 @@
       <div v-if="this.typeUser === 'employer'">
         <div v-if="this.mainAds.carousel_performer.length != 0">
           <div class="home__section-title home__title-link">
-            Новое от исполнителей по<span @click="goToLocationPagePerformer"
-              >миру</span
+            Новое от исполнителей в <span @click="goToLocationPagePerformer"
+              >мире</span
             >
             <TokenNotProvided
               class="home__token-error"
