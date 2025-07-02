@@ -14,8 +14,8 @@
       class="category-sections__title home__section-title"
       v-if="this.locationData.advertisementList"
     >
-      Обьявление по
-      <span v-if="this.$route.params.pathMatch === 'world'">Миру</span>
+      Обьявление в
+      <span v-if="this.$route.params.pathMatch === 'world'">Мире</span>
       <span
         v-if="
           this.$route.params.pathMatch ===
